@@ -88,7 +88,17 @@ nav {
 .nav-links a:hover { color: var(--text-primary); }
 .nav-links a.nav-active {
   color: var(--text-primary);
+  font-weight: 700;
   border-bottom-color: var(--text-primary);
+  animation: navHeartbeat 1.6s ease-in-out infinite;
+  display: inline-block;
+}
+@keyframes navHeartbeat {
+  0%,100% { transform: scale(1); opacity: 1; }
+  14%     { transform: scale(1.12); opacity: 0.85; }
+  28%     { transform: scale(1);    opacity: 1; }
+  42%     { transform: scale(1.07); opacity: 0.92; }
+  70%     { transform: scale(1);    opacity: 1; }
 }
 .nav-cta {
   background: var(--text-primary) !important;
