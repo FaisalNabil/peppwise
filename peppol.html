@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peppol Network Integration — Singapore InvoiceNow, C5, IRAS GST | Peppwise</title>
+<meta name="description" content="Peppol integration across 50+ countries. Singapore InvoiceNow IMDA mandate (Nov 2025), 5-Corner C5 IRAS GST automation, AS4 protocol, cross-border MY↔SG. Personally implemented end-to-end.">
+<meta property="og:title" content="Peppol Network Integration — Singapore InvoiceNow, C5, IRAS GST | Peppwise">
+<meta property="og:description" content="50+ countries on Peppol. Singapore InvoiceNow mandatory Nov 2025. C5 IRAS GST automation personally implemented.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.peppwise.com/peppol">
+<link rel="canonical" href="https://www.peppwise.com/peppol">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231A1612'/><text x='16' y='23' font-family='serif' font-size='20' font-weight='bold' fill='%23B45309' text-anchor='middle'>P</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+
+/* ─── PAGE HERO ─── */
+.page-hero {
+  background: var(--pep-pale);
+  border-bottom: 1px solid var(--pep-border);
+  padding: 9rem 3rem 5rem;
+}
+.page-hero .inner {
+  max-width: 1160px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 3rem; align-items: end;
+}
+.page-hero h1 {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  font-weight: 500; line-height: 1.08;
+  color: var(--text-primary); margin-bottom: 1rem;
+}
+.page-hero h1 em { font-style: italic; color: var(--pep-accent); }
+.page-hero-sub {
+  font-size: 0.95rem; line-height: 1.75;
+  color: var(--text-muted); max-width: 48ch; margin-bottom: 1.5rem;
+}
+.hero-stats { display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero-stat {
+  background: var(--surface);
+  border: 1px solid var(--pep-border);
+  border-radius: 4px;
+  padding: 0.8rem 1.2rem;
+  box-shadow: var(--shadow-sm);
+}
+.hero-stat-num {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.8rem; font-weight: 500; line-height: 1;
+  color: var(--pep-accent);
+}
+.hero-stat-lbl {
+  font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-muted); margin-top: 0.2rem;
+}
+
+/* ─── WHAT IS PEPPOL ─── */
+.corners-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: 2.5rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.corner-card {
+  background: var(--surface);
+  padding: 1.5rem;
+  border-right: 1px solid var(--border);
+  position: relative;
+}
+.corner-card:last-child { border-right: none; }
+.corner-label {
+  font-family: 'EB Garamond', serif;
+  font-size: 2rem; font-weight: 500;
+  color: var(--pep-accent); line-height: 1;
+  margin-bottom: 0.4rem;
+}
+.corner-title { font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
+.corner-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.55; }
+.corner-arrow {
+  position: absolute; top: 50%; right: -12px;
+  width: 24px; height: 24px;
+  background: var(--bg-2); border: 1px solid var(--border); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; color: var(--text-muted);
+  z-index: 2; transform: translateY(-50%);
+}
+.corner-card:last-child .corner-arrow { display: none; }
+.peppol-explainer {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem; margin-top: 2rem;
+}
+.explainer-item {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 4px; padding: 1.2rem;
+}
+.explainer-item h5 { font-size: 0.82rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.3rem; }
+.explainer-item p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.55; }
+.explainer-tag {
+  font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase;
+  font-weight: 700; color: var(--pep-accent);
+  background: var(--pep-pale); border: 1px solid var(--pep-border);
+  padding: 0.15rem 0.5rem; border-radius: 3px;
+  display: inline-block; margin-bottom: 0.5rem;
+}
+
+/* ─── COUNTRY GRID ─── */
+.country-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+  margin-top: 2.5rem;
+}
+.country-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  box-shadow: var(--shadow-sm);
+  padding: 1.4rem;
+  transition: box-shadow 0.2s;
+}
+.country-card:hover { box-shadow: var(--shadow-md); }
+.country-card.featured {
+  border-color: var(--pep-border);
+  border-left: 3px solid var(--pep-accent);
+  grid-column: span 2;
+}
+.country-flag { font-size: 1.6rem; margin-bottom: 0.5rem; display: block; }
+.country-name { font-size: 0.92rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.2rem; }
+.country-auth { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.6rem; }
+.country-status {
+  font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase;
+  font-weight: 700; padding: 0.18rem 0.55rem;
+  border-radius: 3px; display: inline-block; margin-bottom: 0.6rem;
+}
+.status-live-green { background: #D1FAE5; color: #065F46; }
+.status-mandate    { background: var(--pep-pale); color: var(--pep-accent); border: 1px solid var(--pep-border); }
+.status-progress   { background: var(--einv-pale); color: var(--einv-accent); border: 1px solid var(--einv-border); }
+.status-eval       { background: var(--bg-3); color: var(--text-muted); border: 1px solid var(--border-strong); }
+.country-note { font-size: 0.77rem; color: var(--text-muted); line-height: 1.5; }
+
+/* ─── SINGAPORE SECTION ─── */
+.sg-section {
+  border-left: 4px solid var(--pep-accent);
+  padding-left: 2rem;
+}
+.sg-timeline {
+  display: flex; flex-direction: column; gap: 0;
+  margin-top: 1.5rem;
+}
+.sg-tl-item {
+  display: grid; grid-template-columns: 8rem 1fr;
+  gap: 1.5rem; align-items: start;
+  padding-bottom: 1.2rem;
+  border-left: 1px solid var(--pep-border);
+  margin-left: 0.5rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+.sg-tl-item::before {
+  content: '';
+  position: absolute; left: -5px; top: 5px;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--pep-accent);
+  border: 2px solid var(--surface);
+  box-shadow: 0 0 0 2px var(--pep-accent);
+}
+.sg-tl-item:last-child { border-left: none; }
+.sg-date { font-size: 0.75rem; font-weight: 700; color: var(--pep-accent); padding-top: 2px; }
+.sg-desc { font-size: 0.86rem; color: var(--text-body); line-height: 1.6; }
+.sg-desc strong { color: var(--text-primary); }
+
+/* ─── C5 FIVE-CORNER FLOW ─── */
+.corner-flow { display: flex; flex-direction: column; margin-top: 2rem; }
+.cf-step {
+  display: grid; grid-template-columns: 3rem 1fr;
+  gap: 1.2rem; align-items: stretch;
+}
+.cf-line { display: flex; flex-direction: column; align-items: center; }
+.cf-circle {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 2px solid var(--pep-accent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; font-weight: 700; color: var(--pep-accent);
+  background: var(--surface); flex-shrink: 0; position: relative; z-index: 2;
+}
+.cf-circle.c5 {
+  background: var(--pep-pale);
+  border-color: var(--pep-accent);
+  box-shadow: 0 0 0 3px var(--pep-pale);
+}
+.cf-connector {
+  flex: 1; width: 1px; background: var(--pep-border);
+  min-height: 1rem; margin: 3px 0;
+}
+.cf-step:last-child .cf-connector { display: none; }
+.cf-body { padding-bottom: 1.8rem; }
+.cf-badge {
+  display: inline-block; font-size: 0.55rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.15rem 0.5rem; border-radius: 3px;
+  background: var(--pep-pale); color: var(--pep-accent);
+  border: 1px solid var(--pep-border); margin-bottom: 0.3rem;
+}
+.cf-body h4 { font-size: 0.95rem; margin-bottom: 0.4rem; }
+.cf-body p  { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; }
+
+/* ─── C5 KNOWLEDGE BASE ─── */
+.c5-kb {
+  background: var(--pep-pale);
+  border: 1.5px solid var(--pep-border);
+  border-left: 4px solid var(--pep-accent);
+  border-radius: 6px;
+  padding: 2rem 2.5rem;
+  margin-top: 2rem;
+}
+.c5-kb-title {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.25rem; font-weight: 500;
+  color: var(--pep-accent); margin-bottom: 1.5rem;
+}
+.c5-kb-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.5rem; margin-bottom: 1.5rem;
+}
+.c5-kb-item h5 { font-size: 0.83rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
+.c5-kb-item p  { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+.c5-kb-item ul { list-style: none; margin-top: 0.4rem; display: flex; flex-direction: column; gap: 0.3rem; }
+.c5-kb-item ul li { font-size: 0.78rem; color: var(--text-muted); display: flex; gap: 0.4rem; align-items: flex-start; }
+.c5-kb-item ul li::before { content: '·'; color: var(--pep-accent); font-weight: 700; }
+.c5-personal-note {
+  font-size: 0.84rem; color: var(--text-body);
+  background: var(--surface); border: 1px solid var(--pep-border);
+  border-radius: 4px; padding: 1rem 1.2rem;
+  font-style: italic; line-height: 1.65;
+}
+.c5-personal-note strong { color: var(--pep-accent); font-style: normal; }
+
+/* ─── IMDA SECTION ─── */
+.imda-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.2rem; margin-top: 1.5rem;
+}
+.imda-card {
+  background: var(--surface);
+  border: 1px solid var(--border); border-radius: 4px;
+  padding: 1.4rem; box-shadow: var(--shadow-sm);
+}
+.imda-card h5 { font-size: 0.88rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
+.imda-card p  { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+
+/* ─── CROSS-BORDER SECTION ─── */
+.crossborder-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 2rem; align-items: start; margin-top: 2rem;
+}
+.cb-col { }
+.cb-col h4 { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.8rem; }
+.cb-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.cb-col ul li { font-size: 0.86rem; color: var(--text-muted); display: flex; gap: 0.6rem; align-items: flex-start; line-height: 1.55; }
+.cb-col ul li::before { content: '→'; color: var(--pep-accent); font-weight: 700; flex-shrink: 0; }
+
+/* ─── PERSONAL EXPERIENCE ─── */
+.impl-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem;
+}
+.impl-point { display: flex; gap: 1rem; align-items: flex-start; }
+.impl-icon {
+  width: 36px; height: 36px; border-radius: 4px;
+  background: var(--pep-pale); border: 1px solid var(--pep-border);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; color: var(--pep-accent); font-size: 0.9rem;
+}
+.impl-text h5 { font-size: 0.88rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; }
+.impl-text p  { font-size: 0.8rem; color: var(--text-muted); line-height: 1.55; }
+
+/* ─── SERVICE LIST ─── */
+.service-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 3.5rem; align-items: start; margin-top: 0;
+}
+.service-list { list-style: none; display: flex; flex-direction: column; gap: 1.6rem; }
+.service-item { display: grid; grid-template-columns: 2.4rem 1fr; gap: 1rem; align-items: start; }
+.service-num {
+  font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--pep-accent); font-weight: 700; padding-top: 0.2rem;
+}
+.service-item h4 { margin-bottom: 0.3rem; }
+.service-item p  { font-size: 0.86rem; color: var(--text-muted); line-height: 1.65; }
+.deliverables {
+  margin-top: 0.6rem; font-size: 0.78rem; color: var(--text-faint); font-style: italic;
+}
+
+/* ─── WHO THIS IS FOR ─── */
+.for-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1rem; margin-top: 2rem;
+}
+.for-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 4px; padding: 1.3rem; box-shadow: var(--shadow-sm);
+}
+.for-card h5 { font-size: 0.88rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.3rem; }
+.for-card p  { font-size: 0.78rem; color: var(--text-muted); line-height: 1.55; }
+
+/* ─── CONTACT ─── */
+.contact-section {
+  text-align: center; padding: 5rem 3rem;
+  border-top: 1px solid var(--border);
+}
+.contact-email {
+  font-family: 'EB Garamond', serif; font-size: 1.3rem;
+  color: var(--pep-accent); text-decoration: none;
+  border-bottom: 1px solid var(--pep-border); padding-bottom: 2px;
+  display: inline-block; margin: 1rem 0 2rem;
+  transition: border-color 0.2s;
+}
+.contact-email:hover { border-color: var(--pep-accent); }
+.contact-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .page-hero { padding: 8rem 2rem 4rem; }
+  .page-hero .inner { grid-template-columns: 1fr; }
+  .country-grid { grid-template-columns: repeat(2, 1fr); }
+  .country-card.featured { grid-column: span 1; }
+  .corners-grid { grid-template-columns: repeat(2, 1fr); }
+  .corner-card:nth-child(2) .corner-arrow { display: none; }
+  .c5-kb-grid { grid-template-columns: 1fr; }
+  .impl-grid { gap: 1.5rem; }
+}
+@media (max-width: 900px) {
+  .page-hero { padding: 7rem 1.5rem 3.5rem; }
+  .country-grid { grid-template-columns: 1fr 1fr; }
+  .corners-grid { grid-template-columns: 1fr 1fr; }
+  .corner-card:nth-child(2) .corner-arrow,
+  .corner-card:nth-child(4) .corner-arrow { display: none; }
+  .peppol-explainer { grid-template-columns: 1fr; }
+  .crossborder-grid { grid-template-columns: 1fr; }
+  .service-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .impl-grid { grid-template-columns: 1fr; }
+  .imda-grid { grid-template-columns: 1fr; }
+  .for-grid { grid-template-columns: 1fr; }
+  .contact-section { padding: 4rem 1.5rem; }
+  .contact-btns { flex-direction: column; align-items: center; }
+  .btn, .btn-ghost { width: 100%; max-width: 300px; text-align: center; }
+  .sg-tl-item { grid-template-columns: 5.5rem 1fr; }
+}
+@media (max-width: 640px) {
+  .country-grid { grid-template-columns: 1fr; }
+  .hero-stats { flex-direction: column; }
+  .c5-kb { padding: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo">Pepp<span>wise</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="malaysia.html">Malaysia e-Invoice</a>
+    <a href="peppol.html" class="nav-active">Peppol</a>
+    <a href="#contact" class="nav-cta">Get in Touch</a>
+  </div>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile-overlay" id="nav-mobile-overlay">
+  <a href="index.html" class="mobile-nav-link">Home</a>
+  <a href="malaysia.html" class="mobile-nav-link">Malaysia e-Invoice</a>
+  <a href="peppol.html" class="mobile-nav-link">Peppol</a>
+  <a href="#contact" class="mobile-nav-link">Get in Touch</a>
+</div>
+
+<!-- ═══ PAGE HERO ═══ -->
+<div class="page-hero">
+  <div class="inner">
+    <div>
+      <div class="eyebrow eyebrow-amber" style="animation:fadeUp 0.6s ease both;">Peppol Global Network · Singapore InvoiceNow · Cross-Border B2B</div>
+      <h1 style="animation:fadeUp 0.6s ease 0.1s both;">
+        The Peppol network<br>
+        spans 50+ countries.<br>
+        <em>I have implemented it.</em>
+      </h1>
+      <p class="page-hero-sub" style="animation:fadeUp 0.6s ease 0.2s both;">
+        From Singapore's InvoiceNow mandate (IMDA, Nov 2025) to cross-border MY↔SG document exchange and the pioneering C5 IRAS GST automation model — end-to-end Peppol integration, personally built.
+      </p>
+      <div class="hero-stats" style="animation:fadeUp 0.6s ease 0.3s both;">
+        <div class="hero-stat">
+          <div class="hero-stat-num">50+</div>
+          <div class="hero-stat-lbl">Countries on Network</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">C5</div>
+          <div class="hero-stat-lbl">IRAS GST Automation</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">Nov '25</div>
+          <div class="hero-stat-lbl">SG Mandate — All GST</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0.8rem;animation:fadeUp 0.6s ease 0.35s both;">
+      <a href="#singapore" class="btn btn-amber">Singapore InvoiceNow →</a>
+      <a href="malaysia.html" class="btn-ghost" style="text-align:center;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;">Also need MY e-Invoice? →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ WHAT IS PEPPOL ═══ -->
+<div class="section-wrap no-border" id="what-is-peppol">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Network Fundamentals</div>
+    <h2 class="reveal">What Is <em>Peppol?</em></h2>
+    <p class="lead reveal">Peppol (Pan-European Public Procurement On-Line) is an international open standard for electronic business document exchange. Unlike Malaysia's e-Invoice which is a single-country tax mandate, Peppol is an interoperable network that connects businesses, Access Points, and tax authorities across borders.</p>
+
+    <div class="corners-grid reveal">
+      <div class="corner-card">
+        <div class="corner-arrow">→</div>
+        <div class="corner-label">C1</div>
+        <div class="corner-title">Sender</div>
+        <p class="corner-desc">The originating business generates the invoice in Peppol BIS Billing 3.0 format with country-specific extensions.</p>
+      </div>
+      <div class="corner-card">
+        <div class="corner-arrow">→</div>
+        <div class="corner-label">C2</div>
+        <div class="corner-title">Sender's Access Point</div>
+        <p class="corner-desc">An IMDA-certified or OpenPeppol-certified Access Point transmits the document over the Peppol network using the AS4 protocol.</p>
+      </div>
+      <div class="corner-card">
+        <div class="corner-arrow">→</div>
+        <div class="corner-label">C3</div>
+        <div class="corner-title">Receiver's Access Point</div>
+        <p class="corner-desc">The receiver's Access Point retrieves the document. For cross-border trades, the SMP/SML routing layer handles discovery and delivery.</p>
+      </div>
+      <div class="corner-card">
+        <div class="corner-label">C4</div>
+        <div class="corner-title">Receiver</div>
+        <p class="corner-desc">The buyer receives the structured invoice directly into their ERP or accounting system — no email, no PDF re-keying, complete audit trail.</p>
+      </div>
+    </div>
+
+    <div class="peppol-explainer reveal-group" style="margin-top:1.5rem;">
+      <div class="explainer-item reveal">
+        <span class="explainer-tag">AS4 Protocol</span>
+        <h5>Secure Message Exchange</h5>
+        <p>AS4 (Application Statement 4) is the messaging backbone of Peppol — a reliable, signed, encrypted protocol for B2B document transport. All Access Points must implement AS4 to be Peppol-certified.</p>
+      </div>
+      <div class="explainer-item reveal">
+        <span class="explainer-tag">SMP / SML Routing</span>
+        <h5>The Peppol DNS Layer</h5>
+        <p>SMP (Service Metadata Publisher) stores each participant's capabilities. SML (Service Metadata Locator) is the central DNS-like registry. Together they enable any C2 Access Point to discover and route to any C3 Access Point globally.</p>
+      </div>
+      <div class="explainer-item reveal">
+        <span class="explainer-tag">Peppol BIS 3.0</span>
+        <h5>The Document Standard</h5>
+        <p>Peppol BIS Billing 3.0 (aligned with EN16931) is the standard invoice format — based on UBL 2.1 XML with Peppol-specific constraints. Country extensions add local fields (e.g., Singapore adds GST treatment codes and PayNow reference).</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MULTI-COUNTRY ROLLOUT ═══ -->
+<div class="section-wrap alt" id="countries">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Global Adoption</div>
+    <h2 class="reveal">Peppol Around <em>the World</em></h2>
+    <p class="lead reveal">The Peppol network spans 50+ countries across Europe, Asia-Pacific, and beyond. Adoption is accelerating — driven by government procurement mandates and tax authority integration. Here is where key markets stand today.</p>
+
+    <div class="country-grid reveal-group">
+
+      <div class="country-card featured reveal">
+        <span class="country-flag">🇸🇬</span>
+        <div class="country-name">Singapore</div>
+        <div class="country-auth">IMDA (Infocomm Media Development Authority) · IRAS (5th Corner)</div>
+        <span class="country-status status-mandate">⚑ Mandate: Nov 2025</span>
+        <div class="country-note">InvoiceNow: mandatory for all GST-registered businesses from November 2025. Pioneered the 5-Corner C5 model where IRAS receives invoice data directly from Access Points for automated GST reporting. The most technically advanced Peppol implementation globally.</div>
+      </div>
+
+      <div class="country-card reveal">
+        <span class="country-flag">🇦🇺</span>
+        <div class="country-name">Australia</div>
+        <div class="country-auth">ATO / DSPANZ</div>
+        <span class="country-status status-live-green">✓ Live</span>
+        <div class="country-note">Mandatory for government procurement. ATO (Australian Taxation Office) linked as a Peppol participant. Peppol eInvoicing adoption growing across private sector.</div>
+      </div>
+
+      <div class="country-card reveal">
+        <span class="country-flag">🇪🇺</span>
+        <div class="country-name">European Union</div>
+        <div class="country-auth">OpenPeppol / National Authorities</div>
+        <span class="country-status status-live-green">✓ Live</span>
+        <div class="country-note">The birthplace of Peppol. EN16931 is the mandatory EU e-invoice standard. Mandatory B2G (business-to-government) e-invoicing across member states. B2B mandates expanding in Italy, France, Germany.</div>
+      </div>
+
+      <div class="country-card reveal">
+        <span class="country-flag">🇳🇿</span>
+        <div class="country-name">New Zealand</div>
+        <div class="country-auth">MBIE</div>
+        <span class="country-status status-live-green">✓ Live</span>
+        <div class="country-note">Government procurement mandatory. Aligned with Australia on Peppol standards. MBIE (Ministry of Business, Innovation and Employment) is the Peppol Authority.</div>
+      </div>
+
+      <div class="country-card reveal">
+        <span class="country-flag">🇲🇾</span>
+        <div class="country-name">Malaysia</div>
+        <div class="country-auth">MDEC (Peppol Authority)</div>
+        <span class="country-status status-progress">In Progress</span>
+        <div class="country-note">MDEC is Malaysia's designated Peppol Authority. MyInvois/LHDN interoperability roadmap underway. Cross-border MY↔SG exchange via MDEC interop layer already operational for compliant parties.</div>
+      </div>
+
+      <div class="country-card reveal">
+        <span class="country-flag">🇯🇵</span>
+        <div class="country-name">Japan</div>
+        <div class="country-auth">Digital Agency</div>
+        <span class="country-status status-progress">Pilot Phase</span>
+        <div class="country-note">Japan Peppol BIS pilot underway. Japan-specific extensions developed. Digital Agency leading e-invoice standardisation. Full rollout expected 2025–2026.</div>
+      </div>
+
+      <div class="country-card reveal">
+        <span class="country-flag">🇻🇳</span>
+        <div class="country-name">Vietnam</div>
+        <div class="country-auth">GDT (General Department of Taxation)</div>
+        <span class="country-status status-eval">Early Stage</span>
+        <div class="country-note">Vietnam has its own e-invoice mandate (GDT). Peppol interoperability discussions underway. Key market for cross-border ASEAN trade document exchange.</div>
+      </div>
+
+      <div class="country-card reveal">
+        <span class="country-flag">🇹🇭</span>
+        <div class="country-name">Thailand</div>
+        <div class="country-auth">ETDA / Revenue Department</div>
+        <span class="country-status status-eval">Evaluating</span>
+        <div class="country-note">Thailand Revenue Department evaluating Peppol adoption. ETDA (Electronic Transactions Development Agency) in discussions. ASEAN regional e-invoice harmonisation driver.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SINGAPORE — MAJOR SECTION ═══ -->
+<div class="section-wrap surface" id="singapore">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Singapore — Deep Dive</div>
+    <h2 class="reveal">Singapore InvoiceNow<br><em>&amp; the C5 Model</em></h2>
+    <p class="lead reveal">Singapore has built the most technically advanced Peppol implementation in the world — mandating not just B2B document exchange, but direct tax authority integration via the pioneering 5th Corner (C5) model with IRAS.</p>
+
+    <!-- Singapore Timeline -->
+    <div class="sg-section reveal" style="margin-top:0;">
+      <div style="font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--pep-accent);margin-bottom:1rem;">Singapore InvoiceNow Timeline</div>
+      <div class="sg-timeline">
+        <div class="sg-tl-item">
+          <div class="sg-date">Apr 2022</div>
+          <div class="sg-desc"><strong>Large corporations (ACRA-registered)</strong> — InvoiceNow mandatory for all new ACRA-registered large companies. The first wave established Singapore's Peppol ecosystem.</div>
+        </div>
+        <div class="sg-tl-item">
+          <div class="sg-date">Apr 2023</div>
+          <div class="sg-desc"><strong>All new ACRA-registered companies</strong> — InvoiceNow requirement extended to all newly incorporated businesses registering with ACRA from this date.</div>
+        </div>
+        <div class="sg-tl-item">
+          <div class="sg-date">Nov 2025</div>
+          <div class="sg-desc"><strong>All GST-registered businesses</strong> — Full mandate. Every GST-registered business in Singapore must connect via an IMDA-certified Peppol Access Point to send and receive e-invoices through InvoiceNow. <strong>No exemptions.</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- C5 Five-Corner Flow -->
+    <div style="margin-top:3rem;" class="reveal">
+      <div style="font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--pep-accent);margin-bottom:0.5rem;">The 5-Corner Model — C1 to C5</div>
+      <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.7;max-width:58ch;margin-bottom:1.5rem;">Singapore pioneered the 5th Corner — IRAS as an additional recipient of invoice data. This transforms Peppol from a B2B network into a B2B2G (business-to-business-to-government) infrastructure.</p>
+
+      <div class="corner-flow">
+        <div class="cf-step">
+          <div class="cf-line">
+            <div class="cf-circle">C1</div>
+            <div class="cf-connector"></div>
+          </div>
+          <div class="cf-body reveal">
+            <h4>Sender — Singaporean or Foreign Company</h4>
+            <p>The originating business generates the invoice in <strong>Peppol BIS Billing 3.0</strong> format with Singapore-specific extensions — including GST treatment codes (SR, ZR, ES33, etc.) and PayNow payment reference where applicable. For Malaysian businesses trading into Singapore, this is their Peppol identity on the SG network.</p>
+          </div>
+        </div>
+
+        <div class="cf-step">
+          <div class="cf-line">
+            <div class="cf-circle">C2</div>
+            <div class="cf-connector"></div>
+          </div>
+          <div class="cf-body reveal">
+            <h4>Sender's IMDA-Certified Access Point</h4>
+            <p>The sender's Access Point must hold <strong>IMDA certification</strong> and appear on the IMDA AP register. It transmits the document over the Peppol network using the <strong>AS4 messaging protocol</strong> — a signed, encrypted, reliable transport layer. The sender's <strong>Peppol ID</strong> (registered in SML/SMP) determines the routing path to the receiver's AP.</p>
+          </div>
+        </div>
+
+        <div class="cf-step">
+          <div class="cf-line">
+            <div class="cf-circle">C3</div>
+            <div class="cf-connector"></div>
+          </div>
+          <div class="cf-body reveal">
+            <h4>Receiver's Access Point</h4>
+            <p>The receiver's IMDA-certified Access Point retrieves the document from the network. For <strong>cross-border MY↔SG trade</strong>, Malaysia's MDEC-designated interoperability layer routes documents between the Malaysian and Singaporean Peppol environments — enabling a Malaysian business with LHDN compliance to also exchange Peppol documents with Singapore counterparts.</p>
+          </div>
+        </div>
+
+        <div class="cf-step">
+          <div class="cf-line">
+            <div class="cf-circle">C4</div>
+            <div class="cf-connector"></div>
+          </div>
+          <div class="cf-body reveal">
+            <h4>Receiver — Trading Partner</h4>
+            <p>The buyer receives the structured invoice directly into their ERP or accounting system. No email attachment, no PDF re-keying, no manual data entry. The complete document — with GST codes, line items, and PayNow reference — lands in a machine-readable format with a full audit trail.</p>
+          </div>
+        </div>
+
+        <div class="cf-step">
+          <div class="cf-line">
+            <div class="cf-circle c5">C5</div>
+            <div class="cf-connector"></div>
+          </div>
+          <div class="cf-body reveal">
+            <span class="cf-badge">Singapore Pioneer · The 5th Corner</span>
+            <h4>IRAS — Automated GST Submission</h4>
+            <p>The 5th corner, pioneered by Singapore. <strong>IRAS (Inland Revenue Authority of Singapore)</strong> receives GST-relevant invoice data directly from the Access Points — parallel to the C3→C4 delivery. This enables automated pre-population of GST return data (F5/F7 forms), eliminating manual reconciliation for qualifying transactions and dramatically reducing GST compliance overhead for connected businesses.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- C5 Knowledge Base -->
+    <div class="c5-kb reveal" style="margin-top:1rem;">
+      <div class="c5-kb-title">📋 C5 Knowledge Base — What You Need to Know</div>
+      <div class="c5-kb-grid">
+        <div class="c5-kb-item">
+          <h5>What IRAS Receives (C5 Data)</h5>
+          <ul>
+            <li>Supplier Peppol ID and GST registration number</li>
+            <li>Buyer Peppol ID and GST registration number</li>
+            <li>Invoice total and GST amount</li>
+            <li>GST treatment code (SR, ZR, ES33, OS, OP, etc.)</li>
+            <li>Invoice date and document reference number</li>
+          </ul>
+        </div>
+        <div class="c5-kb-item">
+          <h5>What IRAS Does With the Data</h5>
+          <ul>
+            <li>Pre-populates GST F5/F7 return with supply/purchase data</li>
+            <li>Cross-checks filed returns against AP-forwarded invoice data</li>
+            <li>Enables near-real-time audit trail for GST-registered transactions</li>
+            <li>Reduces manual GST return preparation time significantly</li>
+          </ul>
+        </div>
+        <div class="c5-kb-item">
+          <h5>What Businesses Gain</h5>
+          <ul>
+            <li>Reduced GST compliance overhead (pre-filled returns)</li>
+            <li>Lower audit risk — IRAS data matches filed returns automatically</li>
+            <li>Faster GST refund processing (data already in IRAS system)</li>
+            <li>Simplified year-end tax reconciliation</li>
+          </ul>
+        </div>
+        <div class="c5-kb-item">
+          <h5>What Access Points Must Implement</h5>
+          <ul>
+            <li>C5 forwarding interface — an additional AP capability beyond standard C2/C3</li>
+            <li>Not all APs support C5 — IMDA maintains a C5-capable AP list</li>
+            <li>GST treatment code extraction and validation before IRAS submission</li>
+            <li>IRAS endpoint handshake and secure data forwarding configuration</li>
+          </ul>
+        </div>
+      </div>
+      <div class="c5-personal-note">
+        <strong>"I have personally configured the C5 IRAS data forwarding pipeline</strong> — including GST treatment code mapping and validation, the IRAS endpoint handshake, and the invoice-to-GST-return reconciliation logic. This is not a theoretical understanding of C5 — it is direct implementation experience."
+      </div>
+    </div>
+
+    <!-- IMDA Certification -->
+    <div style="margin-top:3rem;" class="reveal">
+      <div style="font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--pep-accent);margin-bottom:1rem;">IMDA Certification — What It Means</div>
+      <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.7;max-width:58ch;margin-bottom:1.2rem;">Not every Access Point is IMDA-certified. For Singapore InvoiceNow compliance, your AP must hold IMDA certification and appear on the official IMDA AP register. Here is what to verify:</p>
+      <div class="imda-grid">
+        <div class="imda-card">
+          <h5>AS4 Protocol Support</h5>
+          <p>The AP must implement AS4 (OASIS AS4 profile) for secure document transport. This is the foundation of Peppol connectivity — any AP without AS4 is not Peppol-compliant.</p>
+        </div>
+        <div class="imda-card">
+          <h5>C5 Capability (IRAS Forwarding)</h5>
+          <p>Not all APs support C5. If you need automated GST return pre-filling, your AP must be on the IMDA C5-capable AP list and have the IRAS forwarding interface implemented.</p>
+        </div>
+        <div class="imda-card">
+          <h5>SMP/SML Registration</h5>
+          <p>Your Peppol ID must be registered in the SMP (Service Metadata Publisher) so other APs can discover and route documents to you. Your AP handles this registration on your behalf.</p>
+        </div>
+        <div class="imda-card">
+          <h5>Document Type Coverage</h5>
+          <p>Verify the AP supports all document types you need: BIS 3.0 Invoices, Credit Notes, Orders, and Catalogues. Singapore-specific extensions (GST codes, PayNow) must be supported.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CROSS-BORDER MY↔SG ═══ -->
+<div class="section-wrap alt" id="crossborder">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Cross-Border Trade</div>
+    <h2 class="reveal">Malaysia ↔ Singapore<br><em>Peppol Interoperability</em></h2>
+    <p class="lead reveal">I am the only specialist who has personally implemented both sides of this connection — Malaysia e-Invoice compliance (LHDN) and Singapore Peppol integration (IMDA). This unique position makes cross-border MY↔SG advisory my strongest capability.</p>
+
+    <div class="crossborder-grid reveal">
+      <div class="cb-col">
+        <h4>🇲🇾 What a Malaysian Business Needs</h4>
+        <ul>
+          <li>LHDN e-Invoice compliance for all domestic transactions (Phase 2 or Phase 3)</li>
+          <li>MDEC registration as a Peppol participant (Malaysia's Peppol Authority)</li>
+          <li>Peppol Access Point connectivity (MDEC-certified AP in Malaysia)</li>
+          <li>Peppol BIS 3.0 invoice format capability — separate from LHDN UBL 2.1</li>
+          <li>MDEC interoperability layer for routing to Singapore APs</li>
+          <li>SG-specific BIS extensions if transacting with SG GST-registered buyers (GST treatment codes)</li>
+        </ul>
+      </div>
+      <div class="cb-col">
+        <h4>🇸🇬 What a Singapore Business Needs</h4>
+        <ul>
+          <li>IMDA-certified Access Point — appears on IMDA AP register</li>
+          <li>Peppol ID registered in SML/SMP for the Singapore network</li>
+          <li>Peppol BIS 3.0 with Singapore GST extensions and PayNow reference</li>
+          <li>C5 capability if IRAS GST automation is required</li>
+          <li>MDEC interop routing if trading with Malaysian Peppol participants</li>
+          <li>Understanding that Malaysian trading partners may have a different Peppol Authority registration path</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem;padding:1.4rem 1.6rem;background:var(--surface);border:1px solid var(--pep-border);border-left:4px solid var(--pep-accent);border-radius:4px;" class="reveal">
+      <p style="font-size:0.86rem;color:var(--text-body);line-height:1.7;">
+        <strong style="color:var(--text-primary);">Why this matters:</strong> Most consultants understand either the Malaysian LHDN side or the Singapore IMDA side — rarely both. Companies with cross-border operations between Malaysia and Singapore need someone who has actually configured both ends of the document exchange pipeline. I have.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PERSONAL IMPLEMENTATION EXPERIENCE ═══ -->
+<div class="section-wrap surface" id="experience">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Implementation Experience</div>
+    <h2 class="reveal">Implemented, <em>Not Theorised</em></h2>
+    <p class="lead reveal">Every item below reflects hands-on work in production Peppol environments — from Access Point onboarding through to C5 IRAS forwarding.</p>
+
+    <div class="impl-grid reveal-group">
+      <div class="impl-point reveal">
+        <div class="impl-icon">🔗</div>
+        <div class="impl-text">
+          <h5>IMDA-Certified AP Integration</h5>
+          <p>End-to-end Access Point onboarding and connectivity — verified against the IMDA AP register. Connected, tested, and live in the Singapore InvoiceNow environment.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">📡</div>
+        <div class="impl-text">
+          <h5>AS4 Messaging Protocol</h5>
+          <p>Protocol-level implementation of the AS4 message exchange — signed and encrypted transport, acknowledgement handling, error reporting, and message retry configuration.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">🔍</div>
+        <div class="impl-text">
+          <h5>SMP/SML Registration &amp; Peppol ID</h5>
+          <p>Peppol participant registration in the SML (Service Metadata Locator), SMP capability publication, and Peppol ID provisioning for new businesses joining the network.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">📄</div>
+        <div class="impl-text">
+          <h5>Peppol BIS 3.0 Document Mapping</h5>
+          <p>Internal ERP invoice line items mapped to Peppol BIS Billing 3.0 format. Covers all mandatory fields, optional extensions, and Singapore-specific BIS additions.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">⚡</div>
+        <div class="impl-text">
+          <h5>C5 IRAS Data Forwarding Pipeline</h5>
+          <p>GST treatment code extraction and validation, IRAS C5 endpoint handshake, invoice-to-GST-return data forwarding configuration, and reconciliation logic — personally built and tested.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">🌏</div>
+        <div class="impl-text">
+          <h5>Cross-Border MY↔SG Routing</h5>
+          <p>MDEC interoperability layer configuration for cross-border document exchange between Malaysia and Singapore Peppol environments — both sending and receiving directions.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">💳</div>
+        <div class="impl-text">
+          <h5>Singapore GST Extensions</h5>
+          <p>Singapore-specific BIS extensions implemented: GST treatment code mapping (SR, ZR, ES33, OS, OP categories), PayNow payment reference field, and SG-specific validation rules.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">🏢</div>
+        <div class="impl-text">
+          <h5>ERP Integration</h5>
+          <p>Peppol AP integration with SAP, Oracle, and Xero — including bidirectional invoice exchange, status synchronisation, and error-handling workflows for both outbound and inbound Peppol documents.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SERVICES ═══ -->
+<div class="section-wrap alt" id="services">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">What I Offer</div>
+    <h2 class="reveal">Services for <em>Peppol Integration</em></h2>
+
+    <div class="service-grid" style="margin-top:2.5rem;">
+      <ul class="service-list reveal-group">
+        <li class="service-item reveal">
+          <span class="service-num">01</span>
+          <div>
+            <h4>Access Point Onboarding</h4>
+            <p>Evaluate and connect to an IMDA-certified Peppol Access Point for Singapore InvoiceNow compliance. Covers AP selection, SMP/SML registration, Peppol ID provisioning, and IMDA certification verification.</p>
+            <div class="deliverables">Deliverables: AP evaluation report, completed onboarding, Peppol ID confirmed in SML</div>
+          </div>
+        </li>
+        <li class="service-item reveal">
+          <span class="service-num">02</span>
+          <div>
+            <h4>BIS 3.0 Document Implementation</h4>
+            <p>Map your internal invoice data to Peppol BIS Billing 3.0 format — including all mandatory fields, optional extensions, and country-specific additions (Singapore GST codes, PayNow reference).</p>
+            <div class="deliverables">Deliverables: BIS 3.0 mapping spec, working document templates, validation test results</div>
+          </div>
+        </li>
+        <li class="service-item reveal">
+          <span class="service-num">03</span>
+          <div>
+            <h4>Cross-Border Trade Readiness</h4>
+            <p>Prepare your business to exchange Peppol documents with trading partners in Singapore, Australia, EU, and other network countries — including MDEC interop configuration for MY↔SG exchange.</p>
+            <div class="deliverables">Deliverables: Cross-border routing config, end-to-end test results, trading partner guide</div>
+          </div>
+        </li>
+        <li class="service-item reveal">
+          <span class="service-num">04</span>
+          <div>
+            <h4>Market Expansion Advisory</h4>
+            <p>Strategic guidance for companies planning regional AP/AR digitalisation. Country-by-country Peppol status matrix, authority requirements, and implementation priority framework.</p>
+            <div class="deliverables">Deliverables: Country readiness matrix, expansion roadmap, authority contact list</div>
+          </div>
+        </li>
+        <li class="service-item reveal">
+          <span class="service-num">05</span>
+          <div>
+            <h4>5-Corner Model (C5) Implementation</h4>
+            <p>Connect your Access Point to Singapore's IRAS as the 5th corner. Automates GST data forwarding directly to IRAS — eliminating manual GST F5/F7 reconciliation for qualifying transactions.</p>
+            <div class="deliverables">Deliverables: C5 pipeline configured, IRAS endpoint live, GST code mapping validated</div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="reveal">
+        <div class="card card-amber" style="padding:2rem;position:sticky;top:7rem;">
+          <div style="font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--pep-accent);margin-bottom:1.5rem;">Singapore InvoiceNow — At a Glance</div>
+          <div style="font-family:'EB Garamond',serif;font-size:3rem;font-weight:500;line-height:1;color:var(--pep-accent);">Nov 2025</div>
+          <div style="font-size:0.78rem;color:var(--text-muted);margin:0.4rem 0 1.5rem;">All GST-registered businesses — IMDA mandate</div>
+          <div class="divider"></div>
+          <ul class="checklist" style="margin-bottom:1.5rem;">
+            <li>
+              <svg class="check-icon check-amber" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+              Large corps (ACRA) — mandatory since Apr 2022
+            </li>
+            <li>
+              <svg class="check-icon check-amber" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+              All GST businesses — mandatory from Nov 2025
+            </li>
+            <li>
+              <svg class="check-icon check-amber" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+              C5: IRAS receives GST data directly from APs
+            </li>
+            <li>
+              <svg class="check-icon check-amber" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+              SG-specific BIS extensions: GST codes + PayNow
+            </li>
+            <li>
+              <svg class="check-icon check-amber" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+              MY↔SG cross-border via MDEC interop layer
+            </li>
+            <li>
+              <svg class="check-icon check-amber" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+              50+ countries connected on the Peppol network
+            </li>
+          </ul>
+          <div class="divider"></div>
+          <a href="#contact" class="btn btn-amber" style="display:block;text-align:center;margin-top:1rem;">Assess My Peppol Readiness →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ WHO THIS IS FOR ═══ -->
+<div class="section-wrap surface" id="for-whom">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Who This Is For</div>
+    <h2 class="reveal">Is This <em>Right for You?</em></h2>
+    <p class="lead reveal">Peppol connectivity is increasingly relevant across a wide range of business types — from exporters to shared service centres.</p>
+    <div class="for-grid reveal-group">
+      <div class="for-card reveal">
+        <h5>🇲🇾 Malaysian Exporters to Singapore</h5>
+        <p>Companies invoicing Singaporean customers who are GST-registered will need Peppol connectivity by November 2025. I help you comply on both sides of the Causeway.</p>
+      </div>
+      <div class="for-card reveal">
+        <h5>🌏 ASEAN Multinationals</h5>
+        <p>Regional businesses with subsidiaries in Malaysia, Singapore, and beyond. Unified AP/AR digitalisation across multiple Peppol Authority jurisdictions.</p>
+      </div>
+      <div class="for-card reveal">
+        <h5>🏢 Shared Service Centres</h5>
+        <p>SSCs managing regional invoice processing for multiple entities. Peppol connectivity and LHDN/IRAS compliance from a single specialist reduces vendor complexity.</p>
+      </div>
+      <div class="for-card reveal">
+        <h5>🇸🇬 Singapore-Based Businesses</h5>
+        <p>GST-registered companies approaching the November 2025 mandate. Access Point selection, IMDA onboarding, C5 configuration, and BIS 3.0 implementation.</p>
+      </div>
+      <div class="for-card reveal">
+        <h5>🌐 Businesses in New Peppol Countries</h5>
+        <p>Companies in Japan, Vietnam, Thailand, or other markets entering the Peppol network. Early-mover advisory on authority requirements, AP selection, and document standards.</p>
+      </div>
+      <div class="for-card reveal">
+        <h5>🏗 ERP and Software Vendors</h5>
+        <p>Software companies building Peppol connectivity into their products. Technical advisory on BIS 3.0 mapping, AS4 protocol, SMP/SML registration, and C5 integration architecture.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONTACT ═══ -->
+<div class="contact-section" id="contact">
+  <div class="eyebrow eyebrow-amber eyebrow-center reveal">Let's Talk</div>
+  <h2 class="reveal">Ready to Connect to<br><em>the Peppol Network?</em></h2>
+  <p class="lead reveal" style="margin:0 auto 0.5rem;text-align:center;">
+    Singapore InvoiceNow: mandatory for all GST-registered businesses from November 2025. First consultation is complimentary — let's map your Peppol readiness.
+  </p>
+  <a href="mailto:hello@peppwise.com" class="contact-email reveal">hello@peppwise.com</a>
+  <div class="contact-btns reveal">
+    <a href="mailto:hello@peppwise.com" class="btn btn-amber">Send an Enquiry</a>
+    <a href="mailto:hello@peppwise.com?subject=Peppol Discovery Call" class="btn-ghost">Book a Discovery Call</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Peppwise · Independent Compliance Advisory · Malaysia &amp; Singapore</p>
+  <nav class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="malaysia.html">Malaysia e-Invoice</a>
+    <a href="peppol.html">Peppol</a>
+  </nav>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.09, rootMargin: '0px 0px -30px 0px' });
+  revealEls.forEach(el => observer.observe(el));
+
+  const hamburger = document.getElementById('nav-hamburger');
+  const overlay   = document.getElementById('nav-mobile-overlay');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
+  });
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 {
+  "cleanUrls": true,
   "rewrites": [
-    { "source": "/", "destination": "/peppwise.html" }
+    { "source": "/", "destination": "/index.html" }
   ]
 }

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peppwise — Malaysia e-Invoice & Peppol Compliance Specialist</title>
+<meta name="description" content="Independent compliance advisory by a specialist who has personally implemented Malaysia e-Invoice (LHDN API, digital signature, UBL 2.1) and Singapore Peppol (InvoiceNow, C5 IRAS, AS4). Not a team. One expert.">
+<meta property="og:title" content="Peppwise — Malaysia e-Invoice & Peppol Compliance Specialist">
+<meta property="og:description" content="Personally implemented both Malaysia e-Invoice and Singapore Peppol C5. Helping businesses meet mandatory e-invoicing deadlines.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.peppwise.com">
+<link rel="canonical" href="https://www.peppwise.com/">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231A1612'/><text x='16' y='23' font-family='serif' font-size='20' font-weight='bold' fill='%23B45309' text-anchor='middle'>P</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 8rem 3rem 5rem;
+  gap: 4rem;
+  background: var(--bg);
+}
+.hero-left { max-width: 520px; }
+.hero-tag {
+  font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+  font-weight: 700; color: var(--text-muted);
+  display: flex; align-items: center; gap: 0.75rem;
+  margin-bottom: 1.8rem;
+}
+.hero-tag::before {
+  content: ''; display: block;
+  width: 2rem; height: 1px; background: var(--text-muted);
+}
+.hero h1 {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(2.6rem, 4.5vw, 4.2rem);
+  font-weight: 500; line-height: 1.06;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-bottom: 1.4rem;
+}
+.hero h1 em { font-style: italic; color: var(--pep-accent); display: block; }
+.hero-sub {
+  font-size: 0.97rem; line-height: 1.8;
+  color: var(--text-muted); max-width: 42ch;
+  margin-bottom: 2.4rem;
+}
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+/* ─── SERVICE CARDS (right col) ─── */
+.hero-right {
+  display: flex; flex-direction: column; gap: 1.2rem;
+}
+.service-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: var(--shadow-sm);
+  padding: 1.8rem 2rem;
+  text-decoration: none;
+  display: block;
+  transition: box-shadow 0.25s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.service-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.service-card-blue  { border-left: 4px solid var(--einv-accent); }
+.service-card-amber { border-left: 4px solid var(--pep-accent); }
+.sc-eyebrow {
+  font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+  font-weight: 700; margin-bottom: 0.6rem;
+}
+.sc-eyebrow-blue  { color: var(--einv-accent); }
+.sc-eyebrow-amber { color: var(--pep-accent); }
+.sc-title {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.45rem; font-weight: 500;
+  color: var(--text-primary); margin-bottom: 0.4rem; line-height: 1.2;
+}
+.sc-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 0.9rem; }
+.sc-mandate {
+  font-size: 0.7rem; letter-spacing: 0.08em; font-weight: 700;
+  padding: 0.25rem 0.7rem; display: inline-block; border-radius: 3px;
+  margin-bottom: 0.9rem;
+}
+.sc-mandate-blue  { background: var(--einv-pale); color: var(--einv-accent); }
+.sc-mandate-amber { background: var(--pep-pale);  color: var(--pep-accent); }
+.sc-link {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.sc-link-blue  { color: var(--einv-accent); }
+.sc-link-amber { color: var(--pep-accent); }
+.sc-link svg { transition: transform 0.2s; }
+.service-card:hover .sc-link svg { transform: translateX(4px); }
+
+/* ─── CREDIBILITY SECTION ─── */
+.cred-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+.cred-left {}
+.cred-left .lead { margin-bottom: 0; }
+.cred-body {
+  font-size: 0.95rem; line-height: 1.85;
+  color: var(--text-body); margin-top: 1.2rem;
+}
+.cred-body strong { color: var(--text-primary); }
+
+.proof-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.proof-col {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+}
+.proof-col-blue  { border-top: 3px solid var(--einv-accent); }
+.proof-col-amber { border-top: 3px solid var(--pep-accent); }
+.proof-col-title {
+  font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+  font-weight: 700; margin-bottom: 1rem;
+}
+.proof-col-blue  .proof-col-title { color: var(--einv-accent); }
+.proof-col-amber .proof-col-title { color: var(--pep-accent); }
+.proof-list { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+.proof-list li {
+  font-size: 0.83rem; color: var(--text-muted); line-height: 1.4;
+  display: flex; align-items: flex-start; gap: 0.5rem;
+}
+.proof-list li::before {
+  content: '✓'; font-size: 0.7rem; flex-shrink: 0; margin-top: 1px;
+}
+.proof-col-blue  .proof-list li::before { color: var(--einv-accent); }
+.proof-col-amber .proof-list li::before { color: var(--pep-accent); }
+
+/* ─── COMPACT ROADMAP ─── */
+.roadmap-nodes {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  position: relative;
+  margin-top: 3.5rem;
+}
+.roadmap-nodes::before {
+  content: '';
+  position: absolute;
+  top: 10px; left: 8%; right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    var(--einv-border) 0%,
+    rgba(37,99,168,0.15) 30%,
+    rgba(180,83,9,0.15) 70%,
+    var(--pep-border) 100%
+  );
+}
+.rm-node {
+  display: flex; flex-direction: column;
+  align-items: center; text-align: center;
+  padding: 0 0.5rem;
+}
+.rm-dot {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 2px solid;
+  background: var(--bg-2);
+  flex-shrink: 0;
+  margin-bottom: 1rem;
+  position: relative; z-index: 2;
+}
+.rm-dot-blue  { border-color: var(--einv-accent); }
+.rm-dot-amber { border-color: var(--pep-accent); }
+.rm-dot.filled-blue  { background: var(--einv-accent); }
+.rm-dot.filled-amber { background: var(--pep-accent); }
+.rm-tag {
+  font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase;
+  font-weight: 700; padding: 0.15rem 0.5rem;
+  border-radius: 100px; margin-bottom: 0.4rem;
+}
+.rm-tag-blue  { background: var(--einv-pale); color: var(--einv-accent); border: 1px solid var(--einv-border); }
+.rm-tag-amber { background: var(--pep-pale);  color: var(--pep-accent);  border: 1px solid var(--pep-border); }
+.rm-date { font-size: 0.68rem; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0.25rem; }
+.rm-date-blue  { color: var(--einv-accent); }
+.rm-date-amber { color: var(--pep-accent); }
+.rm-label { font-size: 0.78rem; font-weight: 700; color: var(--text-primary); line-height: 1.3; }
+
+/* ─── ENGAGEMENT MODELS ─── */
+.engage-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+.engage-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  box-shadow: var(--shadow-sm);
+  padding: 2.2rem 2rem;
+  position: relative;
+  border-top: 3px solid var(--border-strong);
+  transition: box-shadow 0.25s;
+}
+.engage-card:hover { box-shadow: var(--shadow-md); }
+.engage-card.featured { border-top-color: var(--pep-accent); }
+.engage-type {
+  font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--text-faint); font-weight: 700; margin-bottom: 0.9rem;
+}
+.engage-card h3 { margin-bottom: 0.6rem; }
+.engage-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+.engage-badge {
+  position: absolute; top: 1.2rem; right: 1.2rem;
+  font-size: 0.52rem; letter-spacing: 0.18em; text-transform: uppercase;
+  font-weight: 700; padding: 0.2rem 0.6rem;
+  background: var(--pep-pale); color: var(--pep-accent);
+  border: 1px solid var(--pep-border); border-radius: 3px;
+}
+
+/* ─── CONTACT ─── */
+.contact-section {
+  text-align: center;
+  padding: 6rem 3rem;
+  border-top: 1px solid var(--border);
+}
+.contact-email {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.35rem; letter-spacing: 0.04em;
+  color: var(--pep-accent); text-decoration: none;
+  border-bottom: 1px solid var(--pep-border);
+  padding-bottom: 2px;
+  display: inline-block; margin: 1rem 0 2.5rem;
+  transition: border-color 0.2s;
+}
+.contact-email:hover { border-color: var(--pep-accent); }
+.contact-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .hero { padding: 8rem 2rem 5rem; gap: 3rem; }
+  .proof-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 4rem; }
+  .hero-left { max-width: 100%; }
+  .cred-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .proof-grid { grid-template-columns: 1fr 1fr; }
+  .engage-grid { grid-template-columns: 1fr; }
+  .contact-section { padding: 4.5rem 1.5rem; }
+  .contact-btns { flex-direction: column; align-items: center; }
+  .btn, .btn-ghost { width: 100%; max-width: 300px; text-align: center; }
+  .roadmap-nodes { display: flex; flex-direction: column; gap: 1.5rem; }
+  .roadmap-nodes::before { display: none; }
+  .rm-node { flex-direction: row; text-align: left; gap: 1rem; align-items: flex-start; }
+  .rm-dot { margin-bottom: 0; margin-top: 2px; }
+  .rm-node > div { display: flex; flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 640px) {
+  .proof-grid { grid-template-columns: 1fr; }
+  .hero-btns { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo">Pepp<span>wise</span></a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-active">Home</a>
+    <a href="malaysia.html">Malaysia e-Invoice</a>
+    <a href="peppol.html">Peppol</a>
+    <a href="#contact" class="nav-cta">Get in Touch</a>
+  </div>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="nav-mobile-overlay" id="nav-mobile-overlay">
+  <a href="index.html" class="mobile-nav-link">Home</a>
+  <a href="malaysia.html" class="mobile-nav-link">Malaysia e-Invoice</a>
+  <a href="peppol.html" class="mobile-nav-link">Peppol</a>
+  <a href="#contact" class="mobile-nav-link">Get in Touch</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Independent Compliance Advisory</div>
+    <h1>
+      Two mandates.<br>
+      One specialist.<br>
+      <em>End-to-end.</em>
+    </h1>
+    <p class="hero-sub">
+      Malaysia e-Invoice (LHDN/IRBM) and Peppol network integration — personally implemented, not just advised on. Helping businesses in Malaysia and Singapore meet their mandatory e-invoicing obligations.
+    </p>
+    <div class="hero-btns">
+      <a href="malaysia.html" class="btn btn-blue">Malaysia e-Invoice →</a>
+      <a href="peppol.html" class="btn btn-amber">Peppol Network →</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <a href="malaysia.html" class="service-card service-card-blue">
+      <div class="sc-eyebrow sc-eyebrow-blue">Malaysia · LHDN · IRBM · MyInvois</div>
+      <div class="sc-title">Malaysia e-Invoice Compliance</div>
+      <p class="sc-desc">End-to-end implementation of Malaysia's mandatory e-invoicing framework — all 5 IRBM document types, LHDN API integration, digital signature, and UBL 2.1 mapping.</p>
+      <div class="sc-mandate sc-mandate-blue">Phase 2 Deadline: 1 July 2025</div>
+      <div class="sc-link sc-link-blue">
+        Explore Service
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </div>
+    </a>
+
+    <a href="peppol.html" class="service-card service-card-amber">
+      <div class="sc-eyebrow sc-eyebrow-amber">Peppol · 50+ Countries · Singapore InvoiceNow · IRAS C5</div>
+      <div class="sc-title">Peppol Network Integration</div>
+      <p class="sc-desc">Global Peppol network connectivity — from Singapore's InvoiceNow (IMDA mandate, Nov 2025) to cross-border MY↔SG document exchange and the pioneering C5 IRAS GST automation model.</p>
+      <div class="sc-mandate sc-mandate-amber">SG InvoiceNow Mandate: Nov 2025</div>
+      <div class="sc-link sc-link-amber">
+        Explore Service
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ═══ CREDIBILITY ═══ -->
+<div class="section-wrap alt" id="about">
+  <div class="inner">
+    <div class="cred-grid">
+      <div class="cred-left reveal">
+        <div class="eyebrow eyebrow-muted">About This Practice</div>
+        <h2>Not a consultancy.<br><em>One specialist who has<br>built both systems.</em></h2>
+        <p class="cred-body">
+          I have personally implemented <strong>Malaysia e-Invoice end-to-end</strong> — LHDN API integration, X.509 digital signature embedding, UBL 2.1 document mapping, MSIC code classification, and the full rejection and cancellation flows.
+          <br><br>
+          I have also personally implemented <strong>Singapore Peppol integration</strong> — IMDA-certified Access Point onboarding, AS4 messaging protocol configuration, SMP/SML registration, Peppol BIS 3.0 document mapping, and C5 IRAS GST data forwarding.
+          <br><br>
+          This is not advisory at arm's length. This is <strong>implementation experience</strong>.
+        </p>
+      </div>
+
+      <div class="proof-grid reveal">
+        <div class="proof-col proof-col-blue">
+          <div class="proof-col-title">Malaysia e-Invoice</div>
+          <ul class="proof-list">
+            <li>X.509 digital signature</li>
+            <li>LHDN API — submit, validate, cancel</li>
+            <li>UBL 2.1 XML mapping</li>
+            <li>MSIC code classification</li>
+            <li>Rejection &amp; cancellation flows</li>
+            <li>ERP integration (SAP, Oracle, Xero)</li>
+            <li>72-hour window handling</li>
+            <li>UUID &amp; QR code archival</li>
+          </ul>
+        </div>
+        <div class="proof-col proof-col-amber">
+          <div class="proof-col-title">Singapore Peppol</div>
+          <ul class="proof-list">
+            <li>IMDA-certified AP integration</li>
+            <li>AS4 messaging protocol</li>
+            <li>SMP/SML registration</li>
+            <li>Peppol BIS 3.0 mapping</li>
+            <li>C5 / IRAS GST data forwarding</li>
+            <li>Cross-border MY↔SG interop</li>
+            <li>Singapore GST treatment codes</li>
+            <li>PayNow reference fields</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ COMPACT ROADMAP ═══ -->
+<div class="section-wrap" id="roadmap">
+  <div class="inner">
+    <div class="eyebrow eyebrow-muted reveal">Regulatory Timeline</div>
+    <h2 class="reveal">Key Compliance <em>Deadlines</em></h2>
+    <p class="lead reveal">The mandates are non-negotiable. Whether you operate in Malaysia, Singapore, or across the Causeway — here are the dates that matter.</p>
+
+    <div class="roadmap-nodes reveal-group">
+      <div class="rm-node reveal">
+        <div class="rm-dot filled-blue rm-dot-blue"></div>
+        <div>
+          <span class="rm-tag rm-tag-blue">MY e-Invoice</span>
+          <div class="rm-date rm-date-blue">Aug 2024</div>
+          <div class="rm-label">Phase 1 Live<br><span style="font-weight:400;color:var(--text-muted);font-size:0.72rem;">&gt;RM100M turnover</span></div>
+        </div>
+      </div>
+      <div class="rm-node reveal">
+        <div class="rm-dot filled-amber rm-dot-amber"></div>
+        <div>
+          <span class="rm-tag rm-tag-amber">SG InvoiceNow</span>
+          <div class="rm-date rm-date-amber">Apr 2022</div>
+          <div class="rm-label">SG Large Corps<br><span style="font-weight:400;color:var(--text-muted);font-size:0.72rem;">ACRA-registered</span></div>
+        </div>
+      </div>
+      <div class="rm-node reveal">
+        <div class="rm-dot rm-dot-blue"></div>
+        <div>
+          <span class="rm-tag rm-tag-blue">MY e-Invoice</span>
+          <div class="rm-date rm-date-blue">1 Jul 2025</div>
+          <div class="rm-label">Phase 2 Deadline<br><span style="font-weight:400;color:var(--text-muted);font-size:0.72rem;">&gt;RM25M turnover</span></div>
+        </div>
+      </div>
+      <div class="rm-node reveal">
+        <div class="rm-dot rm-dot-amber"></div>
+        <div>
+          <span class="rm-tag rm-tag-amber">SG InvoiceNow</span>
+          <div class="rm-date rm-date-amber">Nov 2025</div>
+          <div class="rm-label">All GST Businesses<br><span style="font-weight:400;color:var(--text-muted);font-size:0.72rem;">IMDA mandate</span></div>
+        </div>
+      </div>
+      <div class="rm-node reveal">
+        <div class="rm-dot rm-dot-blue"></div>
+        <div>
+          <span class="rm-tag rm-tag-blue">MY e-Invoice</span>
+          <div class="rm-date rm-date-blue">1 Jan 2026</div>
+          <div class="rm-label">Phase 3 — All Businesses<br><span style="font-weight:400;color:var(--text-muted);font-size:0.72rem;">No exemptions remain</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:1.5rem;margin-top:3rem;flex-wrap:wrap;">
+      <a href="malaysia.html" class="btn btn-blue">Malaysia e-Invoice Detail →</a>
+      <a href="peppol.html" class="btn btn-amber">Peppol Timeline →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ENGAGEMENT MODELS ═══ -->
+<div class="section-wrap alt" id="engage">
+  <div class="inner">
+    <div class="eyebrow eyebrow-muted reveal">Engagement</div>
+    <h2 class="reveal">Work With Me<br><em>On Your Terms</em></h2>
+    <p class="lead reveal">I adapt to your business structure. Whether you need embedded expertise, scoped delivery, or a permanent hire — available across all models.</p>
+
+    <div class="engage-grid reveal-group">
+      <div class="engage-card reveal">
+        <div class="engage-type">Model 01</div>
+        <h3>Full-Time Hire</h3>
+        <p>Join your team as a dedicated compliance specialist — embedded, fully aligned, and on-call. Ideal for companies mid-implementation or with continuous compliance requirements.</p>
+      </div>
+      <div class="engage-card featured reveal">
+        <div class="engage-badge">Most Popular</div>
+        <div class="engage-type">Model 02</div>
+        <h3>Part-Time / Retainer</h3>
+        <p>Consistent expert guidance without the full-time overhead. Monthly retainer or weekly hour packages. Perfect for SMEs that need steady support without headcount.</p>
+      </div>
+      <div class="engage-card reveal">
+        <div class="engage-type">Model 03</div>
+        <h3>Project-Based</h3>
+        <p>A defined scope, clear deliverables, and a fixed timeline. Best for one-time implementations, readiness audits, or new-country Peppol rollouts. Fixed-price or milestone billing.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONTACT ═══ -->
+<div class="contact-section" id="contact">
+  <div class="eyebrow eyebrow-amber eyebrow-center reveal">Let's Talk</div>
+  <h2 class="reveal">Ready to Move <em>Forward?</em></h2>
+  <p class="lead reveal" style="margin:0 auto 0.5rem;text-align:center;">
+    Whether you're approaching a compliance deadline, evaluating Peppol for cross-border trade, or simply need to understand what e-invoicing means for your business — reach out. First consultation is complimentary.
+  </p>
+  <a href="mailto:hello@peppwise.com" class="contact-email reveal">hello@peppwise.com</a>
+  <div class="contact-btns reveal">
+    <a href="mailto:hello@peppwise.com" class="btn btn-dark">Send an Enquiry</a>
+    <a href="mailto:hello@peppwise.com?subject=Discovery Call Request" class="btn-ghost">Book a Discovery Call</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Peppwise · Independent Compliance Advisory · Malaysia &amp; Singapore</p>
+  <nav class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="malaysia.html">Malaysia e-Invoice</a>
+    <a href="peppol.html">Peppol</a>
+  </nav>
+</footer>
+
+<script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.10, rootMargin: '0px 0px -30px 0px' });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Mobile hamburger
+  const hamburger = document.getElementById('nav-hamburger');
+  const overlay = document.getElementById('nav-mobile-overlay');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
+  });
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Smooth scroll for same-page anchors
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>

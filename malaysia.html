@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Malaysia e-Invoice Compliance — LHDN, MyInvois, Phase 2 & 3 | Peppwise</title>
+<meta name="description" content="End-to-end Malaysia e-Invoice implementation. All 5 IRBM document types, Phase 2 (1 Jul 2025), Phase 3 (1 Jan 2026), LHDN API, UBL 2.1, X.509 digital signature. Personally implemented.">
+<meta property="og:title" content="Malaysia e-Invoice Compliance — LHDN, MyInvois | Peppwise">
+<meta property="og:description" content="Phase 2 deadline: 1 July 2025. Full technical implementation: LHDN API, digital signature, UBL 2.1, all 5 IRBM document types.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.peppwise.com/malaysia">
+<link rel="canonical" href="https://www.peppwise.com/malaysia">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231A1612'/><text x='16' y='23' font-family='serif' font-size='20' font-weight='bold' fill='%23B45309' text-anchor='middle'>P</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+
+/* ─── PAGE HERO ─── */
+.page-hero {
+  background: var(--einv-pale);
+  border-bottom: 1px solid var(--einv-border);
+  padding: 9rem 3rem 5rem;
+}
+.page-hero .inner {
+  max-width: 1160px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 3rem; align-items: end;
+}
+.page-hero h1 {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  font-weight: 500; line-height: 1.08;
+  color: var(--text-primary); margin-bottom: 1rem;
+}
+.page-hero h1 em { font-style: italic; color: var(--einv-accent); }
+.page-hero-sub {
+  font-size: 0.95rem; line-height: 1.75;
+  color: var(--text-muted); max-width: 48ch; margin-bottom: 1.5rem;
+}
+.hero-stats { display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero-stat {
+  background: var(--surface);
+  border: 1px solid var(--einv-border);
+  border-radius: 4px;
+  padding: 0.8rem 1.2rem;
+  box-shadow: var(--shadow-sm);
+}
+.hero-stat-num {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.8rem; font-weight: 500; line-height: 1;
+  color: var(--einv-accent);
+}
+.hero-stat-lbl {
+  font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-muted); margin-top: 0.2rem;
+}
+
+/* ─── PHASE TIMELINE ─── */
+.phase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  margin-top: 2.5rem;
+}
+.phase-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  box-shadow: var(--shadow-sm);
+  padding: 1.6rem 1.4rem;
+  border-top: 3px solid var(--einv-border);
+  transition: box-shadow 0.2s;
+}
+.phase-card:hover { box-shadow: var(--shadow-md); }
+.phase-card.active { border-top-color: var(--einv-accent); }
+.phase-card.upcoming { border-top-color: #E07B09; }
+.phase-status {
+  font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+  font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 3px;
+  display: inline-block; margin-bottom: 0.9rem;
+}
+.status-live    { background: #D1FAE5; color: #065F46; }
+.status-urgent  { background: var(--pep-pale); color: #B45309; }
+.status-upcoming{ background: var(--einv-pale); color: var(--einv-accent); }
+.phase-date { font-family: 'EB Garamond', serif; font-size: 1.3rem; font-weight: 500; color: var(--einv-accent); margin-bottom: 0.3rem; }
+.phase-title { font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
+.phase-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
+
+.penalty-callout {
+  background: #FEF3C7;
+  border: 1px solid #F59E0B;
+  border-left: 4px solid #D97706;
+  border-radius: 4px;
+  padding: 1.4rem 1.6rem;
+  margin-top: 2rem;
+}
+.penalty-callout h4 { color: #92400E; margin-bottom: 0.5rem; }
+.penalty-callout p  { font-size: 0.87rem; color: #78350F; line-height: 1.6; }
+
+.phase-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.selector-box {
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  padding: 1.2rem;
+  text-align: center;
+  background: var(--surface);
+}
+.selector-box strong { display: block; font-size: 0.9rem; color: var(--text-primary); margin-bottom: 0.3rem; }
+.selector-box span { font-size: 0.78rem; color: var(--text-muted); }
+.selector-box em { display: block; font-size: 0.68rem; color: var(--einv-accent); font-style: normal; font-weight: 700; letter-spacing: 0.08em; margin-top: 0.4rem; }
+
+/* ─── DOCUMENT TYPES ─── */
+.doctype-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  margin-top: 2.5rem;
+}
+.doctype-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  box-shadow: var(--shadow-sm);
+  padding: 1.6rem;
+  border-top: 3px solid var(--einv-accent);
+  transition: box-shadow 0.2s;
+}
+.doctype-card:hover { box-shadow: var(--shadow-md); }
+.doctype-num {
+  font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--einv-accent); font-weight: 700; margin-bottom: 0.5rem;
+}
+.doctype-card h4 { margin-bottom: 0.4rem; color: var(--einv-accent); }
+.doctype-card h4 span { color: var(--text-primary); }
+.doctype-when {
+  font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.8rem;
+  line-height: 1.5;
+}
+.doctype-who {
+  font-size: 0.7rem; letter-spacing: 0.08em; font-weight: 700;
+  color: var(--text-faint); text-transform: uppercase;
+}
+.doctype-fields {
+  margin-top: 0.6rem;
+  font-size: 0.75rem; color: var(--text-muted); line-height: 1.55;
+}
+
+/* ─── LIFECYCLE STEPS ─── */
+.lifecycle-steps { display: flex; flex-direction: column; margin-top: 2.5rem; }
+.lc-step {
+  display: grid;
+  grid-template-columns: 2.4rem 1fr;
+  gap: 1.2rem;
+  align-items: stretch;
+}
+.lc-step-line {
+  display: flex; flex-direction: column; align-items: center;
+}
+.lc-circle {
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 2px solid var(--einv-accent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; font-weight: 700; color: var(--einv-accent);
+  background: var(--surface); flex-shrink: 0;
+  position: relative; z-index: 2;
+}
+.lc-connector {
+  flex: 1; width: 1px; background: var(--einv-border);
+  min-height: 1rem; margin: 3px 0;
+}
+.lc-step:last-child .lc-connector { display: none; }
+.lc-body { padding-bottom: 1.8rem; }
+.lc-badge {
+  display: inline-block; font-size: 0.55rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.15rem 0.5rem; border-radius: 3px;
+  background: var(--einv-pale); color: var(--einv-accent);
+  border: 1px solid var(--einv-border); margin-bottom: 0.3rem;
+}
+.lc-body h4 { font-size: 0.95rem; margin-bottom: 0.4rem; }
+.lc-body p  { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; }
+
+/* ─── TWO-COL SERVICE GRID ─── */
+.service-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  align-items: start;
+  margin-top: 0;
+}
+.service-list { list-style: none; display: flex; flex-direction: column; gap: 1.6rem; margin-top: 0; }
+.service-item {
+  display: grid; grid-template-columns: 2.4rem 1fr; gap: 1rem; align-items: start;
+}
+.service-num {
+  font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--einv-accent); font-weight: 700; padding-top: 0.2rem;
+}
+.service-item h4 { margin-bottom: 0.3rem; }
+.service-item p  { font-size: 0.86rem; color: var(--text-muted); line-height: 1.65; }
+.deliverables {
+  margin-top: 0.6rem;
+  font-size: 0.78rem; color: var(--text-faint);
+  font-style: italic;
+}
+
+/* ─── PERSONAL EXPERIENCE ─── */
+.impl-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem;
+}
+.impl-point {
+  display: flex; gap: 1rem; align-items: flex-start;
+}
+.impl-icon {
+  width: 36px; height: 36px; border-radius: 4px;
+  background: var(--einv-pale); border: 1px solid var(--einv-border);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; color: var(--einv-accent); font-size: 0.9rem;
+}
+.impl-text h5 { font-size: 0.88rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; }
+.impl-text p  { font-size: 0.8rem; color: var(--text-muted); line-height: 1.55; }
+
+/* ─── CONTACT BANNER ─── */
+.contact-banner {
+  background: var(--einv-pale);
+  border: 1px solid var(--einv-border);
+  border-radius: 6px;
+  padding: 2.5rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 2rem;
+  margin-top: 0;
+}
+.contact-banner h3 { margin-bottom: 0.4rem; }
+.contact-banner p { font-size: 0.88rem; color: var(--text-muted); }
+.banner-urgency {
+  font-size: 0.68rem; letter-spacing: 0.1em; font-weight: 700;
+  color: var(--einv-accent); text-transform: uppercase;
+  margin-top: 0.4rem; display: block;
+}
+.contact-section { text-align: center; padding: 5rem 3rem; border-top: 1px solid var(--border); }
+.contact-email {
+  font-family: 'EB Garamond', serif; font-size: 1.3rem;
+  color: var(--einv-accent); text-decoration: none;
+  border-bottom: 1px solid var(--einv-border); padding-bottom: 2px;
+  display: inline-block; margin: 1rem 0 2rem;
+  transition: border-color 0.2s;
+}
+.contact-email:hover { border-color: var(--einv-accent); }
+.contact-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .page-hero { padding: 8rem 2rem 4rem; }
+  .page-hero .inner { grid-template-columns: 1fr; }
+  .service-grid { gap: 2.5rem; }
+  .impl-grid { gap: 1.5rem; }
+}
+@media (max-width: 900px) {
+  .page-hero { padding: 7rem 1.5rem 3.5rem; }
+  .phase-grid { grid-template-columns: 1fr; }
+  .phase-selector { grid-template-columns: 1fr; }
+  .doctype-grid { grid-template-columns: 1fr 1fr; }
+  .service-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .impl-grid { grid-template-columns: 1fr; }
+  .contact-banner { flex-direction: column; padding: 2rem 1.5rem; }
+  .contact-section { padding: 4rem 1.5rem; }
+  .contact-btns { flex-direction: column; align-items: center; }
+  .btn, .btn-ghost { width: 100%; max-width: 300px; text-align: center; }
+}
+@media (max-width: 600px) {
+  .doctype-grid { grid-template-columns: 1fr; }
+  .hero-stats { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo">Pepp<span>wise</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="malaysia.html" class="nav-active">Malaysia e-Invoice</a>
+    <a href="peppol.html">Peppol</a>
+    <a href="#contact" class="nav-cta">Get in Touch</a>
+  </div>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile-overlay" id="nav-mobile-overlay">
+  <a href="index.html" class="mobile-nav-link">Home</a>
+  <a href="malaysia.html" class="mobile-nav-link">Malaysia e-Invoice</a>
+  <a href="peppol.html" class="mobile-nav-link">Peppol</a>
+  <a href="#contact" class="mobile-nav-link">Get in Touch</a>
+</div>
+
+<!-- ═══ PAGE HERO ═══ -->
+<div class="page-hero">
+  <div class="inner">
+    <div>
+      <div class="eyebrow eyebrow-blue" style="animation:fadeUp 0.6s ease both;">Malaysia e-Invoice · LHDN / IRBM · MyInvois</div>
+      <h1 style="animation:fadeUp 0.6s ease 0.1s both;">
+        Malaysia's mandatory<br>
+        e-invoicing framework —<br>
+        <em>fully implemented.</em>
+      </h1>
+      <p class="page-hero-sub" style="animation:fadeUp 0.6s ease 0.2s both;">
+        All 5 IRBM document types. Phase 2 (1 Jul 2025) and Phase 3 (1 Jan 2026) deadlines. LHDN API integration, X.509 digital signature, UBL 2.1 XML mapping — end-to-end.
+      </p>
+      <div class="hero-stats" style="animation:fadeUp 0.6s ease 0.3s both;">
+        <div class="hero-stat">
+          <div class="hero-stat-num">5</div>
+          <div class="hero-stat-lbl">IRBM Document Types</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">72h</div>
+          <div class="hero-stat-lbl">Buyer Rejection Window</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">RM300</div>
+          <div class="hero-stat-lbl">Penalty Per Invoice</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0.8rem;animation:fadeUp 0.6s ease 0.35s both;">
+      <a href="#contact" class="btn btn-blue">Book a Free Assessment</a>
+      <a href="peppol.html" class="btn-ghost" style="text-align:center;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;">Also need Peppol? →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PHASE DEADLINES ═══ -->
+<div class="section-wrap no-border" id="phases">
+  <div class="inner">
+    <div class="eyebrow eyebrow-blue reveal">Regulatory Timeline</div>
+    <h2 class="reveal">Malaysia e-Invoice <em>Phase Deadlines</em></h2>
+    <p class="lead reveal">IRBM has structured the rollout in three phases by annual turnover. Non-compliance carries financial penalties and, for repeated offences, criminal liability.</p>
+
+    <div class="phase-grid reveal-group">
+      <div class="phase-card active reveal">
+        <span class="phase-status status-live">✓ Live Since Aug 2024</span>
+        <div class="phase-date">Phase 1</div>
+        <div class="phase-title">Annual Turnover &gt; RM 100 Million</div>
+        <p class="phase-desc">Large corporations were the first wave. Mandatory API or MyInvois Portal submission required. LHDN validation and UUID assignment live for this group since August 2024.</p>
+      </div>
+      <div class="phase-card upcoming reveal">
+        <span class="phase-status status-urgent">⚠ Deadline: 1 July 2025</span>
+        <div class="phase-date">Phase 2</div>
+        <div class="phase-title">Annual Turnover &gt; RM 25 Million</div>
+        <p class="phase-desc">Mid-size businesses — including manufacturers, distributors, and service firms above RM25M — must be fully compliant by 1 July 2025. This is the most time-sensitive deadline right now.</p>
+      </div>
+      <div class="phase-card reveal">
+        <span class="phase-status status-upcoming">Deadline: 1 Jan 2026</span>
+        <div class="phase-date">Phase 3</div>
+        <div class="phase-title">All Remaining Businesses</div>
+        <p class="phase-desc">All Malaysian businesses regardless of turnover must comply by 1 January 2026. No exemptions remain after this date. Now is the time to begin implementation planning.</p>
+      </div>
+    </div>
+
+    <div class="penalty-callout reveal">
+      <h4>⚠ Non-Compliance Penalties</h4>
+      <p>Under the Income Tax Act 1967 (as amended), failure to issue a valid e-invoice carries a penalty of <strong>RM200 to RM1,000 per invoice</strong>. Repeated or wilful non-compliance can result in fines of <strong>up to RM20,000</strong>, a term of imprisonment, or both. X.509 digital signature and UUID are required on every validated document.</p>
+    </div>
+
+    <div style="margin-top:2rem;" class="reveal">
+      <p style="font-size:0.82rem;font-weight:700;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.8rem;">Where does your business fall?</p>
+      <div class="phase-selector">
+        <div class="selector-box">
+          <strong>Turnover &gt; RM 100M</strong>
+          <span>Phase 1 — already mandatory</span>
+          <em>Should be live now</em>
+        </div>
+        <div class="selector-box">
+          <strong>Turnover &gt; RM 25M</strong>
+          <span>Phase 2 — 1 July 2025</span>
+          <em>Immediate action required</em>
+        </div>
+        <div class="selector-box">
+          <strong>All other businesses</strong>
+          <span>Phase 3 — 1 Jan 2026</span>
+          <em>Begin planning now</em>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 5 DOCUMENT TYPES ═══ -->
+<div class="section-wrap alt" id="documents">
+  <div class="inner">
+    <div class="eyebrow eyebrow-blue reveal">IRBM Document Types</div>
+    <h2 class="reveal">The 5 Mandatory <em>Document Types</em></h2>
+    <p class="lead reveal">IRBM mandates five distinct e-invoice document types. Each has a specific use case, set of mandatory fields, and the party responsible for issuance. Implementation must cover all five.</p>
+
+    <div class="doctype-grid reveal-group">
+      <div class="doctype-card reveal">
+        <div class="doctype-num">Type 01</div>
+        <h4><span>Invoice</span></h4>
+        <p class="doctype-when">Standard commercial invoice for any taxable supply of goods or services between a supplier and a buyer — B2B and B2C.</p>
+        <div class="doctype-who">Issued by: Supplier</div>
+        <div class="doctype-fields">
+          Key fields: Supplier TIN, Buyer TIN, MSIC code, SST registration number, line-item tax category codes, total amounts.
+        </div>
+      </div>
+
+      <div class="doctype-card reveal">
+        <div class="doctype-num">Type 02</div>
+        <h4><span>Credit Note</span></h4>
+        <p class="doctype-when">Issued to reduce the value of a previously validated invoice. Used for returns, discounts granted after invoice validation, or pricing corrections downward.</p>
+        <div class="doctype-who">Issued by: Supplier</div>
+        <div class="doctype-fields">
+          Must reference the original invoice UUID. Net effect reduces the supplier's taxable supply and the buyer's input tax claim.
+        </div>
+      </div>
+
+      <div class="doctype-card reveal">
+        <div class="doctype-num">Type 03</div>
+        <h4><span>Debit Note</span></h4>
+        <p class="doctype-when">Issued to increase the value of a previously validated invoice. Used for additional charges, under-billed amounts, or price adjustments upward.</p>
+        <div class="doctype-who">Issued by: Supplier</div>
+        <div class="doctype-fields">
+          Must reference the original invoice UUID. Net effect increases the taxable supply and the buyer's corresponding input tax.
+        </div>
+      </div>
+
+      <div class="doctype-card reveal">
+        <div class="doctype-num">Type 04</div>
+        <h4><span>Refund Note</span></h4>
+        <p class="doctype-when">Issued when a validated invoice has been settled and the supplier subsequently refunds part or all of the amount. Distinct from a Credit Note in that payment has already occurred.</p>
+        <div class="doctype-who">Issued by: Supplier</div>
+        <div class="doctype-fields">
+          References the original invoice UUID. Triggers a corresponding adjustment to the tax position for both parties.
+        </div>
+      </div>
+
+      <div class="doctype-card reveal">
+        <div class="doctype-num">Type 05</div>
+        <h4><span>Self-Billed Invoice</span></h4>
+        <p class="doctype-when">Buyer issues the invoice on behalf of the supplier. Applies to specific qualifying transactions: agents and sub-agents, dealers, distributors, payments to foreign suppliers, and other IRBM-defined categories.</p>
+        <div class="doctype-who">Issued by: Buyer (on behalf of Supplier)</div>
+        <div class="doctype-fields">
+          Requires IRBM approval. Both parties' TINs must appear. The buyer assumes the compliance obligation for issuance and submission.
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem;padding:1.2rem 1.5rem;background:var(--surface);border:1px solid var(--einv-border);border-radius:4px;" class="reveal">
+      <p style="font-size:0.85rem;color:var(--text-muted);line-height:1.7;">
+        <strong style="color:var(--text-primary);">Implementation note:</strong> Your middleware or ERP integration must be capable of generating, signing, and submitting all five document types. A common implementation gap is handling Credit Notes and Self-Billed Invoices correctly — particularly the UUID cross-reference requirement and buyer-initiated submission flow.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TECHNICAL LIFECYCLE ═══ -->
+<div class="section-wrap surface" id="architecture">
+  <div class="inner">
+    <div class="eyebrow eyebrow-blue reveal">Technical Architecture</div>
+    <h2 class="reveal">The LHDN Document <em>Lifecycle</em></h2>
+    <p class="lead reveal">Every validated e-invoice passes through this five-stage flow. Understanding it is the first step to implementing it correctly — and building the rejection and archival handling that most implementations miss.</p>
+
+    <div class="lifecycle-steps">
+
+      <div class="lc-step">
+        <div class="lc-step-line">
+          <div class="lc-circle">1</div>
+          <div class="lc-connector"></div>
+        </div>
+        <div class="lc-body reveal">
+          <h4>Document Created in ERP or Accounting System</h4>
+          <p>The invoice (or other document type) is generated with all mandatory IRBM fields populated: <strong>Supplier TIN</strong>, <strong>Buyer TIN</strong>, <strong>MSIC code</strong> (Malaysia Standard Industrial Classification), <strong>SST registration number</strong> (where applicable), and line-item <strong>tax category codes</strong>. UBL 2.1 XML schema must be correctly mapped from internal ERP data structures.</p>
+        </div>
+      </div>
+
+      <div class="lc-step">
+        <div class="lc-step-line">
+          <div class="lc-circle">2</div>
+          <div class="lc-connector"></div>
+        </div>
+        <div class="lc-body reveal">
+          <span class="lc-badge">Two Submission Paths</span>
+          <h4>Signed &amp; Submitted to LHDN</h4>
+          <p>The document is signed with an <strong>X.509 digital certificate</strong> before transmission. There are two submission paths: the <strong>LHDN API</strong> (programmatic, used by middleware and ERP integrations — recommended for volume) and the <strong>MyInvois Portal</strong> (manual, web-based — suitable for very small volumes or testing). Most Phase 2 businesses will require API integration.</p>
+        </div>
+      </div>
+
+      <div class="lc-step">
+        <div class="lc-step-line">
+          <div class="lc-circle">3</div>
+          <div class="lc-connector"></div>
+        </div>
+        <div class="lc-body reveal">
+          <span class="lc-badge">Real-Time</span>
+          <h4>Validated by LHDN — UUID &amp; QR Code Assigned</h4>
+          <p>LHDN validates the document in real time — checking schema compliance, TIN references, tax calculations, and MSIC codes. On successful validation, LHDN assigns a <strong>Unique Document Identifier (UUID)</strong> and generates a <strong>QR code</strong>. The LHDN validation timestamp is returned and starts both 72-hour windows simultaneously.</p>
+        </div>
+      </div>
+
+      <div class="lc-step">
+        <div class="lc-step-line">
+          <div class="lc-circle">4</div>
+          <div class="lc-connector"></div>
+        </div>
+        <div class="lc-body reveal">
+          <span class="lc-badge">72-Hour Window</span>
+          <h4>Buyer Notified — Rejection &amp; Cancellation Window Opens</h4>
+          <p>From the LHDN validation timestamp, a <strong>72-hour window</strong> opens simultaneously for two actions: (1) the <strong>Buyer</strong> may formally reject the invoice via LHDN (e.g., wrong amounts, wrong party details); (2) the <strong>Supplier</strong> may cancel the invoice. After 72 hours, neither action is possible — the invoice is confirmed. Your ERP must monitor rejection status and surface alerts to the relevant team.</p>
+        </div>
+      </div>
+
+      <div class="lc-step">
+        <div class="lc-step-line">
+          <div class="lc-circle">5</div>
+          <div class="lc-connector"></div>
+        </div>
+        <div class="lc-body reveal">
+          <h4>Validated Invoice Archived</h4>
+          <p>If not rejected or cancelled within 72 hours, the invoice is confirmed. Both parties must retain the validated document — including the <strong>UUID and QR code</strong> — for the IRBM-stipulated archival period. The QR code links to the LHDN verification portal where anyone can verify the invoice's authenticity. Archival must be integrated into your document management workflow.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PERSONAL IMPLEMENTATION EXPERIENCE ═══ -->
+<div class="section-wrap alt" id="experience">
+  <div class="inner">
+    <div class="eyebrow eyebrow-blue reveal">Implementation Experience</div>
+    <h2 class="reveal">Implemented, <em>Not Theorised</em></h2>
+    <p class="lead reveal">Every item below reflects work I have personally built, tested, and deployed in production environments — not knowledge drawn from documentation alone.</p>
+
+    <div class="impl-grid reveal-group">
+      <div class="impl-point reveal">
+        <div class="impl-icon">✍</div>
+        <div class="impl-text">
+          <h5>X.509 Digital Signature</h5>
+          <p>Certificate embedded into the submission payload prior to LHDN API call. Covers certificate provisioning, signing algorithm configuration, and signature validation handling.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">⚙</div>
+        <div class="impl-text">
+          <h5>LHDN API — Full Endpoint Coverage</h5>
+          <p>Submit document, get document status, cancel document, and reject document endpoints — all implemented and tested against LHDN's sandbox and production environments.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">📄</div>
+        <div class="impl-text">
+          <h5>UBL 2.1 XML Mapping</h5>
+          <p>Internal ERP invoice line items mapped to the IRBM UBL 2.1 schema. Covers namespace handling, extension schema compliance, and all mandatory/conditional field population.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">🏷</div>
+        <div class="impl-text">
+          <h5>MSIC Code Integration</h5>
+          <p>MSIC code lookup table integrated with product/service catalogue in the ERP. Automated assignment at line-item level based on product classification rules.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">↩</div>
+        <div class="impl-text">
+          <h5>Rejection &amp; Cancellation Flow</h5>
+          <p>Buyer-initiated rejection via LHDN portal reflected back into the ERP in near real-time. Supplier cancellation flow with 72-hour enforcement and ERP status synchronisation.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">🗄</div>
+        <div class="impl-text">
+          <h5>UUID &amp; QR Code Archival</h5>
+          <p>UUID and QR code stored against each invoice record in the ERP. QR verification link embedded in customer-facing invoice PDF. Archival retention policy implemented.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SERVICES ═══ -->
+<div class="section-wrap surface" id="services">
+  <div class="inner">
+    <div class="eyebrow eyebrow-blue reveal">What I Offer</div>
+    <h2 class="reveal">Services for <em>Malaysia e-Invoice</em></h2>
+
+    <div class="service-grid" style="margin-top:2.5rem;">
+      <ul class="service-list reveal-group">
+        <li class="service-item reveal">
+          <span class="service-num">01</span>
+          <div>
+            <h4>LHDN API Integration</h4>
+            <p>Direct middleware connection to MyInvois. Handles document submission, real-time validation response, UUID/QR retrieval, status polling, rejection detection, and cancellation flows.</p>
+            <div class="deliverables">Deliverables: Working API middleware, endpoint documentation, error-handling playbook</div>
+          </div>
+        </li>
+        <li class="service-item reveal">
+          <span class="service-num">02</span>
+          <div>
+            <h4>ERP &amp; Accounting System Bridge</h4>
+            <p>Connect SAP, Oracle, Xero, SQL Accounting, or custom internal systems to the e-invoice pipeline. No disruption to existing finance workflows. Covers all 5 document types.</p>
+            <div class="deliverables">Deliverables: Integration spec, ERP connector, UAT sign-off checklist</div>
+          </div>
+        </li>
+        <li class="service-item reveal">
+          <span class="service-num">03</span>
+          <div>
+            <h4>Gap Assessment &amp; Readiness Audit</h4>
+            <p>Know exactly where you stand before your compliance deadline. A structured review of your current invoicing stack, data quality, and team readiness — delivered as a ranked action list.</p>
+            <div class="deliverables">Deliverables: Gap report, prioritised action list, implementation roadmap with timeline</div>
+          </div>
+        </li>
+        <li class="service-item reveal">
+          <span class="service-num">04</span>
+          <div>
+            <h4>Team Training &amp; Documentation</h4>
+            <p>Finance and IT team handoff. Standard operating procedures covering daily submission, error handling, rejection response, and LHDN portal navigation. Includes ongoing advisory support.</p>
+            <div class="deliverables">Deliverables: SOP documents, training session, Q&amp;A reference guide</div>
+          </div>
+        </li>
+        <li class="service-item reveal">
+          <span class="service-num">05</span>
+          <div>
+            <h4>Full Document Type Compliance</h4>
+            <p>Coverage of all five IRBM document types — including the commonly missed Self-Billed Invoice (buyer-issued) flows for agents, dealers, distributors, and foreign suppliers.</p>
+            <div class="deliverables">Deliverables: All 5 document templates, submission tests, Self-Billed eligibility checklist</div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="reveal">
+        <div class="card card-blue" style="padding:2rem;position:sticky;top:7rem;">
+          <div style="font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--einv-accent);margin-bottom:1.5rem;">Why Act Now</div>
+          <div style="font-family:'EB Garamond',serif;font-size:3rem;font-weight:500;line-height:1;color:var(--einv-accent);">72h</div>
+          <div style="font-size:0.78rem;color:var(--text-muted);margin:0.4rem 0 1.5rem;">Buyer rejection window from LHDN validation timestamp</div>
+          <div class="divider"></div>
+          <ul class="checklist" style="margin-bottom:1.5rem;">
+            <li>
+              <svg class="check-icon check-blue" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+              Phase 1 (&gt;RM100M) — live since Aug 2024
+            </li>
+            <li>
+              <svg class="check-icon check-blue" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+              Phase 2 (&gt;RM25M) — mandatory 1 July 2025
+            </li>
+            <li>
+              <svg class="check-icon check-blue" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+              Phase 3 (all businesses) — mandatory 1 Jan 2026
+            </li>
+            <li>
+              <svg class="check-icon check-blue" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+              Penalties: RM200–RM1,000 per invoice
+            </li>
+            <li>
+              <svg class="check-icon check-blue" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+              Repeated non-compliance: up to RM20,000 or imprisonment
+            </li>
+            <li>
+              <svg class="check-icon check-blue" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+              X.509 digital signature + UUID required per document
+            </li>
+          </ul>
+          <div class="divider"></div>
+          <a href="#contact" class="btn btn-blue" style="display:block;text-align:center;margin-top:1rem;">Get a Free Assessment →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONTACT ═══ -->
+<div class="contact-section" id="contact">
+  <div class="eyebrow eyebrow-blue eyebrow-center reveal">Let's Talk</div>
+  <h2 class="reveal">Ready to Start Your<br><em>Phase 2 Implementation?</em></h2>
+  <p class="lead reveal" style="margin:0 auto 0.5rem;text-align:center;">
+    Phase 2 deadline is 1 July 2025. First consultation is complimentary — let's identify your gaps and map out your implementation plan.
+  </p>
+  <a href="mailto:hello@peppwise.com" class="contact-email reveal">hello@peppwise.com</a>
+  <div class="contact-btns reveal">
+    <a href="mailto:hello@peppwise.com" class="btn btn-blue">Send an Enquiry</a>
+    <a href="mailto:hello@peppwise.com?subject=Malaysia e-Invoice Discovery Call" class="btn-ghost">Book a Discovery Call</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Peppwise · Independent Compliance Advisory · Malaysia &amp; Singapore</p>
+  <nav class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="malaysia.html">Malaysia e-Invoice</a>
+    <a href="peppol.html">Peppol</a>
+  </nav>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.09, rootMargin: '0px 0px -30px 0px' });
+  revealEls.forEach(el => observer.observe(el));
+
+  const hamburger = document.getElementById('nav-hamburger');
+  const overlay   = document.getElementById('nav-mobile-overlay');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
+  });
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>
