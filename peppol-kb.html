@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peppol Knowledge Base — Access Point, SMP, SML, AS4 | Peppwise</title>
+<meta name="description" content="Plain-English guide to Peppol: what an Access Point is, how SMP/SML routing works, AS4 protocol, Pre/Post Award, and eDelivery — by someone who has built it.">
+<meta property="og:title" content="Peppol Knowledge Base — Access Point, SMP, SML, AS4 | Peppwise">
+<meta property="og:description" content="Plain-English explanations of the Peppol network written by someone who has built it. Covers Access Points, SMP, SML, AS4, Pre Award, Post Award, and eDelivery.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.peppwise.com/peppol-kb">
+<link rel="canonical" href="https://www.peppwise.com/peppol-kb">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://www.peppwise.com/peppol-kb",
+      "name": "Peppol Knowledge Base — Access Point, SMP, SML, AS4 | Peppwise",
+      "description": "Plain-English guide to Peppol: Access Points, SMP, SML, AS4, Pre Award, Post Award, and eDelivery.",
+      "isPartOf": {"@type":"WebSite","url":"https://www.peppwise.com"}
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a Peppol Access Point?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A Peppol Access Point is the technical gateway that connects a business to the Peppol network. All document exchange goes through an AP. It is the C2 (sender's AP) or C3 (receiver's AP) in the 4-corner model."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is an SMP in Peppol?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An SMP (Service Metadata Publisher) is a directory that stores each Peppol participant's capabilities and the document types they can receive. It tells the sending Access Point exactly which endpoint to deliver to."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is AS4 in Peppol?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AS4 is the secure messaging protocol used to transport Peppol documents between Access Points. It provides end-to-end encryption, digital signatures, non-repudiation, and reliable delivery. It replaced the older AS2 protocol."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+
+/* ─── KB PAGE HERO ─── */
+.kb-hero {
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--border);
+  padding: 9rem 3rem 4.5rem;
+}
+.kb-hero .inner {
+  max-width: 860px; margin: 0 auto;
+}
+.kb-hero h1 {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 500; line-height: 1.06;
+  color: var(--text-primary); margin-bottom: 1rem;
+}
+.kb-hero-sub {
+  font-size: 1rem; line-height: 1.75;
+  color: var(--text-muted); max-width: 60ch;
+  margin-bottom: 2rem;
+}
+
+/* ─── KB CONTENT AREA ─── */
+.kb-wrap {
+  max-width: 860px; margin: 0 auto;
+  padding: 0 3rem 5rem;
+}
+
+/* ─── ARTICLE DIVIDER ─── */
+.kb-section-header {
+  padding: 3rem 0 0;
+}
+
+/* ─── FLOW DIAGRAM ─── */
+.flow-row {
+  display: flex; align-items: center; gap: 0;
+  margin: 1.5rem 0; flex-wrap: wrap;
+}
+.flow-node {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 4px; padding: 0.6rem 1.1rem;
+  font-size: 0.75rem; font-weight: 700;
+  color: var(--text-primary); white-space: nowrap;
+  box-shadow: var(--shadow-sm);
+}
+.flow-node.active {
+  background: var(--bg-3); border-color: var(--border-strong);
+}
+.flow-arrow {
+  font-size: 0.85rem; color: var(--text-faint);
+  padding: 0 0.5rem; flex-shrink: 0;
+}
+
+/* ─── PROTOCOL DETAIL TABLE ─── */
+.kb-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 0.8rem; margin-top: 1.5rem;
+}
+.kb-table th {
+  text-align: left; font-size: 0.65rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text-muted); font-weight: 700;
+  border-bottom: 1.5px solid var(--border-strong);
+  padding: 0.5rem 1rem 0.5rem 0;
+}
+.kb-table td {
+  padding: 0.65rem 1rem 0.65rem 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-body); vertical-align: top;
+}
+.kb-table tr:last-child td { border-bottom: none; }
+.kb-table td:first-child { font-weight: 700; color: var(--text-primary); white-space: nowrap; }
+
+/* ─── CALLOUT / ANALOGY ─── */
+.kb-note {
+  background: var(--surface); border: 1px solid var(--border);
+  border-left: 3px solid var(--border-strong);
+  padding: 1rem 1.4rem; margin-top: 1.5rem; border-radius: 0 4px 4px 0;
+  font-size: 0.88rem; color: var(--text-muted); line-height: 1.7;
+}
+.kb-note strong { color: var(--text-primary); }
+.kb-note.kb-note-practice {
+  border-left-color: var(--pep-accent);
+  background: var(--pep-pale);
+}
+.kb-note.kb-note-practice strong { color: var(--pep-accent); }
+
+/* ─── ARTICLE NUMBER BADGE ─── */
+.kb-number {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--bg-3); border: 1.5px solid var(--border-strong);
+  font-size: 0.7rem; font-weight: 700; color: var(--text-muted);
+  margin-bottom: 0.8rem; flex-shrink: 0;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .kb-hero { padding: 8rem 2rem 4rem; }
+  .kb-wrap { padding: 0 2rem 4rem; }
+}
+@media (max-width: 900px) {
+  .kb-hero { padding: 7rem 1.5rem 3.5rem; }
+  .kb-wrap { padding: 0 1.5rem 3.5rem; }
+  .flow-row { gap: 0; }
+}
+@media (max-width: 640px) {
+  .kb-table { font-size: 0.75rem; }
+  .flow-node { font-size: 0.68rem; padding: 0.5rem 0.75rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo">Pepp<span>wise</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <div class="nav-dropdown">
+      <a href="peppol.html" class="nav-dropdown-trigger nav-active">Peppol <span class="dropdown-arrow">▾</span></a>
+      <div class="nav-dropdown-menu">
+        <a href="peppol.html">Peppol Overview</a>
+        <a href="peppol-singapore.html">Singapore Access Point</a>
+        <a href="peppol-kb.html" class="active-sub">Knowledge Base</a>
+      </div>
+    </div>
+    <a href="malaysia.html">Malaysia e-Invoice</a>
+    <a href="#contact" class="nav-cta">Get in Touch</a>
+  </div>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile-overlay" id="nav-mobile-overlay">
+  <a href="index.html" class="mobile-nav-link">Home</a>
+  <a href="peppol.html" class="mobile-nav-link">Peppol Overview</a>
+  <a href="peppol-singapore.html" class="mobile-nav-link">Singapore AP</a>
+  <a href="peppol-kb.html" class="mobile-nav-link">Knowledge Base</a>
+  <a href="malaysia.html" class="mobile-nav-link">Malaysia e-Invoice</a>
+  <a href="#contact" class="mobile-nav-link">Get in Touch</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<div class="kb-hero">
+  <div class="inner">
+    <div class="eyebrow" style="animation:fadeUp 0.6s ease both;">Peppol · Explained</div>
+    <h1 style="animation:fadeUp 0.6s ease 0.08s both;">Peppol<br><em style="font-style:italic;color:var(--text-muted);">Knowledge Base</em></h1>
+    <p class="kb-hero-sub" style="animation:fadeUp 0.6s ease 0.16s both;">
+      Plain-English explanations of the Peppol network — written by someone who has actually built it. No marketing language, no Wikipedia abstractions.
+    </p>
+    <nav class="kb-jump-links" style="animation:fadeUp 0.6s ease 0.24s both;" aria-label="Jump to article">
+      <a href="#access-point">Access Point</a>
+      <a href="#smp">SMP</a>
+      <a href="#sml">SML</a>
+      <a href="#as4">AS4</a>
+      <a href="#pre-award">Pre Award</a>
+      <a href="#post-award">Post Award</a>
+      <a href="#edelivery">eDelivery</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ═══ ARTICLES ═══ -->
+<div class="kb-wrap">
+
+  <!-- ─── ARTICLE 1: Access Point ─── -->
+  <div class="kb-article reveal-group" id="access-point">
+    <div class="kb-number reveal">1</div>
+    <span class="kb-tag reveal">Infrastructure</span>
+    <h3 class="reveal" style="font-family:'EB Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:500;">Access Point</h3>
+    <div class="kb-article-body reveal">
+      <p>An <strong>Access Point (AP)</strong> is the technical gateway that connects a business to the Peppol network. Every document exchanged over Peppol — an invoice, an order, a credit note — passes through an Access Point on both ends.</p>
+      <p>Think of it as a managed post office. Your business hands a document to its AP (C2), which handles all the packaging, addressing, encryption, and delivery. On the other side, the receiver's AP (C3) unwraps and delivers it to the recipient's system (C4). Your business never speaks directly to the other business — APs mediate all exchange.</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>What an AP Does</h5>
+        <p>Receives a document from your system, validates its format (BIS 3.0 / PINT SG), signs and encrypts it, looks up the receiver's AP via SMP/SML, and delivers it using the AS4 protocol. Handles acknowledgements and retries.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>AP Certification</h5>
+        <p>Access Points must be certified by a Peppol Authority — IMDA in Singapore, MDEC in Malaysia, OpenPeppol for international registrations. Certification requires demonstrating technical compliance with AS4, SMP, and document format standards.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Hosted vs. Self-Hosted</h5>
+        <p>Most businesses connect to a hosted AP service — a third-party provider that manages the infrastructure. Large enterprises or technology vendors building their own Peppol integrations may operate a self-hosted (self-certified) AP.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>4-Corner Model</h5>
+        <p>C1 = Sender's ERP/system. C2 = Sender's Access Point. C3 = Receiver's Access Point. C4 = Receiver's ERP/system. The AP sits at corners 2 and 3 — the entire network topology is built around this model.</p>
+      </div>
+    </div>
+
+    <div class="flow-row reveal" style="margin-top:1.8rem;">
+      <div class="flow-node">C1 — Sender</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node active">C2 — Sender's AP</div>
+      <div class="flow-arrow">→→</div>
+      <div class="flow-node active">C3 — Receiver's AP</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">C4 — Receiver</div>
+    </div>
+
+    <div class="kb-note kb-note-practice reveal">
+      <strong>From practice:</strong> Building an Access Point means dealing with AS4 message signing, SMP registration, BIS validation, and certificate management — before you even touch business logic. It is genuinely a specialised engineering task, which is why most businesses use a hosted AP service and a developer like me to wire it to their ERP.
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 2: SMP ─── -->
+  <div class="kb-article reveal-group" id="smp">
+    <div class="kb-number reveal">2</div>
+    <span class="kb-tag reveal">Routing</span>
+    <h3 class="reveal" style="font-family:'EB Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:500;">SMP — Service Metadata Publisher</h3>
+    <div class="kb-article-body reveal">
+      <p>An <strong>SMP (Service Metadata Publisher)</strong> is a directory that stores each Peppol participant's capabilities: what Peppol ID they have, which document types they can receive, and which Access Point they are connected to.</p>
+      <p>Before sending a Peppol document, the sender's Access Point must confirm that the receiver is registered and capable of accepting that document type. It does this by querying the SMP. The SMP responds with the receiver's AP endpoint URL and the transport protocol details needed to deliver the document.</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>Peppol Participant ID</h5>
+        <p>Every business on the Peppol network has a Peppol Participant Identifier — for example, <code style="font-size:0.75rem;background:var(--bg-3);padding:1px 5px;border-radius:3px;">0195:SGUEN123456789A</code>. The prefix (0195) is the scheme for Singapore UEN numbers. This ID is what gets registered in the SMP.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>What the SMP Stores</h5>
+        <p>For each participant: their Peppol ID, their Access Point's endpoint URL, the document types (process IDs) they accept, and the transport profile (AS4). An AP registers participants on the SMP when onboarding them to the network.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>The Lookup Flow</h5>
+        <p>Sending AP queries the SML to find the SMP that holds the receiver's record. Then queries the SMP directly to get the receiver's endpoint details. This two-step lookup happens every time a document is about to be sent.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Who Operates SMPs</h5>
+        <p>Access Point providers operate their own SMP and register their connected participants on it. OpenPeppol operates the SML that points to all the SMPs. In Singapore, IMDA operates a national SMP for the InvoiceNow network.</p>
+      </div>
+    </div>
+
+    <div class="kb-analogy reveal">
+      <strong>Analogy:</strong> Think of the SMP as a detailed contact card in a business directory. It tells you exactly which post office (Access Point) to send a document to, and what document formats that business accepts. Without this record, you cannot send to them.
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 3: SML ─── -->
+  <div class="kb-article reveal-group" id="sml">
+    <div class="kb-number reveal">3</div>
+    <span class="kb-tag reveal">Routing</span>
+    <h3 class="reveal" style="font-family:'EB Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:500;">SML — Service Metadata Locator</h3>
+    <div class="kb-article-body reveal">
+      <p>The <strong>SML (Service Metadata Locator)</strong> is the top-level DNS-like directory for the entire Peppol network. It maps Peppol Participant IDs to the SMP that holds their registration record.</p>
+      <p>When a sending Access Point needs to route a document, it first asks the SML: "which SMP holds the record for this Peppol ID?" The SML responds with the hostname of the relevant SMP. The AP then queries that SMP directly to get the full delivery details.</p>
+      <p>The SML is operated by OpenPeppol and works via DNS — Peppol IDs are hashed and looked up as DNS subdomains under the <code style="font-size:0.85em;background:var(--bg-3);padding:1px 5px;border-radius:3px;">edelivery.peppol.eu</code> zone. This means the lookup is essentially a DNS resolution — fast, globally distributed, and stateless.</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>How the DNS Lookup Works</h5>
+        <p>The sending AP hashes the receiver's Peppol ID using MD5, then queries a DNS name in the format <code style="font-size:0.73rem;background:var(--bg-3);padding:1px 4px;border-radius:3px;">[hash].iso6523-actorid-upis.edelivery.peppol.eu</code>. The DNS CNAME response points to the SMP hostname.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Operated by OpenPeppol</h5>
+        <p>The SML is a shared global infrastructure maintained by OpenPeppol. Every national Peppol authority (IMDA, MDEC, etc.) connects to this same SML. Participant registrations are propagated to it via the AP's SMP.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Why It Enables Dynamic Routing</h5>
+        <p>Because of SML + SMP, no Peppol sender needs a list of receiver endpoints. The network resolves endpoints on the fly, for any registered business anywhere in the 50+ country Peppol network. There are no hardcoded partner connections.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>SML vs. SMP</h5>
+        <p>SML = "which SMP should I ask?" (one global DNS directory). SMP = "what are the delivery details for this participant?" (per-AP directory with full endpoint records). You always query SML first, then SMP.</p>
+      </div>
+    </div>
+
+    <div class="kb-analogy reveal">
+      <strong>Analogy:</strong> SML is the phone book index — it tells you which directory to look in. SMP is the actual directory entry — it gives you the full address and contact details. You need both, in that order, to route a document.
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 4: AS4 ─── -->
+  <div class="kb-article reveal-group" id="as4">
+    <div class="kb-number reveal">4</div>
+    <span class="kb-tag reveal">Protocol</span>
+    <h3 class="reveal" style="font-family:'EB Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:500;">AS4 — Secure Messaging Protocol</h3>
+    <div class="kb-article-body reveal">
+      <p><strong>AS4</strong> is the messaging protocol that Peppol Access Points use to transport documents between each other. It handles the envelope, the security wrapper, the delivery acknowledgement, and the error handling — independently of the document payload inside.</p>
+      <p>AS4 is based on the OASIS ebMS 3.0 standard. Peppol uses a specific AS4 conformance profile (the "Peppol AS4 profile") that mandates particular security settings, signing algorithms, and transport behaviours.</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>End-to-End Security</h5>
+        <p>AS4 requires that messages be both digitally signed and optionally encrypted at the message level. Signing uses the sender AP's Peppol certificate. The receiver AP verifies the signature before accepting the message — ensuring the document has not been tampered with in transit.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Non-Repudiation</h5>
+        <p>AS4 provides proof of receipt. When the receiver AP successfully receives and processes a message, it sends back a signed acknowledgement (Receipt NRR). The sender AP stores this as legal evidence that the document was delivered. Critical for audit trails.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Reliable Delivery</h5>
+        <p>If a delivery fails, AS4 defines retry behaviour. The sending AP retries with exponential backoff, and the message ID ensures idempotency — even if the same message is delivered twice, the receiver only processes it once.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Why AS4 Replaced AS2</h5>
+        <p>AS2 was the previous Peppol transport protocol. AS4 replaced it because it is web-service native (SOAP/HTTPS rather than MIME/SMTP), has stronger security algorithms, better suited to cloud-hosted APs, and aligns with EU eDelivery building blocks.</p>
+      </div>
+    </div>
+
+    <table class="kb-table reveal">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>AS4 (Peppol Profile)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Transport</td><td>HTTPS (TLS 1.2+)</td></tr>
+        <tr><td>Message format</td><td>SOAP with MIME attachments</td></tr>
+        <tr><td>Signing algorithm</td><td>RSA-SHA256 / RSA-SHA384</td></tr>
+        <tr><td>Certificate type</td><td>Peppol PKI X.509 certificate (issued by OpenPeppol)</td></tr>
+        <tr><td>Acknowledgement</td><td>Signed Receipt (Non-Repudiation of Receipt)</td></tr>
+        <tr><td>Retry behaviour</td><td>AP-defined; typically 3–5 retries with backoff</td></tr>
+        <tr><td>Idempotency key</td><td>Message ID (UUID) — deduplication at receiver AP</td></tr>
+      </tbody>
+    </table>
+
+    <div class="kb-note kb-note-practice reveal">
+      <strong>From practice:</strong> Implementing AS4 correctly means managing Peppol PKI certificates, building the SOAP envelope construction, handling signed acknowledgements, and implementing deduplication. The certificate lifecycle alone — rotation, revocation, test vs. production PKI — is a significant operational task for any Access Point operator.
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 5: Pre Award ─── -->
+  <div class="kb-article reveal-group" id="pre-award">
+    <div class="kb-number reveal">5</div>
+    <span class="kb-tag reveal">Procurement Phase</span>
+    <h3 class="reveal" style="font-family:'EB Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:500;">Pre Award</h3>
+    <div class="kb-article-body reveal">
+      <p><strong>Pre Award</strong> is the procurement phase that happens before a contract is signed — covering everything from tendering and bidding through to the award decision. In the Peppol context, Pre Award covers the standardised document types that support this phase: tender notices, call for tenders, tender responses, and award notices.</p>
+      <p>Peppol's Pre Award standards allow government procurement systems to publish tenders electronically and receive tender responses in a structured, machine-readable format. This enables suppliers to automatically process opportunities from any compliant procurement portal — without re-keying data.</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>Key Pre Award Documents</h5>
+        <p>Tender Notice (announcing an opportunity), Call for Tenders (formal invitation to bid), Tender Response (supplier submission), Award Notice (notification of the contract award decision). All standardised as Peppol BIS documents.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Who Uses Pre Award</h5>
+        <p>Primarily government procurement agencies and the suppliers who respond to public tenders. In the EU, Pre Award is driven by the Public Procurement Directives. In APAC, adoption is led by national e-procurement platforms (e.g., GeBIZ in Singapore, eProcurement in Malaysia).</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Status of Mandates</h5>
+        <p>Pre Award is less uniformly mandated than Post Award. The EU has the most mature Pre Award mandate (eTendering requirements under 2014/24/EU). Singapore's InvoiceNow focuses on Post Award — Pre Award is supported but not yet mandated for private sector.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Relationship to Post Award</h5>
+        <p>Pre Award and Post Award are the two halves of the full Peppol procurement lifecycle. A Pre Award process ends when a contract is awarded; the Post Award process begins with the first Purchase Order issued under that contract.</p>
+      </div>
+    </div>
+
+    <div class="kb-analogy reveal">
+      <strong>Simple summary:</strong> Pre Award = everything before you win the contract (finding opportunities, submitting bids, receiving award decisions). Post Award = everything after you win (orders, delivery, invoicing, payment).
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 6: Post Award ─── -->
+  <div class="kb-article reveal-group" id="post-award">
+    <div class="kb-number reveal">6</div>
+    <span class="kb-tag reveal">Procurement Phase</span>
+    <h3 class="reveal" style="font-family:'EB Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:500;">Post Award</h3>
+    <div class="kb-article-body reveal">
+      <p><strong>Post Award</strong> is the procurement phase after a contract is awarded — covering the execution of that contract through to payment. This is where the majority of Peppol mandates apply, and where most businesses first encounter the network.</p>
+      <p>The core Post Award documents form a natural flow: a buyer sends a Purchase Order → the seller confirms with an Order Response → goods or services are delivered (Despatch Advice) → the seller issues an Invoice → payment is made. Peppol standardises all of these documents, enabling automated processing at each step.</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>Purchase Order (BIS Order 3.0)</h5>
+        <p>Buyer's formal commitment to purchase goods or services. The Peppol PO carries structured line-item detail, delivery instructions, pricing, and tax information — all machine-readable by the seller's ERP system.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Order Response (BIS Order 3.0)</h5>
+        <p>Seller's confirmation (or rejection, or substitution) of the received Purchase Order — at the line-item level. Enables a structured back-and-forth before the order is locked, without phone calls or email threads.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Invoice (BIS Billing 3.0 / PINT SG)</h5>
+        <p>The most widely mandated Peppol document. In Singapore, this is a PINT SG invoice carrying GST treatment codes for C5 IRAS forwarding. In Malaysia, this is a MyInvois-validated UBL invoice. In the EU, it is a BIS 3.0 EN 16931 invoice.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Credit Note (BIS Billing 3.0)</h5>
+        <p>Issued to reduce the value of an existing invoice. Must reference the original Peppol invoice by document ID. Treated identically to an invoice at the Access Point level — same transport, same format rules, same IRAS data forwarding (in SG).</p>
+      </div>
+    </div>
+
+    <div class="flow-row reveal" style="margin-top:1.8rem;">
+      <div class="flow-node">Purchase Order</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">Order Response</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">Despatch Advice</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node active">Invoice</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">Payment</div>
+    </div>
+
+    <div class="kb-note kb-note-practice reveal">
+      <strong>Singapore context:</strong> Singapore's InvoiceNow mandate focuses on the Invoice within Post Award. GST-registered businesses (and from Nov 2025, all businesses) must be able to send and receive Peppol invoices via a certified AP. The invoice is then forwarded to IRAS as the C5 data submission.
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 7: eDelivery ─── -->
+  <div class="kb-article reveal-group" id="edelivery">
+    <div class="kb-number reveal">7</div>
+    <span class="kb-tag reveal">Infrastructure</span>
+    <h3 class="reveal" style="font-family:'EB Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:500;">eDelivery</h3>
+    <div class="kb-article-body reveal">
+      <p><strong>eDelivery</strong> is the overarching infrastructure layer that makes Peppol work globally. It refers to the combination of the 4-corner model, Access Points, SMP/SML routing, and the AS4 protocol — the full technical stack for exchanging structured business documents between any two participants anywhere in the Peppol network.</p>
+      <p>eDelivery is also a formal EU building block (CEF eDelivery — Connecting Europe Facility). The EU and OpenPeppol collaborated closely: Peppol's AP network is technically compatible with the EU eDelivery specification, which is also used by European public administrations beyond Peppol (e.g., customs data exchange, judicial document transmission).</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>What eDelivery Standardises</h5>
+        <p><em>How</em> documents travel: the AS4 messaging protocol, the SMP/SML routing mechanism, the certificate infrastructure, and the 4-corner model. eDelivery is transport-agnostic to the document content — what travels is defined by BIS/PINT standards, not eDelivery.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>eDelivery vs. Document Standards</h5>
+        <p>eDelivery = the envelope and postal network. BIS 3.0 / PINT SG = the content inside the envelope. A document can only reach its destination if it conforms to both: the right document format (BIS) delivered via the right transport (eDelivery / AS4).</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Global Reach via eDelivery</h5>
+        <p>Because eDelivery is standardised, a Peppol document sent from Singapore can be routed to any registered participant in 50+ countries — Australia, Germany, Norway, Japan — without any point-to-point integration. The SML/SMP lookup handles the routing automatically.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>EU eDelivery Building Block</h5>
+        <p>The EU's CEF eDelivery programme extends the same AS4-based eDelivery concept to non-Peppol use cases across European public administrations. Peppol APs can interoperate with these systems because the protocols are aligned — reducing the fragmentation of B2G document exchange.</p>
+      </div>
+    </div>
+
+    <div class="kb-analogy reveal">
+      <strong>Key point:</strong> eDelivery is what makes Peppol a genuine network rather than a collection of point-to-point integrations. Any AP connected to eDelivery can reach any other AP connected to eDelivery — globally, dynamically, without bilateral agreements. That is the fundamental value of the Peppol network.
+    </div>
+
+    <div class="kb-note kb-note-practice reveal" style="margin-top:1rem;">
+      <strong>From practice:</strong> When building an Access Point, eDelivery compliance means passing OpenPeppol's conformance testing — demonstrating that your AS4 implementation, SMP registration, and certificate handling all meet the specification. This is a formal, assessed process before you are permitted to operate on the live Peppol network.
+    </div>
+  </div>
+
+</div><!-- /kb-wrap -->
+
+<!-- ═══ CONTACT ═══ -->
+<div class="contact-section" id="contact" style="background:var(--bg-2);border-top:1px solid var(--border);">
+  <div class="eyebrow eyebrow-center reveal" style="margin-bottom:1.5rem;">Have a Question?</div>
+  <h2 class="reveal" style="font-family:'EB Garamond',serif;">Need Help Building<br><em>on Peppol?</em></h2>
+  <p class="lead reveal" style="margin:1rem auto 0.5rem;text-align:center;max-width:52ch;">
+    These articles cover the concepts. If you are implementing a Peppol integration — Access Point setup, PINT SG mapping, SG InvoiceNow onboarding — reach out directly.
+  </p>
+  <a href="mailto:hello@peppwise.com" class="contact-email reveal">hello@peppwise.com</a>
+  <div class="contact-btns reveal">
+    <a href="peppol-singapore.html" class="btn btn-amber">Singapore Access Point</a>
+    <a href="https://calendly.com/tousif-md-amin-faisal/30min" target="_blank" rel="noopener" class="btn-ghost">Book a Discovery Call</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Peppwise · Independent Peppol Access Point Developer · Singapore &amp; Malaysia</p>
+  <nav class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="peppol.html">Peppol</a>
+    <a href="peppol-singapore.html">Singapore AP</a>
+    <a href="peppol-kb.html">Knowledge Base</a>
+    <a href="malaysia.html">Malaysia e-Invoice</a>
+  </nav>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.09, rootMargin: '0px 0px -30px 0px' });
+  revealEls.forEach(el => observer.observe(el));
+
+  const hamburger = document.getElementById('nav-hamburger');
+  const overlay   = document.getElementById('nav-mobile-overlay');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
+  });
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>

@@ -3,14 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Peppwise — Malaysia e-Invoice & Peppol Compliance Specialist</title>
-<meta name="description" content="Independent compliance advisory by a specialist who has personally implemented Malaysia e-Invoice (LHDN API, digital signature, UBL 2.1) and Singapore Peppol (InvoiceNow, C5 IRAS, AS4). Not a team. One expert.">
-<meta property="og:title" content="Peppwise — Malaysia e-Invoice & Peppol Compliance Specialist">
-<meta property="og:description" content="Personally implemented both Malaysia e-Invoice and Singapore Peppol C5. Helping businesses meet mandatory e-invoicing deadlines.">
+<title>Peppol Access Point Development &amp; Integration — Peppwise</title>
+<meta name="description" content="Peppol Access Point developer specialising in Singapore InvoiceNow, IMDA certification, BIS 3.0, PINT SG, and C5 IRAS GST automation. Also: Malaysia e-Invoice IRBM API integration.">
+<meta property="og:title" content="Peppol Access Point Development &amp; Integration — Peppwise">
+<meta property="og:description" content="Peppol Access Point developer. Singapore InvoiceNow, IMDA certification, BIS 3.0 / PINT SG, C5 IRAS GST automation. Built, not theorised.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.peppwise.com">
 <link rel="canonical" href="https://www.peppwise.com/">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231A1612'/><text x='16' y='23' font-family='serif' font-size='20' font-weight='bold' fill='%23B45309' text-anchor='middle'>P</text></svg>">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.peppwise.com/#org",
+      "name": "Peppwise",
+      "url": "https://www.peppwise.com",
+      "logo": "https://www.peppwise.com/favicon.svg",
+      "email": "hello@peppwise.com",
+      "description": "Independent Peppol Access Point developer specialising in Singapore InvoiceNow, IMDA certification, BIS 3.0, PINT SG, C5 IRAS automation, and Malaysia e-Invoice IRBM API integration.",
+      "areaServed": ["SG","MY"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.peppwise.com/#site",
+      "url": "https://www.peppwise.com",
+      "name": "Peppwise",
+      "publisher": {"@id":"https://www.peppwise.com/#org"}
+    },
+    {
+      "@type": "Service",
+      "name": "Peppol Access Point Development",
+      "provider": {"@id":"https://www.peppwise.com/#org"},
+      "description": "End-to-end Peppol Access Point development for Singapore InvoiceNow: IMDA certification, AS4 messaging, SMP/SML routing, BIS 3.0, PINT SG, and C5 IRAS GST automation.",
+      "serviceType": "Peppol Access Point Development",
+      "areaServed": ["SG","MY"],
+      "url": "https://www.peppwise.com/peppol-singapore.html"
+    },
+    {"@type":"SiteNavigationElement","name":"Peppol Overview","url":"https://www.peppwise.com/peppol.html"},
+    {"@type":"SiteNavigationElement","name":"Singapore Access Point","url":"https://www.peppwise.com/peppol-singapore.html"},
+    {"@type":"SiteNavigationElement","name":"Peppol Knowledge Base","url":"https://www.peppwise.com/peppol-kb.html"},
+    {"@type":"SiteNavigationElement","name":"Malaysia e-Invoice","url":"https://www.peppwise.com/malaysia.html"}
+  ]
+}
+</script>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
@@ -28,13 +66,13 @@
 .hero-left { max-width: 520px; }
 .hero-tag {
   font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
-  font-weight: 700; color: var(--text-muted);
+  font-weight: 700; color: var(--pep-accent);
   display: flex; align-items: center; gap: 0.75rem;
   margin-bottom: 1.8rem;
 }
 .hero-tag::before {
   content: ''; display: block;
-  width: 2rem; height: 1px; background: var(--text-muted);
+  width: 2rem; height: 1px; background: var(--pep-accent);
 }
 .hero h1 {
   font-family: 'EB Garamond', serif;
@@ -47,15 +85,29 @@
 .hero h1 em { font-style: italic; color: var(--pep-accent); display: block; }
 .hero-sub {
   font-size: 0.97rem; line-height: 1.8;
-  color: var(--text-muted); max-width: 42ch;
+  color: var(--text-muted); max-width: 44ch;
+  margin-bottom: 1.6rem;
+}
+.hero-stats {
+  display: flex; gap: 1.2rem; flex-wrap: wrap;
   margin-bottom: 2.4rem;
+}
+.hero-stat-inline {
+  display: flex; flex-direction: column;
+}
+.hero-stat-inline .num {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.7rem; font-weight: 500; line-height: 1;
+  color: var(--pep-accent);
+}
+.hero-stat-inline .lbl {
+  font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-muted); margin-top: 0.15rem;
 }
 .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
 
-/* ─── SERVICE CARDS (right col) ─── */
-.hero-right {
-  display: flex; flex-direction: column; gap: 1.2rem;
-}
+/* ─── SERVICE CARD (right col) ─── */
+.hero-right { display: flex; flex-direction: column; gap: 1rem; }
 .service-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -65,17 +117,14 @@
   text-decoration: none;
   display: block;
   transition: box-shadow 0.25s, transform 0.2s;
-  position: relative;
-  overflow: hidden;
+  position: relative; overflow: hidden;
 }
 .service-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
-.service-card-blue  { border-left: 4px solid var(--einv-accent); }
 .service-card-amber { border-left: 4px solid var(--pep-accent); }
 .sc-eyebrow {
   font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
   font-weight: 700; margin-bottom: 0.6rem;
 }
-.sc-eyebrow-blue  { color: var(--einv-accent); }
 .sc-eyebrow-amber { color: var(--pep-accent); }
 .sc-title {
   font-family: 'EB Garamond', serif;
@@ -83,32 +132,40 @@
   color: var(--text-primary); margin-bottom: 0.4rem; line-height: 1.2;
 }
 .sc-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 0.9rem; }
-.sc-mandate {
-  font-size: 0.7rem; letter-spacing: 0.08em; font-weight: 700;
-  padding: 0.25rem 0.7rem; display: inline-block; border-radius: 3px;
-  margin-bottom: 0.9rem;
+.sc-sub-services {
+  display: flex; flex-direction: column; gap: 0.3rem;
+  margin-bottom: 1rem;
 }
-.sc-mandate-blue  { background: var(--einv-pale); color: var(--einv-accent); }
-.sc-mandate-amber { background: var(--pep-pale);  color: var(--pep-accent); }
+.sc-sub-services span {
+  font-size: 0.78rem; color: var(--text-muted);
+}
+.sc-sub-services span strong { color: var(--pep-accent); font-weight: 700; }
 .sc-link {
   font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
   text-transform: uppercase;
   display: flex; align-items: center; gap: 0.4rem;
 }
-.sc-link-blue  { color: var(--einv-accent); }
 .sc-link-amber { color: var(--pep-accent); }
 .sc-link svg { transition: transform 0.2s; }
 .service-card:hover .sc-link svg { transform: translateX(4px); }
 
+.hero-secondary-link {
+  display: flex; align-items: center; justify-content: center;
+  padding: 0.9rem 1.5rem;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--text-muted);
+  transition: border-color 0.2s, color 0.2s;
+}
+.hero-secondary-link:hover { border-color: var(--einv-accent); color: var(--einv-accent); }
+
 /* ─── CREDIBILITY SECTION ─── */
 .cred-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: start;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: start;
 }
-.cred-left {}
-.cred-left .lead { margin-bottom: 0; }
 .cred-body {
   font-size: 0.95rem; line-height: 1.85;
   color: var(--text-body); margin-top: 1.2rem;
@@ -116,16 +173,11 @@
 .cred-body strong { color: var(--text-primary); }
 
 .proof-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
 }
 .proof-col {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  box-shadow: var(--shadow-sm);
-  padding: 1.5rem;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 4px; box-shadow: var(--shadow-sm); padding: 1.5rem;
 }
 .proof-col-blue  { border-top: 3px solid var(--einv-accent); }
 .proof-col-amber { border-top: 3px solid var(--pep-accent); }
@@ -140,19 +192,14 @@
   font-size: 0.83rem; color: var(--text-muted); line-height: 1.4;
   display: flex; align-items: flex-start; gap: 0.5rem;
 }
-.proof-list li::before {
-  content: '✓'; font-size: 0.7rem; flex-shrink: 0; margin-top: 1px;
-}
+.proof-list li::before { content: '✓'; font-size: 0.7rem; flex-shrink: 0; margin-top: 1px; }
 .proof-col-blue  .proof-list li::before { color: var(--einv-accent); }
 .proof-col-amber .proof-list li::before { color: var(--pep-accent); }
 
 /* ─── COMPACT ROADMAP ─── */
 .roadmap-nodes {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0;
-  position: relative;
-  margin-top: 3.5rem;
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 0; position: relative; margin-top: 3.5rem;
 }
 .roadmap-nodes::before {
   content: '';
@@ -160,24 +207,16 @@
   top: 10px; left: 8%; right: 8%;
   height: 1px;
   background: linear-gradient(90deg,
-    var(--einv-border) 0%,
-    rgba(37,99,168,0.15) 30%,
-    rgba(180,83,9,0.15) 70%,
-    var(--pep-border) 100%
+    var(--pep-border) 0%,
+    rgba(180,83,9,0.15) 30%,
+    rgba(37,99,168,0.15) 70%,
+    var(--einv-border) 100%
   );
 }
-.rm-node {
-  display: flex; flex-direction: column;
-  align-items: center; text-align: center;
-  padding: 0 0.5rem;
-}
+.rm-node { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 0.5rem; }
 .rm-dot {
-  width: 20px; height: 20px;
-  border-radius: 50%;
-  border: 2px solid;
-  background: var(--bg-2);
-  flex-shrink: 0;
-  margin-bottom: 1rem;
+  width: 20px; height: 20px; border-radius: 50%; border: 2px solid;
+  background: var(--bg-2); flex-shrink: 0; margin-bottom: 1rem;
   position: relative; z-index: 2;
 }
 .rm-dot-blue  { border-color: var(--einv-accent); }
@@ -186,8 +225,7 @@
 .rm-dot.filled-amber { background: var(--pep-accent); }
 .rm-tag {
   font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase;
-  font-weight: 700; padding: 0.15rem 0.5rem;
-  border-radius: 100px; margin-bottom: 0.4rem;
+  font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 100px; margin-bottom: 0.4rem;
 }
 .rm-tag-blue  { background: var(--einv-pale); color: var(--einv-accent); border: 1px solid var(--einv-border); }
 .rm-tag-amber { background: var(--pep-pale);  color: var(--pep-accent);  border: 1px solid var(--pep-border); }
@@ -198,18 +236,13 @@
 
 /* ─── ENGAGEMENT MODELS ─── */
 .engage-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-top: 3rem;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem; margin-top: 3rem;
 }
 .engage-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  box-shadow: var(--shadow-sm);
-  padding: 2.2rem 2rem;
-  position: relative;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 4px; box-shadow: var(--shadow-sm);
+  padding: 2.2rem 2rem; position: relative;
   border-top: 3px solid var(--border-strong);
   transition: box-shadow 0.25s;
 }
@@ -231,16 +264,13 @@
 
 /* ─── CONTACT ─── */
 .contact-section {
-  text-align: center;
-  padding: 6rem 3rem;
+  text-align: center; padding: 6rem 3rem;
   border-top: 1px solid var(--border);
 }
 .contact-email {
-  font-family: 'EB Garamond', serif;
-  font-size: 1.35rem; letter-spacing: 0.04em;
+  font-family: 'EB Garamond', serif; font-size: 1.35rem; letter-spacing: 0.04em;
   color: var(--pep-accent); text-decoration: none;
-  border-bottom: 1px solid var(--pep-border);
-  padding-bottom: 2px;
+  border-bottom: 1px solid var(--pep-border); padding-bottom: 2px;
   display: inline-block; margin: 1rem 0 2.5rem;
   transition: border-color 0.2s;
 }
@@ -266,6 +296,7 @@
   .rm-node { flex-direction: row; text-align: left; gap: 1rem; align-items: flex-start; }
   .rm-dot { margin-bottom: 0; margin-top: 2px; }
   .rm-node > div { display: flex; flex-direction: column; align-items: flex-start; }
+  .hero-stats { gap: 1.5rem; }
 }
 @media (max-width: 640px) {
   .proof-grid { grid-template-columns: 1fr; }
@@ -279,9 +310,16 @@
 <nav id="main-nav">
   <a href="index.html" class="nav-logo">Pepp<span>wise</span></a>
   <div class="nav-links">
-    <a href="malaysia.html">Malaysia e-Invoice</a>
     <a href="index.html" class="nav-active">Home</a>
-    <a href="peppol.html">Peppol</a>
+    <div class="nav-dropdown">
+      <a href="peppol.html" class="nav-dropdown-trigger">Peppol <span class="dropdown-arrow">▾</span></a>
+      <div class="nav-dropdown-menu">
+        <a href="peppol.html">Peppol Overview</a>
+        <a href="peppol-singapore.html">Singapore Access Point</a>
+        <a href="peppol-kb.html">Knowledge Base</a>
+      </div>
+    </div>
+    <a href="malaysia.html">Malaysia e-Invoice</a>
     <a href="#contact" class="nav-cta">Get in Touch</a>
   </div>
   <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
@@ -291,50 +329,62 @@
 
 <div class="nav-mobile-overlay" id="nav-mobile-overlay">
   <a href="index.html" class="mobile-nav-link">Home</a>
+  <a href="peppol.html" class="mobile-nav-link">Peppol Overview</a>
+  <a href="peppol-singapore.html" class="mobile-nav-link">Singapore AP</a>
+  <a href="peppol-kb.html" class="mobile-nav-link">Knowledge Base</a>
   <a href="malaysia.html" class="mobile-nav-link">Malaysia e-Invoice</a>
-  <a href="peppol.html" class="mobile-nav-link">Peppol</a>
   <a href="#contact" class="mobile-nav-link">Get in Touch</a>
 </div>
 
 <!-- ═══ HERO ═══ -->
 <section class="hero">
   <div class="hero-left">
-    <div class="hero-tag">Independent Compliance Advisory</div>
+    <div class="hero-tag">Peppol Access Point Developer</div>
     <h1>
-      Two mandates.<br>
-      One specialist.<br>
-      <em>End-to-end.</em>
+      Peppol access points.<br>
+      Built, tested,<br>
+      <em>deployed.</em>
     </h1>
     <p class="hero-sub">
-      Malaysia e-Invoice (LHDN/IRBM) and Peppol network integration — personally implemented, not just advised on. Helping businesses in Malaysia and Singapore meet their mandatory e-invoicing obligations.
+      I implement Peppol Access Point integrations for Singapore InvoiceNow — IMDA certification, AS4 messaging, BIS 3.0 / PINT SG document mapping, and C5 IRAS GST automation. Personally built. Not just advised on.
     </p>
+    <div class="hero-stats">
+      <div class="hero-stat-inline">
+        <span class="num">50+</span>
+        <span class="lbl">Countries on Network</span>
+      </div>
+      <div class="hero-stat-inline">
+        <span class="num">C5</span>
+        <span class="lbl">IRAS GST Automation</span>
+      </div>
+      <div class="hero-stat-inline">
+        <span class="num">IMDA</span>
+        <span class="lbl">Certified AP</span>
+      </div>
+    </div>
     <div class="hero-btns">
-      <a href="malaysia.html" class="btn btn-blue">Malaysia e-Invoice →</a>
-      <a href="peppol.html" class="btn btn-amber">Peppol Network →</a>
+      <a href="peppol-singapore.html" class="btn btn-amber">Singapore Access Point →</a>
+      <a href="peppol.html" class="btn-ghost">Peppol Overview</a>
     </div>
   </div>
 
   <div class="hero-right">
-    <a href="malaysia.html" class="service-card service-card-blue">
-      <div class="sc-eyebrow sc-eyebrow-blue">Malaysia · LHDN · IRBM · MyInvois</div>
-      <div class="sc-title">Malaysia e-Invoice Compliance</div>
-      <p class="sc-desc">End-to-end implementation of Malaysia's mandatory e-invoicing framework — all 5 IRBM document types, LHDN API integration, digital signature, and UBL 2.1 mapping.</p>
-      <div class="sc-mandate sc-mandate-blue">Phase 2 Deadline: 1 July 2025</div>
-      <div class="sc-link sc-link-blue">
-        Explore Service
+    <a href="peppol.html" class="service-card service-card-amber">
+      <div class="sc-eyebrow sc-eyebrow-amber">Peppol · Singapore InvoiceNow · C5 IRAS · 50+ Countries</div>
+      <div class="sc-title">Peppol Access Point Development</div>
+      <p class="sc-desc">IMDA-certified AP onboarding, AS4 messaging protocol, SMP/SML routing, PINT SG and BIS 3.0 document mapping, and C5 IRAS GST data forwarding — end-to-end.</p>
+      <div class="sc-sub-services">
+        <span>→ <strong>Singapore Access Point</strong> — PINT SG, BIS 3.0, BIS 4.0 roadmap</span>
+        <span>→ <strong>Knowledge Base</strong> — Access Point, SMP, SML, AS4, eDelivery</span>
+      </div>
+      <div class="sc-link sc-link-amber">
+        Explore Peppol Services
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
       </div>
     </a>
 
-    <a href="peppol.html" class="service-card service-card-amber">
-      <div class="sc-eyebrow sc-eyebrow-amber">Peppol · 50+ Countries · Singapore InvoiceNow · IRAS C5</div>
-      <div class="sc-title">Peppol Network Integration</div>
-      <p class="sc-desc">Global Peppol network connectivity — from Singapore's InvoiceNow (IMDA mandate, Nov 2025) to cross-border MY↔SG document exchange and the pioneering C5 IRAS GST automation model.</p>
-      <div class="sc-mandate sc-mandate-amber">SG InvoiceNow Mandate: Nov 2025</div>
-      <div class="sc-link sc-link-amber">
-        Explore Service
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-      </div>
+    <a href="malaysia.html" class="hero-secondary-link">
+      Also: Malaysia e-Invoice IRBM API &nbsp;→
     </a>
   </div>
 </section>
@@ -343,43 +393,43 @@
 <div class="section-wrap alt" id="about">
   <div class="inner">
     <div class="cred-grid">
-      <div class="cred-left reveal">
-        <div class="eyebrow eyebrow-muted">About This Practice</div>
-        <h2>Not a consultancy.<br><em>One specialist who has<br>built both systems.</em></h2>
+      <div class="reveal">
+        <div class="eyebrow eyebrow-amber">About This Practice</div>
+        <h2>Not a consultancy.<br><em>One specialist who has<br>built Peppol.</em></h2>
         <p class="cred-body">
-          I have personally implemented <strong>Malaysia e-Invoice end-to-end</strong> — LHDN API integration, X.509 digital signature embedding, UBL 2.1 document mapping, MSIC code classification, and the full rejection and cancellation flows.
+          I have personally implemented <strong>Peppol Access Points end-to-end</strong> — IMDA-certified AP onboarding, AS4 messaging protocol, SMP/SML registration, Peppol BIS 3.0 and PINT SG document mapping, and the pioneering C5 IRAS GST data forwarding pipeline.
           <br><br>
-          I have also personally implemented <strong>Singapore Peppol integration</strong> — IMDA-certified Access Point onboarding, AS4 messaging protocol configuration, SMP/SML registration, Peppol BIS 3.0 document mapping, and C5 IRAS GST data forwarding.
+          I have also personally implemented <strong>Malaysia e-Invoice end-to-end</strong> — the complete IRBM / MyInvois API for service providers, X.509 digital signature, UBL 2.1 mapping, and all 5 document types.
           <br><br>
-          This is not advisory at arm's length. This is <strong>implementation experience</strong>.
+          This is not advisory at arm's length. This is <strong>production implementation experience</strong>.
         </p>
       </div>
 
       <div class="proof-grid reveal">
-        <div class="proof-col proof-col-blue">
-          <div class="proof-col-title">Malaysia e-Invoice</div>
-          <ul class="proof-list">
-            <li>X.509 digital signature</li>
-            <li>LHDN API — submit, validate, cancel</li>
-            <li>UBL 2.1 XML mapping</li>
-            <li>MSIC code classification</li>
-            <li>Rejection &amp; cancellation flows</li>
-            <li>ERP integration (SAP, Oracle, Xero)</li>
-            <li>72-hour window handling</li>
-            <li>UUID &amp; QR code archival</li>
-          </ul>
-        </div>
         <div class="proof-col proof-col-amber">
-          <div class="proof-col-title">Singapore Peppol</div>
+          <div class="proof-col-title">Peppol Access Point</div>
           <ul class="proof-list">
             <li>IMDA-certified AP integration</li>
             <li>AS4 messaging protocol</li>
             <li>SMP/SML registration</li>
             <li>Peppol BIS 3.0 mapping</li>
+            <li>PINT SG extensions</li>
             <li>C5 / IRAS GST data forwarding</li>
-            <li>Cross-border MY↔SG interop</li>
-            <li>Singapore GST treatment codes</li>
-            <li>PayNow reference fields</li>
+            <li>Cross-border MY↔SG routing</li>
+            <li>ERP integration (SAP, Oracle, Xero)</li>
+          </ul>
+        </div>
+        <div class="proof-col proof-col-blue">
+          <div class="proof-col-title">Malaysia e-Invoice</div>
+          <ul class="proof-list">
+            <li>Full IRBM API coverage</li>
+            <li>X.509 digital signature</li>
+            <li>UBL 2.1 XML mapping</li>
+            <li>MSIC code classification</li>
+            <li>All 5 document types</li>
+            <li>Rejection &amp; cancellation flow</li>
+            <li>UUID &amp; QR code archival</li>
+            <li>72-hour window handling</li>
           </ul>
         </div>
       </div>
@@ -387,22 +437,14 @@
   </div>
 </div>
 
-<!-- ═══ COMPACT ROADMAP ═══ -->
+<!-- ═══ MANDATE TIMELINE ═══ -->
 <div class="section-wrap" id="roadmap">
   <div class="inner">
-    <div class="eyebrow eyebrow-muted reveal">Regulatory Timeline</div>
-    <h2 class="reveal">Key Compliance <em>Deadlines</em></h2>
-    <p class="lead reveal">The mandates are non-negotiable. Whether you operate in Malaysia, Singapore, or across the Causeway — here are the dates that matter.</p>
+    <div class="eyebrow eyebrow-amber reveal">Mandate History</div>
+    <h2 class="reveal">Peppol &amp; e-Invoice <em>Milestones</em></h2>
+    <p class="lead reveal">Every mandate below is now live. Singapore's InvoiceNow covers all GST businesses, and Malaysia's e-Invoice framework applies to all businesses from January 2026. Here is how both networks rolled out.</p>
 
     <div class="roadmap-nodes reveal-group">
-      <div class="rm-node reveal">
-        <div class="rm-dot filled-blue rm-dot-blue"></div>
-        <div>
-          <span class="rm-tag rm-tag-blue">MY e-Invoice</span>
-          <div class="rm-date rm-date-blue">Aug 2024</div>
-          <div class="rm-label">Phase 1 Live<br><span style="font-weight:400;color:var(--text-muted);font-size:0.72rem;">&gt;RM100M turnover</span></div>
-        </div>
-      </div>
       <div class="rm-node reveal">
         <div class="rm-dot filled-amber rm-dot-amber"></div>
         <div>
@@ -412,34 +454,42 @@
         </div>
       </div>
       <div class="rm-node reveal">
-        <div class="rm-dot rm-dot-blue"></div>
+        <div class="rm-dot filled-blue rm-dot-blue"></div>
         <div>
           <span class="rm-tag rm-tag-blue">MY e-Invoice</span>
-          <div class="rm-date rm-date-blue">1 Jul 2025</div>
-          <div class="rm-label">Phase 2 Deadline<br><span style="font-weight:400;color:var(--text-muted);font-size:0.72rem;">&gt;RM25M turnover</span></div>
+          <div class="rm-date rm-date-blue">Aug 2024</div>
+          <div class="rm-label">Phase 1 Live<br><span style="font-weight:400;color:var(--text-muted);font-size:0.72rem;">&gt;RM100M turnover</span></div>
         </div>
       </div>
       <div class="rm-node reveal">
-        <div class="rm-dot rm-dot-amber"></div>
+        <div class="rm-dot filled-blue rm-dot-blue"></div>
+        <div>
+          <span class="rm-tag rm-tag-blue">MY e-Invoice</span>
+          <div class="rm-date rm-date-blue">Jul 2025</div>
+          <div class="rm-label">Phase 2 Live<br><span style="font-weight:400;color:var(--text-muted);font-size:0.72rem;">&gt;RM25M turnover</span></div>
+        </div>
+      </div>
+      <div class="rm-node reveal">
+        <div class="rm-dot filled-amber rm-dot-amber"></div>
         <div>
           <span class="rm-tag rm-tag-amber">SG InvoiceNow</span>
           <div class="rm-date rm-date-amber">Nov 2025</div>
-          <div class="rm-label">All GST Businesses<br><span style="font-weight:400;color:var(--text-muted);font-size:0.72rem;">IMDA mandate</span></div>
+          <div class="rm-label">All GST Businesses<br><span style="font-weight:400;color:var(--text-muted);font-size:0.72rem;">IMDA mandate — live</span></div>
         </div>
       </div>
       <div class="rm-node reveal">
-        <div class="rm-dot rm-dot-blue"></div>
+        <div class="rm-dot filled-blue rm-dot-blue"></div>
         <div>
           <span class="rm-tag rm-tag-blue">MY e-Invoice</span>
-          <div class="rm-date rm-date-blue">1 Jan 2026</div>
+          <div class="rm-date rm-date-blue">Jan 2026</div>
           <div class="rm-label">Phase 3 — All Businesses<br><span style="font-weight:400;color:var(--text-muted);font-size:0.72rem;">No exemptions remain</span></div>
         </div>
       </div>
     </div>
 
     <div style="display:flex;gap:1.5rem;margin-top:3rem;flex-wrap:wrap;">
-      <a href="malaysia.html" class="btn btn-blue">Malaysia e-Invoice Detail →</a>
-      <a href="peppol.html" class="btn btn-amber">Peppol Timeline →</a>
+      <a href="peppol-singapore.html" class="btn btn-amber">Singapore Access Point →</a>
+      <a href="malaysia.html" class="btn-ghost">Malaysia e-Invoice API →</a>
     </div>
   </div>
 </div>
@@ -449,24 +499,24 @@
   <div class="inner">
     <div class="eyebrow eyebrow-muted reveal">Engagement</div>
     <h2 class="reveal">Work With Me<br><em>On Your Terms</em></h2>
-    <p class="lead reveal">I adapt to your business structure. Whether you need embedded expertise, scoped delivery, or a permanent hire — available across all models.</p>
+    <p class="lead reveal">I adapt to your business structure. Whether you need embedded Peppol expertise, scoped delivery, or a permanent hire — available across all models.</p>
 
     <div class="engage-grid reveal-group">
       <div class="engage-card reveal">
         <div class="engage-type">Model 01</div>
         <h3>Full-Time Hire</h3>
-        <p>Join your team as a dedicated compliance specialist — embedded, fully aligned, and on-call. Ideal for companies mid-implementation or with continuous compliance requirements.</p>
+        <p>Join your team as a dedicated Peppol and e-invoice specialist — embedded, fully aligned, and on-call. Ideal for companies mid-implementation or with continuous compliance requirements.</p>
       </div>
       <div class="engage-card featured reveal">
         <div class="engage-badge">Most Popular</div>
         <div class="engage-type">Model 02</div>
         <h3>Part-Time / Retainer</h3>
-        <p>Consistent expert guidance without the full-time overhead. Monthly retainer or weekly hour packages. Perfect for SMEs that need steady support without headcount.</p>
+        <p>Consistent expert guidance without the full-time overhead. Monthly retainer or weekly hour packages. Perfect for companies that need steady Peppol support without headcount.</p>
       </div>
       <div class="engage-card reveal">
         <div class="engage-type">Model 03</div>
         <h3>Project-Based</h3>
-        <p>A defined scope, clear deliverables, and a fixed timeline. Best for one-time implementations, readiness audits, or new-country Peppol rollouts. Fixed-price or milestone billing.</p>
+        <p>A defined scope, clear deliverables, and a fixed timeline. Best for one-time Peppol AP implementations, readiness audits, or new-country Peppol rollouts. Fixed-price or milestone billing.</p>
       </div>
     </div>
   </div>
@@ -475,9 +525,9 @@
 <!-- ═══ CONTACT ═══ -->
 <div class="contact-section" id="contact">
   <div class="eyebrow eyebrow-amber eyebrow-center reveal">Let's Talk</div>
-  <h2 class="reveal">Ready to Move <em>Forward?</em></h2>
+  <h2 class="reveal">Ready to Build Your<br><em>Peppol Integration?</em></h2>
   <p class="lead reveal" style="margin:0 auto 0.5rem;text-align:center;">
-    Whether you're approaching a compliance deadline, evaluating Peppol for cross-border trade, or simply need to understand what e-invoicing means for your business — reach out. First consultation is complimentary.
+    Whether you're onboarding a Singapore InvoiceNow Access Point, mapping BIS 3.0 / PINT SG documents, or configuring C5 IRAS automation — reach out. First consultation is complimentary.
   </p>
   <a href="mailto:hello@peppwise.com" class="contact-email reveal">hello@peppwise.com</a>
   <div class="contact-btns reveal">
@@ -488,16 +538,17 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2026 Peppwise · Independent Compliance Advisory · Malaysia &amp; Singapore</p>
+  <p>© 2026 Peppwise · Independent Peppol Access Point Developer · Singapore &amp; Malaysia</p>
   <nav class="footer-links">
     <a href="index.html">Home</a>
-    <a href="malaysia.html">Malaysia e-Invoice</a>
     <a href="peppol.html">Peppol</a>
+    <a href="peppol-singapore.html">Singapore AP</a>
+    <a href="peppol-kb.html">Knowledge Base</a>
+    <a href="malaysia.html">Malaysia e-Invoice</a>
   </nav>
 </footer>
 
 <script>
-  // Scroll reveal
   const revealEls = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -506,7 +557,6 @@
   }, { threshold: 0.10, rootMargin: '0px 0px -30px 0px' });
   revealEls.forEach(el => observer.observe(el));
 
-  // Mobile hamburger
   const hamburger = document.getElementById('nav-hamburger');
   const overlay = document.getElementById('nav-mobile-overlay');
   hamburger.addEventListener('click', () => {
@@ -521,8 +571,6 @@
       document.body.style.overflow = '';
     });
   });
-
-  // Smooth scroll for same-page anchors
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
