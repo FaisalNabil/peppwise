@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Peppol Network Integration — Access Point, C5 IRAS, BIS 3.0 | Peppwise</title>
-<meta name="description" content="Hands-on Peppol Access Point development. Singapore InvoiceNow mandate, C5 IRAS GST automation, 50+ country network, BIS 3.0, and cross-border Malaysia-Singapore routing.">
-<meta property="og:title" content="Peppol Network Integration — Access Point, C5 IRAS, BIS 3.0 | Peppwise">
-<meta property="og:description" content="50+ countries on Peppol. Singapore InvoiceNow live. C5 IRAS GST automation personally implemented. Access Point development from someone who has built it.">
+<title>Peppol Network Integration — C4 &amp; C5 Models, Access Point, BIS 3.0 | Peppwise</title>
+<meta name="description" content="Hands-on Peppol Access Point development across C4 and C5 models. Singapore InvoiceNow (IRAS C5), UAE eInvoicing (DCTCE), 50+ country network, BIS 3.0, and cross-border routing.">
+<meta property="og:title" content="Peppol Network Integration — C4 &amp; C5 Models, Access Point, BIS 3.0 | Peppwise">
+<meta property="og:description" content="50+ countries on Peppol. C4 exchange and C5 tax-authority models — Singapore IRAS live, UAE DCTCE next. Access Point development from someone who has built it.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.peppwise.com/peppol">
 <link rel="canonical" href="https://www.peppwise.com/peppol">
@@ -22,7 +22,7 @@
       "provider": {"@type":"Organization","name":"Peppwise","url":"https://www.peppwise.com"},
       "description": "Peppol Access Point development — IMDA certification, AS4, SMP/SML, BIS 3.0, PINT SG, C5 IRAS automation, cross-border MY↔SG routing.",
       "serviceType": "Peppol Access Point Development",
-      "areaServed": ["SG","MY"],
+      "areaServed": ["SG","AE","MY"],
       "url": "https://www.peppwise.com/peppol.html"
     },
     {
@@ -34,14 +34,16 @@
   ]
 }
 </script>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
 
 /* ─── PAGE HERO ─── */
 .page-hero {
-  background: var(--pep-pale);
-  border-bottom: 1px solid var(--pep-border);
+  background-color: var(--pep-pale);
+  background-image: radial-gradient(rgba(245,78,0,0.12) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  border-bottom: 1.5px solid var(--border-strong);
   padding: 9rem 3rem 5rem;
 }
 .page-hero .inner {
@@ -50,85 +52,129 @@
   gap: 3rem; align-items: end;
 }
 .page-hero h1 {
-  font-family: 'EB Garamond', serif;
-  font-size: clamp(2.2rem, 4vw, 3.8rem);
-  font-weight: 500; line-height: 1.08;
+  font-family: var(--font-head);
+  font-size: clamp(2rem, 3.6vw, 3.3rem);
+  font-weight: 700; line-height: 1.1;
+  letter-spacing: -0.02em;
   color: var(--text-primary); margin-bottom: 1rem;
 }
-.page-hero h1 em { font-style: italic; color: var(--pep-accent); }
+.page-hero h1 em {
+  font-style: normal; color: var(--pep-accent);
+  text-decoration: underline wavy var(--pep-accent) 2px;
+  text-underline-offset: 7px;
+}
 .page-hero-sub {
   font-size: 0.95rem; line-height: 1.75;
   color: var(--text-muted); max-width: 48ch; margin-bottom: 1.5rem;
 }
 .hero-stats { display: flex; gap: 1rem; flex-wrap: wrap; }
 .hero-stat {
-  background: var(--surface); border: 1px solid var(--pep-border);
-  border-radius: 4px; padding: 0.8rem 1.2rem; box-shadow: var(--shadow-sm);
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-radius: 6px; padding: 0.8rem 1.2rem; box-shadow: var(--shadow-sm);
 }
 .hero-stat-num {
-  font-family: 'EB Garamond', serif;
-  font-size: 1.8rem; font-weight: 500; line-height: 1; color: var(--pep-accent);
+  font-family: var(--font-head);
+  font-size: 1.6rem; font-weight: 700; line-height: 1; color: var(--pep-accent);
 }
 .hero-stat-lbl {
-  font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--text-muted); margin-top: 0.2rem;
+  font-family: var(--font-mono);
+  font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-muted); margin-top: 0.3rem;
 }
 
 /* ─── WHAT IS PEPPOL ─── */
 .corners-grid {
   display: grid; grid-template-columns: repeat(4, 1fr);
   gap: 0; margin-top: 2.5rem;
-  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+  border: 1.5px solid var(--border-strong); border-radius: 6px; overflow: hidden;
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
 }
 .corner-card {
   background: var(--surface); padding: 1.5rem;
-  border-right: 1px solid var(--border); position: relative;
+  border-right: 1.5px solid var(--border-strong); position: relative;
 }
 .corner-card:last-child { border-right: none; }
-.corner-label { font-family: 'EB Garamond', serif; font-size: 2rem; font-weight: 500; color: var(--pep-accent); line-height: 1; margin-bottom: 0.4rem; }
-.corner-title { font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
+.corner-label { font-family: var(--font-head); font-size: 1.8rem; font-weight: 700; color: var(--pep-accent); line-height: 1; margin-bottom: 0.4rem; }
+.corner-title { font-family: var(--font-head); font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
 .corner-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.55; }
 .corner-arrow {
-  position: absolute; top: 50%; right: -12px;
-  width: 24px; height: 24px;
-  background: var(--bg-2); border: 1px solid var(--border); border-radius: 50%;
+  position: absolute; top: 50%; right: -13px;
+  width: 26px; height: 26px;
+  background: var(--yellow); border: 1.5px solid var(--border-strong); border-radius: 4px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 0.7rem; color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem; font-weight: 700; color: var(--text-primary);
   z-index: 2; transform: translateY(-50%);
 }
 .corner-card:last-child .corner-arrow { display: none; }
-.peppol-explainer { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 2rem; }
-.explainer-item { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 1.2rem; }
-.explainer-item h5 { font-size: 0.82rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.3rem; }
+.peppol-explainer { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.2rem; margin-top: 2rem; }
+.explainer-item { background: var(--surface); border: 1.5px solid var(--border-strong); border-radius: 6px; padding: 1.2rem; box-shadow: var(--shadow-sm); }
+.explainer-item h5 { font-family: var(--font-head); font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.3rem; }
 .explainer-item p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.55; }
 .explainer-tag {
-  font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase;
+  font-family: var(--font-mono);
+  font-size: 0.55rem; letter-spacing: 0.08em; text-transform: uppercase;
   font-weight: 700; color: var(--pep-accent);
-  background: var(--pep-pale); border: 1px solid var(--pep-border);
+  background: var(--pep-pale); border: 1.5px solid var(--pep-accent);
   padding: 0.15rem 0.5rem; border-radius: 3px;
   display: inline-block; margin-bottom: 0.5rem;
 }
 
+/* ─── C4 vs C5 COMPARE ─── */
+.model-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1.8rem; margin-top: 2.5rem; align-items: stretch; }
+.model-compare .os-window { display: flex; flex-direction: column; }
+.model-compare .os-body { flex: 1; }
+.mc-chain {
+  font-family: var(--font-mono);
+  font-size: 0.72rem; font-weight: 700;
+  color: var(--text-primary);
+  background: var(--bg-2);
+  border: 1.5px solid var(--border-strong);
+  border-radius: 4px;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  line-height: 1.8;
+}
+.mc-chain .mc-c5 { color: var(--pep-accent); }
+.model-compare h3 { margin-bottom: 0.5rem; font-size: 1.15rem; }
+.model-compare .mc-desc { font-size: 0.84rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1rem; }
+.mc-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+.mc-list li {
+  font-size: 0.8rem; color: var(--text-muted);
+  display: flex; gap: 0.5rem; align-items: flex-start; line-height: 1.5;
+}
+.mc-list li::before { content: '→'; font-family: var(--font-mono); color: var(--pep-accent); flex-shrink: 0; }
+.mc-list li strong { color: var(--text-primary); }
+.mc-list li a { color: var(--pep-accent); font-weight: 700; text-decoration: none; }
+.mc-list li a:hover { text-decoration: underline wavy var(--pep-accent) 1px; text-underline-offset: 4px; }
+
 /* ─── COUNTRY GRID ─── */
 .country-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin-top: 2.5rem; }
 .country-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 4px; box-shadow: var(--shadow-sm); padding: 1.4rem; transition: box-shadow 0.2s;
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-radius: 6px; box-shadow: var(--shadow-sm); padding: 1.4rem;
+  transition: transform 0.15s, box-shadow 0.15s;
 }
-.country-card:hover { box-shadow: var(--shadow-md); }
-.country-card.featured { border-color: var(--pep-border); border-left: 3px solid var(--pep-accent); grid-column: span 2; }
+.country-card:hover { transform: translate(-1px,-1px); box-shadow: var(--shadow-md); }
+.country-card.featured { border-left: 4px solid var(--pep-accent); grid-column: span 2; }
 .country-flag { font-size: 1.6rem; margin-bottom: 0.5rem; display: block; }
-.country-name { font-size: 0.92rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.2rem; }
+.country-name { font-family: var(--font-head); font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.2rem; }
 .country-auth { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.6rem; }
 .country-status {
-  font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase;
+  font-family: var(--font-mono);
+  font-size: 0.55rem; letter-spacing: 0.06em; text-transform: uppercase;
   font-weight: 700; padding: 0.18rem 0.55rem;
+  border: 1.5px solid var(--border-strong);
   border-radius: 3px; display: inline-block; margin-bottom: 0.6rem;
 }
-.status-live-green { background: #D1FAE5; color: #065F46; }
-.status-mandate    { background: var(--pep-pale); color: var(--pep-accent); border: 1px solid var(--pep-border); }
-.status-progress   { background: var(--einv-pale); color: var(--einv-accent); border: 1px solid var(--einv-border); }
-.status-eval       { background: var(--bg-3); color: var(--text-muted); border: 1px solid var(--border-strong); }
+.status-live-green { background: #C9F2D8; color: #0B5C2E; }
+.status-mandate    { background: var(--yellow); color: var(--text-primary); }
+.status-progress   { background: var(--einv-pale); color: var(--einv-accent); }
+.status-eval       { background: var(--bg-3); color: var(--text-muted); }
+.country-link { font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700; color: var(--pep-accent); text-decoration: none; display: inline-block; margin-top: 0.6rem; }
+.country-link:hover { text-decoration: underline wavy var(--pep-accent) 1px; text-underline-offset: 4px; }
 .country-note { font-size: 0.77rem; color: var(--text-muted); line-height: 1.5; }
 
 /* ─── SINGAPORE SECTION ─── */
@@ -145,7 +191,7 @@
 .sg-tl-item::before {
   content: '';
   position: absolute; left: -5px; top: 5px;
-  width: 9px; height: 9px; border-radius: 50%;
+  width: 9px; height: 9px; border-radius: 2px;
   background: var(--pep-accent); border: 2px solid var(--surface);
   box-shadow: 0 0 0 2px var(--pep-accent);
 }
@@ -159,33 +205,37 @@
 .cf-step { display: grid; grid-template-columns: 3rem 1fr; gap: 1.2rem; align-items: stretch; }
 .cf-line { display: flex; flex-direction: column; align-items: center; }
 .cf-circle {
-  width: 32px; height: 32px; border-radius: 50%;
-  border: 2px solid var(--pep-accent);
+  width: 32px; height: 32px; border-radius: 6px;
+  border: 1.5px solid var(--border-strong);
   display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono);
   font-size: 0.65rem; font-weight: 700; color: var(--pep-accent);
   background: var(--surface); flex-shrink: 0; position: relative; z-index: 2;
+  box-shadow: var(--shadow-sm);
 }
-.cf-circle.c5 { background: var(--pep-pale); border-color: var(--pep-accent); box-shadow: 0 0 0 3px var(--pep-pale); }
+.cf-circle.c5 { background: var(--yellow); color: var(--text-primary); }
 .cf-connector { flex: 1; width: 1px; background: var(--pep-border); min-height: 1rem; margin: 3px 0; }
 .cf-step:last-child .cf-connector { display: none; }
 .cf-body { padding-bottom: 1.8rem; }
 .cf-badge {
-  display: inline-block; font-size: 0.55rem; font-weight: 700;
-  letter-spacing: 0.12em; text-transform: uppercase;
+  display: inline-block; font-family: var(--font-mono);
+  font-size: 0.55rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
   padding: 0.15rem 0.5rem; border-radius: 3px;
   background: var(--pep-pale); color: var(--pep-accent);
-  border: 1px solid var(--pep-border); margin-bottom: 0.3rem;
+  border: 1.5px solid var(--pep-accent); margin-bottom: 0.3rem;
 }
 .cf-body h4 { font-size: 0.95rem; margin-bottom: 0.4rem; }
 .cf-body p  { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; }
 
 /* ─── C5 KNOWLEDGE BASE ─── */
 .c5-kb {
-  background: var(--pep-pale); border: 1.5px solid var(--pep-border);
-  border-left: 4px solid var(--pep-accent); border-radius: 6px;
+  background: var(--pep-pale); border: 1.5px solid var(--border-strong);
+  border-left: 5px solid var(--pep-accent); border-radius: 6px;
+  box-shadow: var(--shadow-md);
   padding: 2rem 2.5rem; margin-top: 2rem;
 }
-.c5-kb-title { font-family: 'EB Garamond', serif; font-size: 1.25rem; font-weight: 500; color: var(--pep-accent); margin-bottom: 1.5rem; }
+.c5-kb-title { font-family: var(--font-head); font-size: 1.2rem; font-weight: 700; color: var(--pep-accent); margin-bottom: 1.5rem; }
 .c5-kb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
 .c5-kb-item h5 { font-size: 0.83rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
 .c5-kb-item p  { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
@@ -194,16 +244,16 @@
 .c5-kb-item ul li::before { content: '·'; color: var(--pep-accent); font-weight: 700; }
 .c5-personal-note {
   font-size: 0.84rem; color: var(--text-body);
-  background: var(--surface); border: 1px solid var(--pep-border);
-  border-radius: 4px; padding: 1rem 1.2rem;
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-radius: 6px; padding: 1rem 1.2rem;
   font-style: italic; line-height: 1.65;
 }
 .c5-personal-note strong { color: var(--pep-accent); font-style: normal; }
 
 /* ─── IMDA SECTION ─── */
 .imda-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 1.5rem; }
-.imda-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 1.4rem; box-shadow: var(--shadow-sm); }
-.imda-card h5 { font-size: 0.88rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
+.imda-card { background: var(--surface); border: 1.5px solid var(--border-strong); border-radius: 6px; padding: 1.4rem; box-shadow: var(--shadow-sm); }
+.imda-card h5 { font-family: var(--font-head); font-size: 0.88rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
 .imda-card p  { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
 
 /* ─── CROSS-BORDER ─── */
@@ -217,52 +267,53 @@
 .impl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem; }
 .impl-point { display: flex; gap: 1rem; align-items: flex-start; }
 .impl-icon {
-  width: 36px; height: 36px; border-radius: 4px;
-  background: var(--pep-pale); border: 1px solid var(--pep-border);
+  width: 38px; height: 38px; border-radius: 6px;
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  box-shadow: var(--shadow-sm);
   display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; color: var(--pep-accent); font-size: 0.9rem;
+  flex-shrink: 0; font-size: 0.95rem;
 }
-.impl-text h5 { font-size: 0.88rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; }
+.impl-text h5 { font-family: var(--font-head); font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; }
 .impl-text p  { font-size: 0.8rem; color: var(--text-muted); line-height: 1.55; }
 
 /* ─── SERVICE LIST ─── */
 .service-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start; margin-top: 0; }
 .service-list { list-style: none; display: flex; flex-direction: column; gap: 1.6rem; }
 .service-item { display: grid; grid-template-columns: 2.4rem 1fr; gap: 1rem; align-items: start; }
-.service-num { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pep-accent); font-weight: 700; padding-top: 0.2rem; }
+.service-num { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--pep-accent); font-weight: 700; padding-top: 0.2rem; }
 .service-item h4 { margin-bottom: 0.3rem; }
 .service-item p  { font-size: 0.86rem; color: var(--text-muted); line-height: 1.65; }
 .deliverables { margin-top: 0.6rem; font-size: 0.78rem; color: var(--text-faint); font-style: italic; }
 
 /* ─── WHO THIS IS FOR ─── */
 .for-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
-.for-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 1.3rem; box-shadow: var(--shadow-sm); }
-.for-card h5 { font-size: 0.88rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.3rem; }
+.for-card { background: var(--surface); border: 1.5px solid var(--border-strong); border-radius: 6px; padding: 1.3rem; box-shadow: var(--shadow-sm); }
+.for-card h5 { font-family: var(--font-head); font-size: 0.88rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.3rem; }
 .for-card p  { font-size: 0.78rem; color: var(--text-muted); line-height: 1.55; }
 
 /* ─── SUB-PAGE HUB CARDS ─── */
 .hub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; }
 .hub-card {
-  background: var(--surface); border: 1px solid var(--border);
+  background: var(--surface); border: 1.5px solid var(--border-strong);
   border-radius: 6px; box-shadow: var(--shadow-sm); padding: 2rem;
   text-decoration: none; display: block;
-  border-left: 4px solid var(--pep-accent);
-  transition: box-shadow 0.25s, transform 0.2s;
+  border-left: 5px solid var(--pep-accent);
+  transition: transform 0.15s, box-shadow 0.15s;
 }
-.hub-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
-.hub-eyebrow { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; color: var(--pep-accent); margin-bottom: 0.6rem; }
+.hub-card:hover { box-shadow: var(--shadow-md); transform: translate(-1px,-1px); }
+.hub-eyebrow { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; color: var(--pep-accent); margin-bottom: 0.6rem; }
 .hub-card h3 { margin-bottom: 0.5rem; }
 .hub-card p { font-size: 0.86rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1rem; }
-.hub-link { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--pep-accent); display: flex; align-items: center; gap: 0.4rem; }
+.hub-link { font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--pep-accent); display: flex; align-items: center; gap: 0.4rem; }
 .hub-link svg { transition: transform 0.2s; }
 .hub-card:hover .hub-link svg { transform: translateX(4px); }
 
 /* ─── CONTACT ─── */
-.contact-section { text-align: center; padding: 5rem 3rem; border-top: 1px solid var(--border); }
+.contact-section { text-align: center; padding: 5rem 3rem; border-top: 1.5px solid var(--border-strong); }
 .contact-email {
-  font-family: 'EB Garamond', serif; font-size: 1.3rem;
+  font-family: var(--font-mono); font-size: 1.15rem; font-weight: 500;
   color: var(--pep-accent); text-decoration: none;
-  border-bottom: 1px solid var(--pep-border); padding-bottom: 2px;
+  border-bottom: 2px solid var(--pep-border); padding-bottom: 2px;
   display: inline-block; margin: 1rem 0 2rem; transition: border-color 0.2s;
 }
 .contact-email:hover { border-color: var(--pep-accent); }
@@ -302,6 +353,9 @@
   .hero-stats { flex-direction: column; }
   .c5-kb { padding: 1.5rem; }
 }
+@media (max-width: 900px) {
+  .model-compare { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -314,12 +368,18 @@
     <div class="nav-dropdown">
       <a href="peppol.html" class="nav-dropdown-trigger nav-active">Peppol <span class="dropdown-arrow">▾</span></a>
       <div class="nav-dropdown-menu">
-        <a href="peppol.html" class="active-sub">Peppol Overview</a>
-        <a href="peppol-singapore.html">Singapore Access Point</a>
+        <a href="peppol.html" class="active-sub">Overview · C4 vs C5</a>
+        <a href="peppol-singapore.html">Singapore InvoiceNow</a>
+        <a href="peppol-uae.html">UAE eInvoicing</a>
         <a href="peppol-kb.html">Knowledge Base</a>
       </div>
     </div>
-    <a href="malaysia.html">Malaysia e-Invoice</a>
+    <div class="nav-dropdown">
+      <a href="malaysia.html" class="nav-dropdown-trigger">Direct Clearance <span class="dropdown-arrow">▾</span></a>
+      <div class="nav-dropdown-menu">
+        <a href="malaysia.html">Malaysia e-Invoice</a>
+      </div>
+    </div>
     <a href="#contact" class="nav-cta">Get in Touch</a>
   </div>
   <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
@@ -330,6 +390,7 @@
   <a href="index.html" class="mobile-nav-link">Home</a>
   <a href="peppol.html" class="mobile-nav-link">Peppol Overview</a>
   <a href="peppol-singapore.html" class="mobile-nav-link">Singapore AP</a>
+  <a href="peppol-uae.html" class="mobile-nav-link">UAE eInvoicing</a>
   <a href="peppol-kb.html" class="mobile-nav-link">Knowledge Base</a>
   <a href="malaysia.html" class="mobile-nav-link">Malaysia e-Invoice</a>
   <a href="#contact" class="mobile-nav-link">Get in Touch</a>
@@ -346,7 +407,7 @@
         <em>I have implemented it.</em>
       </h1>
       <p class="page-hero-sub" style="animation:fadeUp 0.6s ease 0.2s both;">
-        From Singapore's InvoiceNow mandate (IMDA, Nov 2025) to cross-border MY↔SG document exchange and the pioneering C5 IRAS GST automation model — end-to-end Peppol Access Point development, personally built.
+        From Singapore's InvoiceNow mandate (IRAS C5) to the UAE's DCTCE rollout and cross-border MY↔SG exchange — end-to-end Peppol Access Point development across both the 4-corner and 5-corner models, personally built.
       </p>
       <div class="hero-stats" style="animation:fadeUp 0.6s ease 0.3s both;">
         <div class="hero-stat">
@@ -365,7 +426,7 @@
     </div>
     <div style="display:flex;flex-direction:column;gap:0.8rem;animation:fadeUp 0.6s ease 0.35s both;">
       <a href="peppol-singapore.html" class="btn btn-amber">Singapore Access Point →</a>
-      <a href="malaysia.html" class="btn-ghost" style="text-align:center;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;">Also need MY e-Invoice? →</a>
+      <a href="peppol-uae.html" class="btn-ghost" style="text-align:center;">UAE eInvoicing →</a>
     </div>
   </div>
 </div>
@@ -374,8 +435,8 @@
 <div class="section-wrap no-border" id="what-is-peppol">
   <div class="inner">
     <div class="eyebrow eyebrow-amber reveal">Network Fundamentals</div>
-    <h2 class="reveal">What Is <em>Peppol?</em></h2>
-    <p class="lead reveal">Peppol (Pan-European Public Procurement On-Line) is an international open standard for electronic business document exchange. Unlike Malaysia's e-Invoice which is a single-country tax mandate, Peppol is an interoperable network that connects businesses, Access Points, and tax authorities across borders.</p>
+    <h2 class="reveal">What is Peppol? <em>C4 vs C5.</em></h2>
+    <p class="lead reveal">Peppol (Pan-European Public Procurement On-Line) is an international open standard for electronic business document exchange. Unlike direct-clearance mandates such as Malaysia's e-Invoice, Peppol is an interoperable network — and it comes in two flavours: the classic 4-corner exchange (C4) and the 5-corner model with the tax authority in the loop (C5).</p>
 
     <div class="corners-grid reveal">
       <div class="corner-card">
@@ -400,6 +461,40 @@
         <div class="corner-label">C4</div>
         <div class="corner-title">Receiver</div>
         <p class="corner-desc">The buyer receives the structured invoice directly into their ERP or accounting system — no email, no PDF re-keying, complete audit trail.</p>
+      </div>
+    </div>
+
+    <div class="model-compare reveal-group">
+      <div class="os-window reveal">
+        <div class="os-titlebar os-titlebar-red">
+          <span class="os-title">c4_model.dia</span>
+          <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
+        </div>
+        <div class="os-body">
+          <div class="mc-chain">C1 → C2 → C3 → C4</div>
+          <h3>C4 — The 4-Corner Model</h3>
+          <p class="mc-desc">Pure network exchange: supplier to buyer through two Access Points. The tax authority is not in the flow. This is Peppol's original architecture and still the default across most of the network.</p>
+          <ul class="mc-list">
+            <li><strong>EU</strong> — BIS Billing 3.0, B2G and growing B2B</li>
+            <li><strong>Australia / New Zealand</strong> — PINT A-NZ</li>
+            <li><strong>Japan</strong> — PINT JP, Qualified Invoice System</li>
+          </ul>
+        </div>
+      </div>
+      <div class="os-window reveal">
+        <div class="os-titlebar os-titlebar-red">
+          <span class="os-title">c5_model.dia</span>
+          <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
+        </div>
+        <div class="os-body">
+          <div class="mc-chain">C1 → C2 → C3 → C4<br><span class="mc-c5">↘ C5 Tax Authority ↙</span></div>
+          <h3>C5 — The 5-Corner Model</h3>
+          <p class="mc-desc">Same exchange, plus a fifth corner: the tax authority receives invoice data continuously from the service providers. Continuous Transaction Controls (CTC) on Peppol rails — the model regulators are converging on.</p>
+          <ul class="mc-list">
+            <li><strong>Singapore</strong> — IRAS receives GST data via C5 · <a href="peppol-singapore.html">Singapore page</a></li>
+            <li><strong>UAE</strong> — FTA receives Tax Data Documents via DCTCE · <a href="peppol-uae.html">UAE page</a></li>
+          </ul>
+        </div>
       </div>
     </div>
 
@@ -437,6 +532,15 @@
         <div class="country-auth">IMDA (Infocomm Media Development Authority) · IRAS (5th Corner)</div>
         <span class="country-status status-live-green">✓ Mandate Live: Nov 2025</span>
         <div class="country-note">InvoiceNow: mandatory for all GST-registered businesses from November 2025. Pioneered the 5-Corner C5 model where IRAS receives invoice data directly from Access Points for automated GST reporting.</div>
+        <a href="peppol-singapore.html" class="country-link">Singapore AP page →</a>
+      </div>
+      <div class="country-card featured reveal" style="border-left-color:var(--yellow);">
+        <span class="country-flag">🇦🇪</span>
+        <div class="country-name">United Arab Emirates</div>
+        <div class="country-auth">Ministry of Finance · FTA (5th Corner) · DCTCE</div>
+        <span class="country-status status-mandate">Pilot Jul 2026 · Phase 1 Jan 2027</span>
+        <div class="country-note">Peppol-based 5-corner DCTCE framework with PINT AE documents and Tax Data Document reporting to the FTA. Exchange only via MoF-Accredited Service Providers. Phase 1 mandatory for businesses ≥ AED 50M revenue.</div>
+        <a href="peppol-uae.html" class="country-link">UAE eInvoicing page →</a>
       </div>
       <div class="country-card reveal">
         <span class="country-flag">🇦🇺</span>
@@ -496,7 +600,7 @@
   <div class="inner">
     <div class="eyebrow eyebrow-amber reveal">Singapore — Deep Dive</div>
     <h2 class="reveal">Singapore InvoiceNow<br><em>&amp; the C5 Model</em></h2>
-    <p class="lead reveal">Singapore has built the most technically advanced Peppol implementation in the world — mandating not just B2B document exchange, but direct tax authority integration via the pioneering 5th Corner (C5) model with IRAS.</p>
+    <p class="lead reveal">Singapore built the world's first mandated Peppol 5-corner implementation — direct tax authority integration via IRAS as the 5th Corner. The UAE is now following the same architectural path with <a href="peppol-uae.html" style="color:var(--pep-accent);font-weight:700;">DCTCE</a>.</p>
 
     <div class="sg-section reveal" style="margin-top:0;">
       <div style="font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--pep-accent);margin-bottom:1rem;">Singapore InvoiceNow Timeline</div>
@@ -783,8 +887,8 @@
 
       <div class="reveal">
         <div class="card card-amber" style="padding:2rem;position:sticky;top:7rem;">
-          <div style="font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--pep-accent);margin-bottom:1.5rem;">Singapore InvoiceNow — Now Live</div>
-          <div style="font-family:'EB Garamond',serif;font-size:2.4rem;font-weight:500;line-height:1;color:var(--pep-accent);">Nov 2025</div>
+          <div style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;color:var(--pep-accent);margin-bottom:1.5rem;">Singapore InvoiceNow — Now Live</div>
+          <div style="font-family:var(--font-head);font-size:2.2rem;font-weight:700;line-height:1;color:var(--pep-accent);">Nov 2025</div>
           <div style="font-size:0.78rem;color:var(--text-muted);margin:0.4rem 0 1.5rem;">All GST-registered businesses — IMDA mandate in effect</div>
           <div class="divider"></div>
           <ul class="checklist" style="margin-bottom:1.5rem;">
@@ -872,6 +976,15 @@
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
         </div>
       </a>
+      <a href="peppol-uae.html" class="hub-card reveal" style="border-left-color:var(--yellow);">
+        <div class="hub-eyebrow">UAE · MoF · FTA · DCTCE · PINT AE</div>
+        <h3>UAE eInvoicing</h3>
+        <p>The DCTCE 5-corner framework, PINT AE documents, Tax Data Document reporting to the FTA, and the phased mandate from July 2026 to 2027.</p>
+        <div class="hub-link">
+          Go to UAE eInvoicing page
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </div>
+      </a>
       <a href="peppol-kb.html" class="hub-card reveal">
         <div class="hub-eyebrow">Access Point · SMP · SML · AS4 · eDelivery</div>
         <h3>Peppol Knowledge Base</h3>
@@ -901,13 +1014,14 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2026 Peppwise · Independent Peppol Access Point Developer · Singapore &amp; Malaysia</p>
+  <p>© 2026 Peppwise · E-Invoice Integration · Singapore · UAE · Malaysia</p>
   <nav class="footer-links">
     <a href="index.html">Home</a>
     <a href="peppol.html">Peppol</a>
     <a href="peppol-singapore.html">Singapore AP</a>
+    <a href="peppol-uae.html">UAE</a>
     <a href="peppol-kb.html">Knowledge Base</a>
-    <a href="malaysia.html">Malaysia e-Invoice</a>
+    <a href="malaysia.html">Malaysia</a>
   </nav>
 </footer>
 

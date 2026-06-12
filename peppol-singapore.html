@@ -34,14 +34,16 @@
   ]
 }
 </script>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
 
 /* ─── PAGE HERO ─── */
 .page-hero {
-  background: var(--pep-pale);
-  border-bottom: 1px solid var(--pep-border);
+  background-color: var(--pep-pale);
+  background-image: radial-gradient(rgba(245,78,0,0.12) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  border-bottom: 1.5px solid var(--border-strong);
   padding: 9rem 3rem 5rem;
 }
 .page-hero .inner {
@@ -50,20 +52,25 @@
   gap: 3rem; align-items: end;
 }
 .page-hero h1 {
-  font-family: 'EB Garamond', serif;
-  font-size: clamp(2.2rem, 4vw, 3.8rem);
-  font-weight: 500; line-height: 1.08;
+  font-family: var(--font-head);
+  font-size: clamp(2rem, 3.6vw, 3.3rem);
+  font-weight: 700; line-height: 1.1;
+  letter-spacing: -0.02em;
   color: var(--text-primary); margin-bottom: 1rem;
 }
-.page-hero h1 em { font-style: italic; color: var(--pep-accent); }
+.page-hero h1 em {
+  font-style: normal; color: var(--pep-accent);
+  text-decoration: underline wavy var(--pep-accent) 2px;
+  text-underline-offset: 7px;
+}
 .page-hero-sub { font-size: 0.95rem; line-height: 1.75; color: var(--text-muted); max-width: 48ch; margin-bottom: 1.5rem; }
 .hero-stats { display: flex; gap: 1rem; flex-wrap: wrap; }
 .hero-stat {
-  background: var(--surface); border: 1px solid var(--pep-border);
-  border-radius: 4px; padding: 0.8rem 1.2rem; box-shadow: var(--shadow-sm);
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-radius: 6px; padding: 0.8rem 1.2rem; box-shadow: var(--shadow-sm);
 }
-.hero-stat-num { font-family: 'EB Garamond', serif; font-size: 1.5rem; font-weight: 500; line-height: 1; color: var(--pep-accent); }
-.hero-stat-lbl { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-top: 0.2rem; }
+.hero-stat-num { font-family: var(--font-head); font-size: 1.4rem; font-weight: 700; line-height: 1; color: var(--pep-accent); }
+.hero-stat-lbl { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-top: 0.3rem; }
 
 /* ─── SECTION LAYOUTS ─── */
 .content-grid {
@@ -77,43 +84,53 @@
 /* ─── PINT SG / BIS CARDS ─── */
 .spec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 2.5rem; }
 .spec-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 4px; box-shadow: var(--shadow-sm); padding: 1.4rem;
-  border-top: 3px solid var(--pep-accent); transition: box-shadow 0.2s;
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-radius: 6px; box-shadow: var(--shadow-sm); padding: 1.4rem;
+  border-top: 4px solid var(--pep-accent);
+  transition: transform 0.15s, box-shadow 0.15s;
 }
-.spec-card:hover { box-shadow: var(--shadow-md); }
-.spec-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; color: var(--pep-accent); margin-bottom: 0.5rem; }
-.spec-card h5 { font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
+.spec-card:hover { transform: translate(-1px,-1px); box-shadow: var(--shadow-md); }
+.spec-label { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; color: var(--pep-accent); margin-bottom: 0.5rem; }
+.spec-card h5 { font-family: var(--font-head); font-size: 0.92rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
 .spec-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
 
 /* ─── GST CODE TABLE ─── */
-.gst-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; font-size: 0.83rem; }
+.gst-table {
+  width: 100%; border-collapse: separate; border-spacing: 0;
+  margin-top: 1.5rem; font-size: 0.83rem;
+  border: 1.5px solid var(--border-strong); border-radius: 6px; overflow: hidden;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
 .gst-table th {
   text-align: left; padding: 0.6rem 0.8rem;
-  font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700;
-  color: var(--pep-accent); background: var(--pep-pale);
-  border-bottom: 1px solid var(--pep-border);
+  font-family: var(--font-mono);
+  font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700;
+  color: var(--bg); background: var(--text-primary);
+  border-bottom: 1.5px solid var(--border-strong);
 }
 .gst-table td { padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border); color: var(--text-body); vertical-align: top; }
 .gst-table tr:last-child td { border-bottom: none; }
 .gst-table tr:hover td { background: var(--bg-2); }
 .code-pill {
   display: inline-block; font-size: 0.72rem; font-weight: 700;
-  font-family: 'Courier New', monospace; letter-spacing: 0.05em;
+  font-family: var(--font-mono); letter-spacing: 0.05em;
   background: var(--pep-pale); color: var(--pep-accent);
-  border: 1px solid var(--pep-border); padding: 0.1rem 0.5rem; border-radius: 3px;
+  border: 1.5px solid var(--pep-accent); padding: 0.1rem 0.5rem; border-radius: 3px;
 }
 
 /* ─── BIS COMPARISON ─── */
 .bis-compare {
   display: grid; grid-template-columns: 1fr 1fr;
-  gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
-  margin-top: 2rem;
+  gap: 0; border: 1.5px solid var(--border-strong); border-radius: 6px; overflow: hidden;
+  margin-top: 2rem; background: var(--surface);
+  box-shadow: var(--shadow-md);
 }
 .bis-col { padding: 1.8rem; }
-.bis-col:first-child { border-right: 1px solid var(--border); }
+.bis-col:first-child { border-right: 1.5px solid var(--border-strong); }
 .bis-col-header {
-  font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase;
+  font-family: var(--font-mono);
+  font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
   font-weight: 700; margin-bottom: 1rem;
 }
 .bis-col:first-child .bis-col-header { color: var(--pep-accent); }
@@ -127,38 +144,41 @@
 
 /* ─── BIS 4.0 ROADMAP ─── */
 .roadmap-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-left: 4px solid var(--pep-accent); border-radius: 4px;
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-left: 5px solid var(--pep-accent); border-radius: 6px;
+  box-shadow: var(--shadow-sm);
   padding: 1.6rem 2rem; margin-top: 2rem;
 }
 .roadmap-card h4 { margin-bottom: 0.5rem; }
 .roadmap-card p { font-size: 0.87rem; color: var(--text-muted); line-height: 1.7; }
 .roadmap-card strong { color: var(--text-primary); }
 .callout-box {
-  background: var(--pep-pale); border: 1.5px solid var(--pep-border);
-  border-radius: 4px; padding: 1.2rem 1.5rem; margin-top: 1.5rem;
+  background: var(--yellow-pale); border: 1.5px solid var(--border-strong);
+  border-left-width: 5px;
+  border-radius: 6px; padding: 1.2rem 1.5rem; margin-top: 1.5rem;
   font-size: 0.88rem; color: var(--text-body); line-height: 1.7;
 }
-.callout-box strong { color: var(--pep-accent); }
+.callout-box strong { color: var(--text-primary); }
 
 /* ─── PERSONAL EXPERIENCE ─── */
 .impl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem; }
 .impl-point { display: flex; gap: 1rem; align-items: flex-start; }
 .impl-icon {
-  width: 36px; height: 36px; border-radius: 4px;
-  background: var(--pep-pale); border: 1px solid var(--pep-border);
+  width: 38px; height: 38px; border-radius: 6px;
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  box-shadow: var(--shadow-sm);
   display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; color: var(--pep-accent); font-size: 0.9rem;
+  flex-shrink: 0; font-size: 0.95rem;
 }
-.impl-text h5 { font-size: 0.88rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; }
+.impl-text h5 { font-family: var(--font-head); font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; }
 .impl-text p  { font-size: 0.8rem; color: var(--text-muted); line-height: 1.55; }
 
 /* ─── CONTACT ─── */
-.contact-section { text-align: center; padding: 5rem 3rem; border-top: 1px solid var(--border); }
+.contact-section { text-align: center; padding: 5rem 3rem; border-top: 1.5px solid var(--border-strong); }
 .contact-email {
-  font-family: 'EB Garamond', serif; font-size: 1.3rem;
+  font-family: var(--font-mono); font-size: 1.15rem; font-weight: 500;
   color: var(--pep-accent); text-decoration: none;
-  border-bottom: 1px solid var(--pep-border); padding-bottom: 2px;
+  border-bottom: 2px solid var(--pep-border); padding-bottom: 2px;
   display: inline-block; margin: 1rem 0 2rem; transition: border-color 0.2s;
 }
 .contact-email:hover { border-color: var(--pep-accent); }
@@ -197,12 +217,18 @@
     <div class="nav-dropdown">
       <a href="peppol.html" class="nav-dropdown-trigger nav-active">Peppol <span class="dropdown-arrow">▾</span></a>
       <div class="nav-dropdown-menu">
-        <a href="peppol.html">Peppol Overview</a>
-        <a href="peppol-singapore.html" class="active-sub">Singapore Access Point</a>
+        <a href="peppol.html">Overview · C4 vs C5</a>
+        <a href="peppol-singapore.html" class="active-sub">Singapore InvoiceNow</a>
+        <a href="peppol-uae.html">UAE eInvoicing</a>
         <a href="peppol-kb.html">Knowledge Base</a>
       </div>
     </div>
-    <a href="malaysia.html">Malaysia e-Invoice</a>
+    <div class="nav-dropdown">
+      <a href="malaysia.html" class="nav-dropdown-trigger">Direct Clearance <span class="dropdown-arrow">▾</span></a>
+      <div class="nav-dropdown-menu">
+        <a href="malaysia.html">Malaysia e-Invoice</a>
+      </div>
+    </div>
     <a href="#contact" class="nav-cta">Get in Touch</a>
   </div>
   <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
@@ -213,6 +239,7 @@
   <a href="index.html" class="mobile-nav-link">Home</a>
   <a href="peppol.html" class="mobile-nav-link">Peppol Overview</a>
   <a href="peppol-singapore.html" class="mobile-nav-link">Singapore AP</a>
+  <a href="peppol-uae.html" class="mobile-nav-link">UAE eInvoicing</a>
   <a href="peppol-kb.html" class="mobile-nav-link">Knowledge Base</a>
   <a href="malaysia.html" class="mobile-nav-link">Malaysia e-Invoice</a>
   <a href="#contact" class="mobile-nav-link">Get in Touch</a>
@@ -222,7 +249,7 @@
 <div class="page-hero">
   <div class="inner">
     <div>
-      <div class="eyebrow eyebrow-amber" style="animation:fadeUp 0.6s ease both;">Singapore · IMDA · InvoiceNow · PINT SG · BIS 3.0</div>
+      <div class="eyebrow eyebrow-amber" style="animation:fadeUp 0.6s ease both;">Peppol C5 · Singapore · IMDA · InvoiceNow · PINT SG · BIS 3.0</div>
       <h1 style="animation:fadeUp 0.6s ease 0.1s both;">
         IMDA-Certified Peppol<br>
         Access Point for<br>
@@ -427,7 +454,7 @@
   <div class="inner">
     <div class="eyebrow eyebrow-amber reveal">C5 — The 5th Corner</div>
     <h2 class="reveal">IRAS as the <em>5th Corner</em></h2>
-    <p class="lead reveal">Singapore's InvoiceNow goes beyond B2B document exchange. IRAS receives invoice data directly from Access Points — enabling automated GST return pre-population for connected businesses.</p>
+    <p class="lead reveal">Singapore's InvoiceNow goes beyond B2B document exchange. IRAS receives invoice data directly from Access Points — enabling automated GST return pre-population for connected businesses. The UAE is adopting the same 5-corner pattern with <a href="peppol-uae.html" style="color:var(--pep-accent);font-weight:700;">DCTCE</a>.</p>
 
     <div class="content-grid" style="margin-top:2rem;">
       <div class="content-body reveal">
@@ -539,13 +566,14 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2026 Peppwise · Independent Peppol Access Point Developer · Singapore &amp; Malaysia</p>
+  <p>© 2026 Peppwise · E-Invoice Integration · Singapore · UAE · Malaysia</p>
   <nav class="footer-links">
     <a href="index.html">Home</a>
     <a href="peppol.html">Peppol</a>
     <a href="peppol-singapore.html">Singapore AP</a>
+    <a href="peppol-uae.html">UAE</a>
     <a href="peppol-kb.html">Knowledge Base</a>
-    <a href="malaysia.html">Malaysia e-Invoice</a>
+    <a href="malaysia.html">Malaysia</a>
   </nav>
 </footer>
 

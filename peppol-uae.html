@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UAE eInvoicing — PINT AE, DCTCE 5-Corner Model, FTA | Peppwise</title>
+<meta name="description" content="UAE eInvoicing integration: PINT AE document mapping, DCTCE 5-corner architecture, Tax Data Document reporting to the FTA, and Accredited Service Provider (ASP) integration. Phase 1 mandatory January 2027.">
+<meta property="og:title" content="UAE eInvoicing — PINT AE, DCTCE 5-Corner Model, FTA | Peppwise">
+<meta property="og:description" content="UAE eInvoicing readiness: PINT AE, DCTCE 5-corner model, Tax Data Document to the FTA, ASP integration. Pilot July 2026, Phase 1 mandatory January 2027.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.peppwise.com/peppol-uae">
+<link rel="canonical" href="https://www.peppwise.com/peppol-uae">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "UAE eInvoicing Integration — PINT AE / DCTCE",
+      "provider": {"@type":"Organization","name":"Peppwise","url":"https://www.peppwise.com"},
+      "description": "UAE eInvoicing integration and readiness: PINT AE document mapping, DCTCE 5-corner architecture, Tax Data Document reporting to the FTA, and Accredited Service Provider integration.",
+      "serviceType": "E-Invoicing Integration",
+      "areaServed": "AE",
+      "url": "https://www.peppwise.com/peppol-uae.html"
+    },
+    {
+      "@type": "WebPage",
+      "url": "https://www.peppwise.com/peppol-uae",
+      "name": "UAE eInvoicing — PINT AE, DCTCE 5-Corner Model, FTA | Peppwise",
+      "isPartOf": {"@type":"WebSite","url":"https://www.peppwise.com"}
+    }
+  ]
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+
+/* ─── PAGE HERO ─── */
+.page-hero {
+  background-color: var(--pep-pale);
+  background-image: radial-gradient(rgba(245,78,0,0.12) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  border-bottom: 1.5px solid var(--border-strong);
+  padding: 9rem 3rem 5rem;
+}
+.page-hero .inner {
+  max-width: 1160px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 3rem; align-items: end;
+}
+.page-hero h1 {
+  font-family: var(--font-head);
+  font-size: clamp(2rem, 3.6vw, 3.3rem);
+  font-weight: 700; line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text-primary); margin-bottom: 1rem;
+}
+.page-hero h1 em {
+  font-style: normal; color: var(--pep-accent);
+  text-decoration: underline wavy var(--pep-accent) 2px;
+  text-underline-offset: 7px;
+}
+.page-hero-sub { font-size: 0.95rem; line-height: 1.75; color: var(--text-muted); max-width: 48ch; margin-bottom: 1.5rem; }
+.hero-stats { display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero-stat {
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-radius: 6px; padding: 0.8rem 1.2rem; box-shadow: var(--shadow-sm);
+}
+.hero-stat-num { font-family: var(--font-head); font-size: 1.4rem; font-weight: 700; line-height: 1; color: var(--pep-accent); }
+.hero-stat-lbl { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-top: 0.3rem; }
+
+/* ─── SECTION LAYOUTS ─── */
+.content-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 3rem; align-items: start;
+}
+.content-body { font-size: 0.93rem; line-height: 1.82; color: var(--text-body); }
+.content-body strong { color: var(--text-primary); }
+.content-body p + p { margin-top: 1rem; }
+
+/* ─── 5-CORNER DIAGRAM ─── */
+.corner-flow {
+  margin-top: 2.5rem;
+}
+.corner-row {
+  display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  gap: 0.6rem; align-items: stretch;
+}
+.corner-box {
+  background: var(--surface);
+  border: 1.5px solid var(--border-strong);
+  border-radius: 6px;
+  box-shadow: var(--shadow-sm);
+  padding: 1rem 1.1rem;
+  text-align: center;
+}
+.corner-num {
+  font-family: var(--font-mono);
+  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--pep-accent); margin-bottom: 0.3rem;
+}
+.corner-box h5 { font-family: var(--font-head); font-size: 0.88rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; }
+.corner-box p { font-size: 0.72rem; color: var(--text-muted); line-height: 1.5; }
+.corner-arrow {
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-weight: 700;
+  color: var(--text-primary); font-size: 1rem;
+}
+.corner-five-wrap {
+  display: flex; flex-direction: column; align-items: center;
+  margin-top: 0.8rem;
+}
+.corner-five-arrows {
+  display: grid; grid-template-columns: 1fr 1fr;
+  width: 56%; margin: 0 auto;
+  font-family: var(--font-mono); font-weight: 700; color: var(--pep-accent);
+  text-align: center; font-size: 1rem; line-height: 1;
+  padding: 0.4rem 0;
+}
+.corner-box.corner-fta {
+  background: var(--pep-pale);
+  width: min(420px, 100%);
+  box-shadow: var(--shadow-md);
+}
+.corner-tdd-label {
+  font-family: var(--font-mono); font-size: 0.58rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--pep-accent);
+  text-align: center; margin-bottom: 0.2rem;
+}
+
+/* ─── SPEC CARDS ─── */
+.spec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; margin-top: 2.5rem; }
+.spec-grid .os-body { padding: 1.2rem 1.4rem; }
+.spec-label { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; color: var(--pep-accent); margin-bottom: 0.5rem; }
+.spec-grid h5 { font-family: var(--font-head); font-size: 0.92rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
+.spec-grid .os-body p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+
+/* ─── PHASE TIMELINE ─── */
+.phase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; margin-top: 2.5rem; }
+.phase-grid .os-window { display: flex; flex-direction: column; }
+.phase-grid .os-body { padding: 1.2rem 1.4rem; flex: 1; }
+.phase-status {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.56rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; padding: 0.18rem 0.55rem;
+  border: 1.5px solid var(--border-strong); border-radius: 3px;
+  margin-bottom: 0.7rem;
+}
+.status-next { background: var(--yellow); color: var(--text-primary); }
+.status-future { background: var(--surface); color: var(--text-muted); }
+.phase-date { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700; color: var(--pep-accent); margin-bottom: 0.3rem; }
+.phase-grid h5 { font-family: var(--font-head); font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.35rem; }
+.phase-grid .os-body p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; }
+
+/* ─── CALLOUT ─── */
+.callout-box {
+  background: var(--yellow-pale); border: 1.5px solid var(--border-strong);
+  border-left-width: 5px;
+  border-radius: 6px; padding: 1.2rem 1.5rem; margin-top: 1.8rem;
+  font-size: 0.88rem; color: var(--text-body); line-height: 1.7;
+}
+.callout-box strong { color: var(--text-primary); }
+
+/* ─── IMPLEMENTATION ─── */
+.impl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem; }
+.impl-point { display: flex; gap: 1rem; align-items: flex-start; }
+.impl-icon {
+  width: 38px; height: 38px; border-radius: 6px;
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  box-shadow: var(--shadow-sm);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 0.95rem;
+}
+.impl-text h5 { font-family: var(--font-head); font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; }
+.impl-text p  { font-size: 0.8rem; color: var(--text-muted); line-height: 1.55; }
+
+/* ─── CONTACT ─── */
+.contact-section { text-align: center; padding: 5rem 3rem; border-top: 1.5px solid var(--border-strong); }
+.contact-email {
+  font-family: var(--font-mono); font-size: 1.15rem; font-weight: 500;
+  color: var(--pep-accent); text-decoration: none;
+  border-bottom: 2px solid var(--pep-border); padding-bottom: 2px;
+  display: inline-block; margin: 1rem 0 2rem; transition: border-color 0.2s;
+}
+.contact-email:hover { border-color: var(--pep-accent); }
+.contact-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .page-hero { padding: 8rem 2rem 4rem; }
+  .page-hero .inner { grid-template-columns: 1fr; }
+  .spec-grid { grid-template-columns: 1fr 1fr; }
+  .phase-grid { grid-template-columns: 1fr 1fr; }
+  .content-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+@media (max-width: 900px) {
+  .page-hero { padding: 7rem 1.5rem 3.5rem; }
+  .spec-grid { grid-template-columns: 1fr; }
+  .corner-row { grid-template-columns: 1fr; }
+  .corner-arrow { transform: rotate(90deg); padding: 0.2rem 0; }
+  .corner-five-arrows { width: auto; }
+  .impl-grid { grid-template-columns: 1fr; }
+  .contact-section { padding: 4rem 1.5rem; }
+  .contact-btns { flex-direction: column; align-items: center; }
+  .btn, .btn-ghost { width: 100%; max-width: 300px; text-align: center; }
+}
+@media (max-width: 600px) {
+  .hero-stats { flex-direction: column; }
+  .phase-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo">Pepp<span>wise</span></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <div class="nav-dropdown">
+      <a href="peppol.html" class="nav-dropdown-trigger nav-active">Peppol <span class="dropdown-arrow">▾</span></a>
+      <div class="nav-dropdown-menu">
+        <a href="peppol.html">Overview · C4 vs C5</a>
+        <a href="peppol-singapore.html">Singapore InvoiceNow</a>
+        <a href="peppol-uae.html" class="active-sub">UAE eInvoicing</a>
+        <a href="peppol-kb.html">Knowledge Base</a>
+      </div>
+    </div>
+    <div class="nav-dropdown">
+      <a href="malaysia.html" class="nav-dropdown-trigger">Direct Clearance <span class="dropdown-arrow">▾</span></a>
+      <div class="nav-dropdown-menu">
+        <a href="malaysia.html">Malaysia e-Invoice</a>
+      </div>
+    </div>
+    <a href="#contact" class="nav-cta">Get in Touch</a>
+  </div>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile-overlay" id="nav-mobile-overlay">
+  <a href="index.html" class="mobile-nav-link">Home</a>
+  <a href="peppol.html" class="mobile-nav-link">Peppol Overview</a>
+  <a href="peppol-singapore.html" class="mobile-nav-link">Singapore AP</a>
+  <a href="peppol-uae.html" class="mobile-nav-link">UAE eInvoicing</a>
+  <a href="peppol-kb.html" class="mobile-nav-link">Knowledge Base</a>
+  <a href="malaysia.html" class="mobile-nav-link">Malaysia e-Invoice</a>
+  <a href="#contact" class="mobile-nav-link">Get in Touch</a>
+</div>
+
+<!-- ═══ PAGE HERO ═══ -->
+<div class="page-hero">
+  <div class="inner">
+    <div>
+      <div class="eyebrow eyebrow-amber" style="animation:fadeUp 0.6s ease both;">UAE · MoF · FTA · DCTCE · PINT AE · Peppol C5</div>
+      <h1 style="animation:fadeUp 0.6s ease 0.1s both;">
+        UAE eInvoicing.<br>
+        Peppol 5-corner,<br>
+        <em>built before the deadline.</em>
+      </h1>
+      <p class="page-hero-sub" style="animation:fadeUp 0.6s ease 0.2s both;">
+        The UAE's DCTCE framework is a Peppol-based 5-corner model: PINT AE documents exchanged through Accredited Service Providers, with Tax Data Documents reported to the FTA. Pilot from July 2026 — Phase 1 mandatory January 2027. The architecture is the same one I have already built for Singapore's C5.
+      </p>
+      <div class="hero-stats" style="animation:fadeUp 0.6s ease 0.3s both;">
+        <div class="hero-stat">
+          <div class="hero-stat-num">Jan 2027</div>
+          <div class="hero-stat-lbl">Phase 1 Mandatory</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">AED 50M</div>
+          <div class="hero-stat-lbl">Phase 1 Revenue Threshold</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">PINT AE</div>
+          <div class="hero-stat-lbl">UAE Peppol Profile</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0.8rem;animation:fadeUp 0.6s ease 0.35s both;">
+      <a href="#contact" class="btn btn-amber">Book a Readiness Assessment</a>
+      <a href="#timeline" class="btn-ghost" style="text-align:center;">View Mandate Timeline →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DCTCE 5-CORNER MODEL ═══ -->
+<div class="section-wrap no-border" id="dctce">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">DCTCE</div>
+    <h2 class="reveal">The UAE's <em>5-corner model</em></h2>
+    <p class="lead reveal">DCTCE — Decentralised Continuous Transaction Control and Exchange — is the UAE's e-invoicing framework, run jointly by the Ministry of Finance and the Federal Tax Authority. It is a Peppol 5-corner architecture: invoices exchange between businesses through service providers, while tax data flows continuously to the FTA.</p>
+
+    <div class="content-grid" style="margin-top:2rem;">
+      <div class="content-body reveal">
+        <p>In a classic Peppol <strong>4-corner model</strong>, an invoice travels from C1 (supplier) through C2 (supplier's service provider) and C3 (buyer's service provider) to C4 (buyer). No tax authority sits in the flow.</p>
+        <p>The UAE adds a <strong>fifth corner: the FTA</strong>. When an invoice passes between Accredited Service Providers, the supplier's ASP simultaneously reports a <strong>Tax Data Document (TDD)</strong> — the tax-relevant subset of the invoice — to the Federal Tax Authority, which returns electronic confirmations.</p>
+        <p>This is the same architectural pattern as <strong>Singapore's C5</strong>, where Access Points forward GST data to IRAS in parallel with delivery. The UAE differs in governance — ASPs must be <strong>accredited by the Ministry of Finance</strong>, and accreditation itself requires Peppol certification — but the engineering problems are the same: jurisdiction-specific document mapping, parallel authority reporting, and confirmation handling.</p>
+        <p>The exchange is <strong>decentralised</strong>: there is no single government portal that invoices clear through. Validation and transmission responsibility sits with the ASPs — which is exactly why choosing and integrating the right ASP correctly is the critical path of every UAE project.</p>
+      </div>
+      <div class="reveal">
+        <div class="corner-flow">
+          <div class="corner-row">
+            <div class="corner-box">
+              <div class="corner-num">Corner 1</div>
+              <h5>Supplier</h5>
+              <p>Issues invoice from ERP / billing system</p>
+            </div>
+            <div class="corner-arrow">→</div>
+            <div class="corner-box">
+              <div class="corner-num">Corner 2</div>
+              <h5>Supplier's ASP</h5>
+              <p>Validates PINT AE, transmits via Peppol</p>
+            </div>
+            <div class="corner-arrow">→</div>
+            <div class="corner-box">
+              <div class="corner-num">Corner 3</div>
+              <h5>Buyer's ASP</h5>
+              <p>Receives, validates, delivers</p>
+            </div>
+            <div class="corner-arrow">→</div>
+            <div class="corner-box">
+              <div class="corner-num">Corner 4</div>
+              <h5>Buyer</h5>
+              <p>Receives invoice into AP system</p>
+            </div>
+          </div>
+          <div class="corner-five-wrap">
+            <div class="corner-five-arrows"><span>↓</span><span>↓</span></div>
+            <div class="corner-tdd-label">Tax Data Document (TDD) + confirmations</div>
+            <div class="corner-box corner-fta">
+              <div class="corner-num">Corner 5</div>
+              <h5>Federal Tax Authority</h5>
+              <p>Receives tax data continuously from ASPs — Decentralised CTC</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PINT AE ═══ -->
+<div class="section-wrap alt" id="pint-ae">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">PINT AE</div>
+    <h2 class="reveal">The UAE <em>document standard</em></h2>
+    <p class="lead reveal">PINT AE is the UAE specialisation of the Peppol International Invoice (PINT) — the same family as Singapore's PINT SG. It defines the mandatory and optional fields for UAE e-invoices, tax credit notes, and related documents.</p>
+
+    <div class="spec-grid reveal-group">
+      <div class="os-window reveal">
+        <div class="os-titlebar os-titlebar-red">
+          <span class="os-title">pint_ae_invoice.xml</span>
+          <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
+        </div>
+        <div class="os-body">
+          <div class="spec-label">Document Type</div>
+          <h5>PINT AE Invoice &amp; Credit Note</h5>
+          <p>UBL-based structured XML on the global PINT baseline, extended with UAE data rules — VAT treatment, TRN identifiers, and UAE-specific validation. Free-form PDFs stop counting as invoices once your phase goes live.</p>
+        </div>
+      </div>
+      <div class="os-window reveal">
+        <div class="os-titlebar os-titlebar-red">
+          <span class="os-title">tax_data_document.xml</span>
+          <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
+        </div>
+        <div class="os-body">
+          <div class="spec-label">Corner 5 Reporting</div>
+          <h5>Tax Data Document (TDD)</h5>
+          <p>The tax-relevant extract of each invoice that the ASP reports to the FTA. Getting the TDD mapping right — and handling FTA confirmations and rejections — is the heart of DCTCE compliance.</p>
+        </div>
+      </div>
+      <div class="os-window reveal">
+        <div class="os-titlebar os-titlebar-red">
+          <span class="os-title">asp_accreditation.cer</span>
+          <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
+        </div>
+        <div class="os-body">
+          <div class="spec-label">Service Providers</div>
+          <h5>MoF-Accredited ASPs</h5>
+          <p>Invoices may only flow through Accredited Service Providers — Peppol-certified providers additionally accredited by the Ministry of Finance. Every business in scope must appoint one before its phase deadline.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout-box reveal">
+      <strong>Why this is familiar territory:</strong> PINT AE sits in the same specification family as PINT SG, which I have implemented end-to-end — document mapping, jurisdiction Schematron validation, and 5-corner authority reporting. For UAE clients this means the unknowns are the UAE-specific rules, not the architecture. Verify current specifications against the Ministry of Finance's official eInvoicing publications — the programme is still issuing technical updates.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MANDATE TIMELINE ═══ -->
+<div class="section-wrap surface" id="timeline">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Mandate Timeline</div>
+    <h2 class="reveal">Phased rollout, <em>tight deadlines</em></h2>
+    <p class="lead reveal">The UAE rollout moves quickly: pilot in mid-2026, then mandatory phases through 2027. Businesses in Phase 1 must have an Accredited Service Provider appointed months before go-live.</p>
+
+    <div class="phase-grid reveal-group">
+      <div class="os-window reveal">
+        <div class="os-titlebar os-titlebar-yellow">
+          <span class="os-title">phase_pilot.log</span>
+          <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
+        </div>
+        <div class="os-body">
+          <span class="phase-status status-next">Starts Next Month</span>
+          <div class="phase-date">1 Jul 2026</div>
+          <h5>Pilot Programme</h5>
+          <p>DCTCE goes live with pilot participants. ASPs and early adopters exchange production-grade PINT AE documents and TDD reporting with the FTA.</p>
+        </div>
+      </div>
+      <div class="os-window reveal">
+        <div class="os-titlebar">
+          <span class="os-title">phase_1.log</span>
+          <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
+        </div>
+        <div class="os-body">
+          <span class="phase-status status-future">Mandatory</span>
+          <div class="phase-date">1 Jan 2027</div>
+          <h5>Phase 1 — Large Businesses</h5>
+          <p>Businesses with revenue ≥ AED 50M must issue and receive e-invoices through an ASP — with the ASP appointed well in advance (per MoF schedule, during 2026).</p>
+        </div>
+      </div>
+      <div class="os-window reveal">
+        <div class="os-titlebar">
+          <span class="os-title">phase_2.log</span>
+          <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
+        </div>
+        <div class="os-body">
+          <span class="phase-status status-future">Mandatory</span>
+          <div class="phase-date">1 Jul 2027</div>
+          <h5>Phase 2 — Remaining Businesses</h5>
+          <p>The mandate extends to businesses below the AED 50M threshold, with ASP appointment deadlines in early 2027.</p>
+        </div>
+      </div>
+      <div class="os-window reveal">
+        <div class="os-titlebar">
+          <span class="os-title">phase_gov.log</span>
+          <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
+        </div>
+        <div class="os-body">
+          <span class="phase-status status-future">Mandatory</span>
+          <div class="phase-date">1 Oct 2027</div>
+          <h5>Government Entities</h5>
+          <p>Government entities follow a separate track, completing the B2B and B2G coverage of the DCTCE framework.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout-box reveal">
+      <strong>The practical deadline is earlier than the legal one.</strong> Phase 1 businesses need an appointed ASP, a working PINT AE mapping from their ERP, and tested TDD flows before January 2027 — which makes the second half of 2026 the integration window. Dates above reflect the Ministry of Finance's published schedule; confirm your entity's exact obligations against current MoF guidance.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ WHAT I DO ═══ -->
+<div class="section-wrap alt" id="services">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">UAE Services</div>
+    <h2 class="reveal">From ERP to FTA, <em>end to end</em></h2>
+    <p class="lead reveal">Built on production Peppol 5-corner experience from Singapore — applied to the UAE's DCTCE framework.</p>
+
+    <div class="impl-grid reveal-group">
+      <div class="impl-point reveal">
+        <div class="impl-icon">🧭</div>
+        <div class="impl-text">
+          <h5>DCTCE Readiness Assessment</h5>
+          <p>Scope your obligations by phase, map your invoice flows (B2B, B2G, self-billing), and produce a gap analysis between your current billing data and PINT AE requirements.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">🔗</div>
+        <div class="impl-text">
+          <h5>ASP Selection &amp; Integration</h5>
+          <p>Evaluate MoF-accredited ASPs against your volumes, ERP landscape, and cross-border needs — then build and test the integration between your systems and the chosen ASP.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">📄</div>
+        <div class="impl-text">
+          <h5>PINT AE Document Mapping</h5>
+          <p>Field-by-field mapping from your ERP (SAP, Oracle, Dynamics, custom) to PINT AE invoices and tax credit notes — including VAT treatment and TRN handling.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">📡</div>
+        <div class="impl-text">
+          <h5>TDD &amp; FTA Confirmation Handling</h5>
+          <p>Design the Tax Data Document flow: what gets reported to the FTA, how confirmations and rejections come back, and how your AR/AP processes react to them.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">🌐</div>
+        <div class="impl-text">
+          <h5>Cross-Border Peppol Routing</h5>
+          <p>UAE corridors to Singapore, Malaysia, and the EU — one Peppol-based stack covering your regional invoicing instead of one-off country builds.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">🛠️</div>
+        <div class="impl-text">
+          <h5>For Software Vendors &amp; ASP Candidates</h5>
+          <p>Building ASP capability or adding UAE support to your product? I bring the Peppol AP engineering — AS4, SMP/SML, PINT validation pipelines — that accreditation requires.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONTACT ═══ -->
+<div class="contact-section" id="contact">
+  <div class="eyebrow eyebrow-amber eyebrow-center reveal">Let's Talk</div>
+  <h2 class="reveal">January 2027 is closer<br><em>than it looks.</em></h2>
+  <p class="lead reveal" style="margin:0 auto 0.5rem;text-align:center;">
+    Whether you are a Phase 1 business scoping the mandate, a vendor adding UAE support, or a regional group planning SG + UAE + MY together — reach out. First consultation is complimentary.
+  </p>
+  <a href="mailto:hello@peppwise.com" class="contact-email reveal">hello@peppwise.com</a>
+  <div class="contact-btns reveal">
+    <a href="mailto:hello@peppwise.com" class="btn btn-amber">Send an Enquiry</a>
+    <a href="https://calendly.com/tousif-md-amin-faisal/30min" target="_blank" rel="noopener" class="btn-ghost">Book a Discovery Call</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Peppwise · E-Invoice Integration · Singapore · UAE · Malaysia</p>
+  <nav class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="peppol.html">Peppol</a>
+    <a href="peppol-singapore.html">Singapore AP</a>
+    <a href="peppol-uae.html">UAE</a>
+    <a href="peppol-kb.html">Knowledge Base</a>
+    <a href="malaysia.html">Malaysia</a>
+  </nav>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.09, rootMargin: '0px 0px -30px 0px' });
+  revealEls.forEach(el => observer.observe(el));
+
+  const hamburger = document.getElementById('nav-hamburger');
+  const overlay   = document.getElementById('nav-mobile-overlay');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    overlay.classList.toggle('open');
+    document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
+  });
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>

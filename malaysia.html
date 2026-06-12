@@ -34,14 +34,16 @@
   ]
 }
 </script>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
 
 /* ─── PAGE HERO ─── */
 .page-hero {
-  background: var(--einv-pale);
-  border-bottom: 1px solid var(--einv-border);
+  background-color: var(--einv-pale);
+  background-image: radial-gradient(rgba(29,74,255,0.12) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  border-bottom: 1.5px solid var(--border-strong);
   padding: 9rem 3rem 5rem;
 }
 .page-hero .inner {
@@ -50,35 +52,42 @@
   gap: 3rem; align-items: end;
 }
 .page-hero h1 {
-  font-family: 'EB Garamond', serif;
-  font-size: clamp(2.2rem, 4vw, 3.8rem);
-  font-weight: 500; line-height: 1.08;
+  font-family: var(--font-head);
+  font-size: clamp(2rem, 3.6vw, 3.3rem);
+  font-weight: 700; line-height: 1.1;
+  letter-spacing: -0.02em;
   color: var(--text-primary); margin-bottom: 1rem;
 }
-.page-hero h1 em { font-style: italic; color: var(--einv-accent); }
+.page-hero h1 em {
+  font-style: normal; color: var(--einv-accent);
+  text-decoration: underline wavy var(--einv-accent) 2px;
+  text-underline-offset: 7px;
+}
 .page-hero-sub {
   font-size: 0.95rem; line-height: 1.75;
   color: var(--text-muted); max-width: 48ch; margin-bottom: 1.5rem;
 }
 .hero-stats { display: flex; gap: 1rem; flex-wrap: wrap; }
 .hero-stat {
-  background: var(--surface); border: 1px solid var(--einv-border);
-  border-radius: 4px; padding: 0.8rem 1.2rem; box-shadow: var(--shadow-sm);
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-radius: 6px; padding: 0.8rem 1.2rem; box-shadow: var(--shadow-sm);
 }
 .hero-stat-num {
-  font-family: 'EB Garamond', serif;
-  font-size: 1.8rem; font-weight: 500; line-height: 1; color: var(--einv-accent);
+  font-family: var(--font-head);
+  font-size: 1.6rem; font-weight: 700; line-height: 1; color: var(--einv-accent);
 }
 .hero-stat-lbl {
-  font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--text-muted); margin-top: 0.2rem;
+  font-family: var(--font-mono);
+  font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-muted); margin-top: 0.3rem;
 }
 
 /* ─── API COVERAGE ─── */
 .api-grid {
   display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 1px; background: var(--border);
-  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+  gap: 1.5px; background: var(--border-strong);
+  border: 1.5px solid var(--border-strong); border-radius: 6px; overflow: hidden;
+  box-shadow: var(--shadow-md);
   margin-top: 2.5rem;
 }
 .api-card {
@@ -87,28 +96,32 @@
 }
 .api-card:hover { background: var(--einv-pale); }
 .api-method {
-  font-size: 0.55rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  font-family: var(--font-mono);
+  font-size: 0.55rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
   padding: 0.15rem 0.55rem; border-radius: 3px; display: inline-block;
+  border: 1.5px solid var(--border-strong);
   margin-bottom: 0.55rem;
 }
-.method-post { background: #D1FAE5; color: #065F46; }
-.method-get  { background: var(--einv-pale); color: var(--einv-accent); border: 1px solid var(--einv-border); }
-.method-put  { background: #FEF3C7; color: #92400E; }
-.api-card h5 { font-size: 0.86rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; }
+.method-post { background: #C9F2D8; color: #0B5C2E; }
+.method-get  { background: var(--einv-pale); color: var(--einv-accent); }
+.method-put  { background: var(--yellow); color: var(--text-primary); }
+.api-card h5 { font-family: var(--font-head); font-size: 0.86rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; }
 .api-card code {
   font-size: 0.7rem; color: var(--text-muted);
-  font-family: 'Courier New', monospace; line-height: 1.5;
+  font-family: var(--font-mono); line-height: 1.5;
   display: block; word-break: break-all;
 }
 .api-done {
   display: flex; align-items: center; gap: 0.3rem;
-  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  color: #065F46; margin-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  color: #0B5C2E; margin-top: 0.5rem;
 }
 .api-done::before { content: '✓'; }
 .api-callout {
-  background: var(--surface); border: 1px solid var(--einv-border);
-  border-left: 4px solid var(--einv-accent); border-radius: 4px;
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-left: 5px solid var(--einv-accent); border-radius: 6px;
+  box-shadow: var(--shadow-sm);
   padding: 1.4rem 1.6rem; margin-top: 1.5rem;
 }
 .api-callout p { font-size: 0.88rem; color: var(--text-body); line-height: 1.7; }
@@ -120,21 +133,23 @@
   gap: 1.2rem; margin-top: 2.5rem;
 }
 .phase-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 4px; box-shadow: var(--shadow-sm);
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-radius: 6px; box-shadow: var(--shadow-sm);
   padding: 1.6rem 1.4rem;
-  border-top: 3px solid var(--einv-accent);
-  transition: box-shadow 0.2s;
+  border-top: 4px solid var(--einv-accent);
+  transition: transform 0.15s, box-shadow 0.15s;
 }
-.phase-card:hover { box-shadow: var(--shadow-md); }
+.phase-card:hover { transform: translate(-1px,-1px); box-shadow: var(--shadow-md); }
 .phase-status {
-  font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+  font-family: var(--font-mono);
+  font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase;
   font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 3px;
+  border: 1.5px solid var(--border-strong);
   display: inline-block; margin-bottom: 0.9rem;
 }
-.status-live { background: #D1FAE5; color: #065F46; }
-.phase-date { font-family: 'EB Garamond', serif; font-size: 1.3rem; font-weight: 500; color: var(--einv-accent); margin-bottom: 0.3rem; }
-.phase-title { font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
+.status-live { background: #C9F2D8; color: #0B5C2E; }
+.phase-date { font-family: var(--font-head); font-size: 1.25rem; font-weight: 700; color: var(--einv-accent); margin-bottom: 0.3rem; }
+.phase-title { font-family: var(--font-head); font-size: 0.92rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
 .phase-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
 
 /* ─── DOCUMENT TYPES ─── */
@@ -143,12 +158,13 @@
   gap: 1.2rem; margin-top: 2.5rem;
 }
 .doctype-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 4px; box-shadow: var(--shadow-sm); padding: 1.6rem;
-  border-top: 3px solid var(--einv-accent); transition: box-shadow 0.2s;
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-radius: 6px; box-shadow: var(--shadow-sm); padding: 1.6rem;
+  border-top: 4px solid var(--einv-accent);
+  transition: transform 0.15s, box-shadow 0.15s;
 }
-.doctype-card:hover { box-shadow: var(--shadow-md); }
-.doctype-num { font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--einv-accent); font-weight: 700; margin-bottom: 0.5rem; }
+.doctype-card:hover { transform: translate(-1px,-1px); box-shadow: var(--shadow-md); }
+.doctype-num { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--einv-accent); font-weight: 700; margin-bottom: 0.5rem; }
 .doctype-card h4 { margin-bottom: 0.4rem; color: var(--einv-accent); }
 .doctype-card h4 span { color: var(--text-primary); }
 .doctype-when { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.8rem; line-height: 1.5; }
@@ -160,21 +176,24 @@
 .lc-step { display: grid; grid-template-columns: 2.4rem 1fr; gap: 1.2rem; align-items: stretch; }
 .lc-step-line { display: flex; flex-direction: column; align-items: center; }
 .lc-circle {
-  width: 30px; height: 30px; border-radius: 50%;
-  border: 2px solid var(--einv-accent);
+  width: 30px; height: 30px; border-radius: 6px;
+  border: 1.5px solid var(--border-strong);
   display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono);
   font-size: 0.65rem; font-weight: 700; color: var(--einv-accent);
   background: var(--surface); flex-shrink: 0; position: relative; z-index: 2;
+  box-shadow: var(--shadow-sm);
 }
-.lc-connector { flex: 1; width: 1px; background: var(--einv-border); min-height: 1rem; margin: 3px 0; }
+.lc-connector { flex: 1; width: 1.5px; background: var(--border-strong); opacity: 0.25; min-height: 1rem; margin: 3px 0; }
 .lc-step:last-child .lc-connector { display: none; }
 .lc-body { padding-bottom: 1.8rem; }
 .lc-badge {
-  display: inline-block; font-size: 0.55rem; font-weight: 700;
-  letter-spacing: 0.12em; text-transform: uppercase;
+  display: inline-block; font-family: var(--font-mono);
+  font-size: 0.55rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
   padding: 0.15rem 0.5rem; border-radius: 3px;
   background: var(--einv-pale); color: var(--einv-accent);
-  border: 1px solid var(--einv-border); margin-bottom: 0.3rem;
+  border: 1.5px solid var(--einv-accent); margin-bottom: 0.3rem;
 }
 .lc-body h4 { font-size: 0.95rem; margin-bottom: 0.4rem; }
 .lc-body p  { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; }
@@ -187,7 +206,8 @@
 .service-list { list-style: none; display: flex; flex-direction: column; gap: 1.6rem; margin-top: 0; }
 .service-item { display: grid; grid-template-columns: 2.4rem 1fr; gap: 1rem; align-items: start; }
 .service-num {
-  font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
+  font-family: var(--font-mono);
+  font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--einv-accent); font-weight: 700; padding-top: 0.2rem;
 }
 .service-item h4 { margin-bottom: 0.3rem; }
@@ -198,20 +218,21 @@
 .impl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem; }
 .impl-point { display: flex; gap: 1rem; align-items: flex-start; }
 .impl-icon {
-  width: 36px; height: 36px; border-radius: 4px;
-  background: var(--einv-pale); border: 1px solid var(--einv-border);
+  width: 38px; height: 38px; border-radius: 6px;
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  box-shadow: var(--shadow-sm);
   display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; color: var(--einv-accent); font-size: 0.9rem;
+  flex-shrink: 0; font-size: 0.95rem;
 }
-.impl-text h5 { font-size: 0.88rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; }
+.impl-text h5 { font-family: var(--font-head); font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; }
 .impl-text p  { font-size: 0.8rem; color: var(--text-muted); line-height: 1.55; }
 
 /* ─── CONTACT ─── */
-.contact-section { text-align: center; padding: 5rem 3rem; border-top: 1px solid var(--border); }
+.contact-section { text-align: center; padding: 5rem 3rem; border-top: 1.5px solid var(--border-strong); }
 .contact-email {
-  font-family: 'EB Garamond', serif; font-size: 1.3rem;
+  font-family: var(--font-mono); font-size: 1.15rem; font-weight: 500;
   color: var(--einv-accent); text-decoration: none;
-  border-bottom: 1px solid var(--einv-border); padding-bottom: 2px;
+  border-bottom: 2px solid var(--einv-border); padding-bottom: 2px;
   display: inline-block; margin: 1rem 0 2rem; transition: border-color 0.2s;
 }
 .contact-email:hover { border-color: var(--einv-accent); }
@@ -253,12 +274,18 @@
     <div class="nav-dropdown">
       <a href="peppol.html" class="nav-dropdown-trigger">Peppol <span class="dropdown-arrow">▾</span></a>
       <div class="nav-dropdown-menu">
-        <a href="peppol.html">Peppol Overview</a>
-        <a href="peppol-singapore.html">Singapore Access Point</a>
+        <a href="peppol.html">Overview · C4 vs C5</a>
+        <a href="peppol-singapore.html">Singapore InvoiceNow</a>
+        <a href="peppol-uae.html">UAE eInvoicing</a>
         <a href="peppol-kb.html">Knowledge Base</a>
       </div>
     </div>
-    <a href="malaysia.html" class="nav-active">Malaysia e-Invoice</a>
+    <div class="nav-dropdown">
+      <a href="malaysia.html" class="nav-dropdown-trigger nav-active">Direct Clearance <span class="dropdown-arrow">▾</span></a>
+      <div class="nav-dropdown-menu">
+        <a href="malaysia.html" class="active-sub">Malaysia e-Invoice</a>
+      </div>
+    </div>
     <a href="#contact" class="nav-cta">Get in Touch</a>
   </div>
   <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
@@ -269,6 +296,7 @@
   <a href="index.html" class="mobile-nav-link">Home</a>
   <a href="peppol.html" class="mobile-nav-link">Peppol Overview</a>
   <a href="peppol-singapore.html" class="mobile-nav-link">Singapore AP</a>
+  <a href="peppol-uae.html" class="mobile-nav-link">UAE eInvoicing</a>
   <a href="peppol-kb.html" class="mobile-nav-link">Knowledge Base</a>
   <a href="malaysia.html" class="mobile-nav-link">Malaysia e-Invoice</a>
   <a href="#contact" class="mobile-nav-link">Get in Touch</a>
@@ -278,13 +306,13 @@
 <div class="page-hero">
   <div class="inner">
     <div>
-      <div class="eyebrow eyebrow-blue" style="animation:fadeUp 0.6s ease both;">Malaysia e-Invoice · LHDN / IRBM · MyInvois · Service Providers</div>
+      <div class="eyebrow eyebrow-blue" style="animation:fadeUp 0.6s ease both;">Direct Clearance · Malaysia e-Invoice · LHDN / IRBM · MyInvois</div>
       <h1 style="animation:fadeUp 0.6s ease 0.1s both;">
         Malaysia e-Invoice.<br>
         IRBM API — <em>fully completed.</em>
       </h1>
       <p class="page-hero-sub" style="animation:fadeUp 0.6s ease 0.2s both;">
-        Every IRBM MyInvois endpoint implemented, tested against sandbox and production. All 5 document types. X.509 digital signature. Ready to connect your service to the Malaysian e-Invoice network.
+        Malaysia runs a direct-clearance model: invoices clear through IRBM's MyInvois API before they are valid — no Peppol network in the loop. Every endpoint implemented, tested against sandbox and production. All 5 document types. X.509 digital signature.
       </p>
       <div class="hero-stats" style="animation:fadeUp 0.6s ease 0.3s both;">
         <div class="hero-stat">
@@ -368,6 +396,7 @@
 
     <div class="api-callout reveal">
       <p><strong>What this means for service providers:</strong> If you are building a middleware, ERP connector, or SaaS platform that needs to connect businesses to IRBM's MyInvois, this API layer is complete. Document submission, real-time status polling, rejection detection, cancellation flows, TIN validation, and OAuth token management — all endpoints implemented, tested in sandbox and production, and ready to integrate into your product.</p>
+      <p style="margin-top:0.8rem;"><strong>Peppol on the horizon:</strong> MDEC is Malaysia's designated Peppol Authority and a PINT MY profile is aligning MyInvois documents with the Peppol standard. When Malaysian flows converge with the Peppol network, the same stack behind my <a href="peppol-singapore.html" style="color:var(--einv-accent);font-weight:700;">Singapore</a> and <a href="peppol-uae.html" style="color:var(--einv-accent);font-weight:700;">UAE</a> work applies here.</p>
     </div>
   </div>
 </div>
@@ -400,7 +429,7 @@
       </div>
     </div>
 
-    <div style="margin-top:2rem;padding:1.4rem 1.6rem;background:#FEF3C7;border:1px solid #F59E0B;border-left:4px solid #D97706;border-radius:4px;" class="reveal">
+    <div style="margin-top:2rem;padding:1.4rem 1.6rem;background:var(--yellow-pale);border:1.5px solid var(--border-strong);border-left:5px solid var(--yellow);border-radius:6px;box-shadow:var(--shadow-sm);" class="reveal">
       <h4 style="color:#92400E;margin-bottom:0.5rem;">⚠ Non-Compliance Penalties (Still Enforced)</h4>
       <p style="font-size:0.87rem;color:#78350F;line-height:1.6;">Under the Income Tax Act 1967, failure to issue a valid e-invoice carries a penalty of <strong>RM200 to RM1,000 per invoice</strong>. Repeated or wilful non-compliance can result in fines of <strong>up to RM20,000</strong>, imprisonment, or both. All deadlines have passed — penalties are now in effect across all business sizes.</p>
     </div>
@@ -620,8 +649,8 @@
 
       <div class="reveal">
         <div class="card card-blue" style="padding:2rem;position:sticky;top:7rem;">
-          <div style="font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--einv-accent);margin-bottom:1.5rem;">API Completeness</div>
-          <div style="font-family:'EB Garamond',serif;font-size:2.4rem;font-weight:500;line-height:1;color:var(--einv-accent);">8 / 8</div>
+          <div style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;color:var(--einv-accent);margin-bottom:1.5rem;">API Completeness</div>
+          <div style="font-family:var(--font-head);font-size:2.2rem;font-weight:700;line-height:1;color:var(--einv-accent);">8 / 8</div>
           <div style="font-size:0.78rem;color:var(--text-muted);margin:0.4rem 0 1.5rem;">IRBM API endpoints implemented</div>
           <div class="divider"></div>
           <ul class="checklist" style="margin-bottom:1.5rem;">
@@ -674,13 +703,14 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2026 Peppwise · Independent Peppol Access Point Developer · Singapore &amp; Malaysia</p>
+  <p>© 2026 Peppwise · E-Invoice Integration · Singapore · UAE · Malaysia</p>
   <nav class="footer-links">
     <a href="index.html">Home</a>
     <a href="peppol.html">Peppol</a>
     <a href="peppol-singapore.html">Singapore AP</a>
+    <a href="peppol-uae.html">UAE</a>
     <a href="peppol-kb.html">Knowledge Base</a>
-    <a href="malaysia.html">Malaysia e-Invoice</a>
+    <a href="malaysia.html">Malaysia</a>
   </nav>
 </footer>
 

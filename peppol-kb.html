@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Peppol Knowledge Base — Access Point, SMP, SML, AS4 | Peppwise</title>
-<meta name="description" content="Plain-English guide to Peppol: what an Access Point is, how SMP/SML routing works, AS4 protocol, Pre/Post Award, and eDelivery — by someone who has built it.">
+<title>Peppol Knowledge Base — Access Point, SMP, SML, AS4, C4 vs C5, DCTCE | Peppwise</title>
+<meta name="description" content="Plain-English guide to Peppol: Access Points, SMP/SML routing, AS4 protocol, Pre/Post Award, eDelivery, the C4 vs C5 corner models, and the UAE's DCTCE framework — by someone who has built it.">
 <meta property="og:title" content="Peppol Knowledge Base — Access Point, SMP, SML, AS4 | Peppwise">
 <meta property="og:description" content="Plain-English explanations of the Peppol network written by someone who has built it. Covers Access Points, SMP, SML, AS4, Pre Award, Post Award, and eDelivery.">
 <meta property="og:type" content="website">
@@ -49,29 +49,48 @@
             "@type": "Answer",
             "text": "AS4 is the secure messaging protocol used to transport Peppol documents between Access Points. It provides end-to-end encryption, digital signatures, non-repudiation, and reliable delivery. It replaced the older AS2 protocol."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between the Peppol 4-corner and 5-corner model?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In the 4-corner model (C4), documents flow from the sender through two Access Points to the receiver, with no tax authority involved. The 5-corner model (C5) adds the tax authority as a fifth corner that receives invoice data continuously — Singapore's IRAS and the UAE's FTA both use this model."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is DCTCE in UAE e-invoicing?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "DCTCE (Decentralised Continuous Transaction Control and Exchange) is the UAE's e-invoicing framework — a Peppol-based 5-corner model where PINT AE invoices exchange through MoF-Accredited Service Providers while Tax Data Documents are reported to the Federal Tax Authority."
+          }
         }
       ]
     }
   ]
 }
 </script>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
 
 /* ─── KB PAGE HERO ─── */
 .kb-hero {
-  background: var(--bg-2);
-  border-bottom: 1px solid var(--border);
+  background-color: var(--bg-2);
+  background-image: radial-gradient(var(--bg-3) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  border-bottom: 1.5px solid var(--border-strong);
   padding: 9rem 3rem 4.5rem;
 }
 .kb-hero .inner {
   max-width: 860px; margin: 0 auto;
 }
 .kb-hero h1 {
-  font-family: 'EB Garamond', serif;
-  font-size: clamp(2.4rem, 5vw, 4rem);
-  font-weight: 500; line-height: 1.06;
+  font-family: var(--font-head);
+  font-size: clamp(2.2rem, 4.4vw, 3.5rem);
+  font-weight: 700; line-height: 1.08;
+  letter-spacing: -0.02em;
   color: var(--text-primary); margin-bottom: 1rem;
 }
 .kb-hero-sub {
@@ -97,17 +116,19 @@
   margin: 1.5rem 0; flex-wrap: wrap;
 }
 .flow-node {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 4px; padding: 0.6rem 1.1rem;
-  font-size: 0.75rem; font-weight: 700;
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-radius: 6px; padding: 0.6rem 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem; font-weight: 700;
   color: var(--text-primary); white-space: nowrap;
   box-shadow: var(--shadow-sm);
 }
 .flow-node.active {
-  background: var(--bg-3); border-color: var(--border-strong);
+  background: var(--yellow);
 }
 .flow-arrow {
-  font-size: 0.85rem; color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 0.85rem; color: var(--text-muted);
   padding: 0 0.5rem; flex-shrink: 0;
 }
 
@@ -117,9 +138,10 @@
   font-size: 0.8rem; margin-top: 1.5rem;
 }
 .kb-table th {
-  text-align: left; font-size: 0.65rem;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--text-muted); font-weight: 700;
+  text-align: left; font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-primary); font-weight: 700;
   border-bottom: 1.5px solid var(--border-strong);
   padding: 0.5rem 1rem 0.5rem 0;
 }
@@ -133,9 +155,10 @@
 
 /* ─── CALLOUT / ANALOGY ─── */
 .kb-note {
-  background: var(--surface); border: 1px solid var(--border);
-  border-left: 3px solid var(--border-strong);
-  padding: 1rem 1.4rem; margin-top: 1.5rem; border-radius: 0 4px 4px 0;
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-left-width: 5px;
+  padding: 1rem 1.4rem; margin-top: 1.5rem; border-radius: 6px;
+  box-shadow: var(--shadow-sm);
   font-size: 0.88rem; color: var(--text-muted); line-height: 1.7;
 }
 .kb-note strong { color: var(--text-primary); }
@@ -148,9 +171,11 @@
 /* ─── ARTICLE NUMBER BADGE ─── */
 .kb-number {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 28px; height: 28px; border-radius: 50%;
-  background: var(--bg-3); border: 1.5px solid var(--border-strong);
-  font-size: 0.7rem; font-weight: 700; color: var(--text-muted);
+  width: 28px; height: 28px; border-radius: 6px;
+  background: var(--yellow); border: 1.5px solid var(--border-strong);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-mono);
+  font-size: 0.7rem; font-weight: 700; color: var(--text-primary);
   margin-bottom: 0.8rem; flex-shrink: 0;
 }
 
@@ -180,12 +205,18 @@
     <div class="nav-dropdown">
       <a href="peppol.html" class="nav-dropdown-trigger nav-active">Peppol <span class="dropdown-arrow">▾</span></a>
       <div class="nav-dropdown-menu">
-        <a href="peppol.html">Peppol Overview</a>
-        <a href="peppol-singapore.html">Singapore Access Point</a>
+        <a href="peppol.html">Overview · C4 vs C5</a>
+        <a href="peppol-singapore.html">Singapore InvoiceNow</a>
+        <a href="peppol-uae.html">UAE eInvoicing</a>
         <a href="peppol-kb.html" class="active-sub">Knowledge Base</a>
       </div>
     </div>
-    <a href="malaysia.html">Malaysia e-Invoice</a>
+    <div class="nav-dropdown">
+      <a href="malaysia.html" class="nav-dropdown-trigger">Direct Clearance <span class="dropdown-arrow">▾</span></a>
+      <div class="nav-dropdown-menu">
+        <a href="malaysia.html">Malaysia e-Invoice</a>
+      </div>
+    </div>
     <a href="#contact" class="nav-cta">Get in Touch</a>
   </div>
   <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
@@ -196,6 +227,7 @@
   <a href="index.html" class="mobile-nav-link">Home</a>
   <a href="peppol.html" class="mobile-nav-link">Peppol Overview</a>
   <a href="peppol-singapore.html" class="mobile-nav-link">Singapore AP</a>
+  <a href="peppol-uae.html" class="mobile-nav-link">UAE eInvoicing</a>
   <a href="peppol-kb.html" class="mobile-nav-link">Knowledge Base</a>
   <a href="malaysia.html" class="mobile-nav-link">Malaysia e-Invoice</a>
   <a href="#contact" class="mobile-nav-link">Get in Touch</a>
@@ -205,7 +237,7 @@
 <div class="kb-hero">
   <div class="inner">
     <div class="eyebrow" style="animation:fadeUp 0.6s ease both;">Peppol · Explained</div>
-    <h1 style="animation:fadeUp 0.6s ease 0.08s both;">Peppol<br><em style="font-style:italic;color:var(--text-muted);">Knowledge Base</em></h1>
+    <h1 style="animation:fadeUp 0.6s ease 0.08s both;">Peppol<br><em style="font-style:normal;color:var(--pep-accent);text-decoration:underline wavy var(--pep-accent) 2px;text-underline-offset:7px;">Knowledge Base</em></h1>
     <p class="kb-hero-sub" style="animation:fadeUp 0.6s ease 0.16s both;">
       Plain-English explanations of the Peppol network — written by someone who has actually built it. No marketing language, no Wikipedia abstractions.
     </p>
@@ -217,6 +249,8 @@
       <a href="#pre-award">Pre Award</a>
       <a href="#post-award">Post Award</a>
       <a href="#edelivery">eDelivery</a>
+      <a href="#c4-vs-c5">C4 vs C5</a>
+      <a href="#dctce">DCTCE / TDD</a>
     </nav>
   </div>
 </div>
@@ -228,7 +262,7 @@
   <div class="kb-article reveal-group" id="access-point">
     <div class="kb-number reveal">1</div>
     <span class="kb-tag reveal">Infrastructure</span>
-    <h3 class="reveal" style="font-family:'EB Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:500;">Access Point</h3>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">Access Point</h3>
     <div class="kb-article-body reveal">
       <p>An <strong>Access Point (AP)</strong> is the technical gateway that connects a business to the Peppol network. Every document exchanged over Peppol — an invoice, an order, a credit note — passes through an Access Point on both ends.</p>
       <p>Think of it as a managed post office. Your business hands a document to its AP (C2), which handles all the packaging, addressing, encryption, and delivery. On the other side, the receiver's AP (C3) unwraps and delivers it to the recipient's system (C4). Your business never speaks directly to the other business — APs mediate all exchange.</p>
@@ -272,7 +306,7 @@
   <div class="kb-article reveal-group" id="smp">
     <div class="kb-number reveal">2</div>
     <span class="kb-tag reveal">Routing</span>
-    <h3 class="reveal" style="font-family:'EB Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:500;">SMP — Service Metadata Publisher</h3>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">SMP — Service Metadata Publisher</h3>
     <div class="kb-article-body reveal">
       <p>An <strong>SMP (Service Metadata Publisher)</strong> is a directory that stores each Peppol participant's capabilities: what Peppol ID they have, which document types they can receive, and which Access Point they are connected to.</p>
       <p>Before sending a Peppol document, the sender's Access Point must confirm that the receiver is registered and capable of accepting that document type. It does this by querying the SMP. The SMP responds with the receiver's AP endpoint URL and the transport protocol details needed to deliver the document.</p>
@@ -306,7 +340,7 @@
   <div class="kb-article reveal-group" id="sml">
     <div class="kb-number reveal">3</div>
     <span class="kb-tag reveal">Routing</span>
-    <h3 class="reveal" style="font-family:'EB Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:500;">SML — Service Metadata Locator</h3>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">SML — Service Metadata Locator</h3>
     <div class="kb-article-body reveal">
       <p>The <strong>SML (Service Metadata Locator)</strong> is the top-level DNS-like directory for the entire Peppol network. It maps Peppol Participant IDs to the SMP that holds their registration record.</p>
       <p>When a sending Access Point needs to route a document, it first asks the SML: "which SMP holds the record for this Peppol ID?" The SML responds with the hostname of the relevant SMP. The AP then queries that SMP directly to get the full delivery details.</p>
@@ -341,7 +375,7 @@
   <div class="kb-article reveal-group" id="as4">
     <div class="kb-number reveal">4</div>
     <span class="kb-tag reveal">Protocol</span>
-    <h3 class="reveal" style="font-family:'EB Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:500;">AS4 — Secure Messaging Protocol</h3>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">AS4 — Secure Messaging Protocol</h3>
     <div class="kb-article-body reveal">
       <p><strong>AS4</strong> is the messaging protocol that Peppol Access Points use to transport documents between each other. It handles the envelope, the security wrapper, the delivery acknowledgement, and the error handling — independently of the document payload inside.</p>
       <p>AS4 is based on the OASIS ebMS 3.0 standard. Peppol uses a specific AS4 conformance profile (the "Peppol AS4 profile") that mandates particular security settings, signing algorithms, and transport behaviours.</p>
@@ -393,7 +427,7 @@
   <div class="kb-article reveal-group" id="pre-award">
     <div class="kb-number reveal">5</div>
     <span class="kb-tag reveal">Procurement Phase</span>
-    <h3 class="reveal" style="font-family:'EB Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:500;">Pre Award</h3>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">Pre Award</h3>
     <div class="kb-article-body reveal">
       <p><strong>Pre Award</strong> is the procurement phase that happens before a contract is signed — covering everything from tendering and bidding through to the award decision. In the Peppol context, Pre Award covers the standardised document types that support this phase: tender notices, call for tenders, tender responses, and award notices.</p>
       <p>Peppol's Pre Award standards allow government procurement systems to publish tenders electronically and receive tender responses in a structured, machine-readable format. This enables suppliers to automatically process opportunities from any compliant procurement portal — without re-keying data.</p>
@@ -427,7 +461,7 @@
   <div class="kb-article reveal-group" id="post-award">
     <div class="kb-number reveal">6</div>
     <span class="kb-tag reveal">Procurement Phase</span>
-    <h3 class="reveal" style="font-family:'EB Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:500;">Post Award</h3>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">Post Award</h3>
     <div class="kb-article-body reveal">
       <p><strong>Post Award</strong> is the procurement phase after a contract is awarded — covering the execution of that contract through to payment. This is where the majority of Peppol mandates apply, and where most businesses first encounter the network.</p>
       <p>The core Post Award documents form a natural flow: a buyer sends a Purchase Order → the seller confirms with an Order Response → goods or services are delivered (Despatch Advice) → the seller issues an Invoice → payment is made. Peppol standardises all of these documents, enabling automated processing at each step.</p>
@@ -473,7 +507,7 @@
   <div class="kb-article reveal-group" id="edelivery">
     <div class="kb-number reveal">7</div>
     <span class="kb-tag reveal">Infrastructure</span>
-    <h3 class="reveal" style="font-family:'EB Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:500;">eDelivery</h3>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">eDelivery</h3>
     <div class="kb-article-body reveal">
       <p><strong>eDelivery</strong> is the overarching infrastructure layer that makes Peppol work globally. It refers to the combination of the 4-corner model, Access Points, SMP/SML routing, and the AS4 protocol — the full technical stack for exchanging structured business documents between any two participants anywhere in the Peppol network.</p>
       <p>eDelivery is also a formal EU building block (CEF eDelivery — Connecting Europe Facility). The EU and OpenPeppol collaborated closely: Peppol's AP network is technically compatible with the EU eDelivery specification, which is also used by European public administrations beyond Peppol (e.g., customs data exchange, judicial document transmission).</p>
@@ -507,12 +541,96 @@
     </div>
   </div>
 
+  <!-- ─── ARTICLE 8: C4 vs C5 ─── -->
+  <div class="kb-article reveal-group" id="c4-vs-c5">
+    <div class="kb-number reveal">8</div>
+    <span class="kb-tag reveal">Network Models</span>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">C4 vs C5 — 4-Corner and 5-Corner Models</h3>
+    <div class="kb-article-body reveal">
+      <p>The corner count describes <strong>who participates in a document exchange</strong>. In the classic <strong>4-corner model (C4)</strong>, four parties touch the document: the sender (C1), the sender's Access Point (C2), the receiver's Access Point (C3), and the receiver (C4). The exchange is purely between businesses — no tax authority sees the invoice.</p>
+      <p>The <strong>5-corner model (C5)</strong> adds the tax authority as a fifth participant. As the invoice travels between Access Points, the tax-relevant data is simultaneously reported to the authority, which can return confirmations. This turns Peppol from a B2B exchange network into a <strong>Continuous Transaction Controls (CTC)</strong> platform — the authority sees transactions as they happen, not months later in a tax return.</p>
+    </div>
+
+    <div class="flow-row reveal" style="margin-top:1.8rem;">
+      <div class="flow-node">C1 — Sender</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">C2 — AP</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">C3 — AP</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">C4 — Receiver</div>
+      <div class="flow-arrow">+</div>
+      <div class="flow-node active">C5 — Tax Authority</div>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>Where C4 Applies</h5>
+        <p>Most of the Peppol network: the EU's BIS Billing 3.0 exchange, Australia/New Zealand (PINT A-NZ), Japan (PINT JP). Invoices flow between trading partners; tax reporting stays a separate, periodic process.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Where C5 Applies</h5>
+        <p>Singapore — IRAS receives GST data from Access Points in parallel with delivery. UAE — the FTA receives Tax Data Documents from Accredited Service Providers under DCTCE. More authorities are evaluating the same pattern.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>What Changes for Implementers</h5>
+        <p>C5 adds a second pipeline: jurisdiction-specific data extraction (GST treatment codes in SG, tax data fields in UAE), the authority endpoint integration, and confirmation/rejection handling feeding back into AR/AP processes.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Why Regulators Like C5</h5>
+        <p>The authority gets near-real-time visibility of transactions without operating a central clearance portal. Businesses get pre-filled returns and lower audit friction. The exchange stays decentralised — service providers carry the load.</p>
+      </div>
+    </div>
+
+    <div class="kb-note kb-note-practice reveal">
+      <strong>From practice:</strong> I have built the C5 pipeline for Singapore (IRAS GST forwarding) and apply the same architecture to the UAE's DCTCE. If your business operates in both C4 and C5 markets, the right move is one document layer with per-country corner-5 modules — not separate stacks per country. See the <a href="peppol-singapore.html" style="color:var(--pep-accent);font-weight:700;">Singapore</a> and <a href="peppol-uae.html" style="color:var(--pep-accent);font-weight:700;">UAE</a> pages.
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 9: DCTCE / TDD ─── -->
+  <div class="kb-article reveal-group" id="dctce">
+    <div class="kb-number reveal">9</div>
+    <span class="kb-tag reveal">UAE</span>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">DCTCE &amp; the Tax Data Document (UAE)</h3>
+    <div class="kb-article-body reveal">
+      <p><strong>DCTCE — Decentralised Continuous Transaction Control and Exchange</strong> — is the UAE's e-invoicing framework, run jointly by the Ministry of Finance and the Federal Tax Authority. It is a Peppol-based 5-corner model: invoices in <strong>PINT AE</strong> format exchange between businesses through <strong>Accredited Service Providers (ASPs)</strong>, while each ASP reports a <strong>Tax Data Document (TDD)</strong> — the tax-relevant extract of the invoice — to the FTA.</p>
+      <p>"Decentralised" is the key word: there is no central government portal that invoices clear through (unlike Malaysia's MyInvois). Validation and transmission responsibility sits with the ASPs, which must be Peppol-certified and additionally accredited by the Ministry of Finance.</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>PINT AE</h5>
+        <p>The UAE specialisation of the Peppol International Invoice — same family as Singapore's PINT SG. Defines mandatory and optional fields for UAE invoices and tax credit notes, including VAT treatment and TRN identifiers.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Tax Data Document (TDD)</h5>
+        <p>The subset of invoice data the ASP reports to the FTA at corner 5. The FTA returns electronic confirmations; rejections must flow back to the issuing business. Getting TDD mapping and confirmation handling right is the core engineering task.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Accredited Service Providers</h5>
+        <p>Businesses cannot connect to DCTCE directly — they must appoint an ASP from the Ministry of Finance's accredited list. ASP accreditation requires Peppol AP certification plus MoF-specific requirements.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Timeline</h5>
+        <p>Pilot from July 2026. Phase 1 mandatory January 2027 for businesses with revenue ≥ AED 50M. Phase 2 July 2027 for remaining businesses; government entities October 2027. Verify your obligations against current MoF guidance.</p>
+      </div>
+    </div>
+
+    <div class="kb-analogy reveal">
+      <strong>Analogy:</strong> Singapore's C5 and the UAE's DCTCE are the same machine with different badges — Peppol exchange between service providers, plus a continuous data feed to the tax authority. If you understand one, you are most of the way to understanding the other.
+    </div>
+
+    <div class="kb-note kb-note-practice reveal">
+      <strong>From practice:</strong> For UAE readiness work — PINT AE mapping, ASP integration, TDD flows — see the dedicated <a href="peppol-uae.html" style="color:var(--pep-accent);font-weight:700;">UAE eInvoicing page</a>.
+    </div>
+  </div>
+
 </div><!-- /kb-wrap -->
 
 <!-- ═══ CONTACT ═══ -->
-<div class="contact-section" id="contact" style="background:var(--bg-2);border-top:1px solid var(--border);">
+<div class="contact-section" id="contact" style="background:var(--bg-2);border-top:1.5px solid var(--border-strong);text-align:center;padding:5rem 3rem;">
   <div class="eyebrow eyebrow-center reveal" style="margin-bottom:1.5rem;">Have a Question?</div>
-  <h2 class="reveal" style="font-family:'EB Garamond',serif;">Need Help Building<br><em>on Peppol?</em></h2>
+  <h2 class="reveal">Need Help Building<br><em>on Peppol?</em></h2>
   <p class="lead reveal" style="margin:1rem auto 0.5rem;text-align:center;max-width:52ch;">
     These articles cover the concepts. If you are implementing a Peppol integration — Access Point setup, PINT SG mapping, SG InvoiceNow onboarding — reach out directly.
   </p>
@@ -525,13 +643,14 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2026 Peppwise · Independent Peppol Access Point Developer · Singapore &amp; Malaysia</p>
+  <p>© 2026 Peppwise · E-Invoice Integration · Singapore · UAE · Malaysia</p>
   <nav class="footer-links">
     <a href="index.html">Home</a>
     <a href="peppol.html">Peppol</a>
     <a href="peppol-singapore.html">Singapore AP</a>
+    <a href="peppol-uae.html">UAE</a>
     <a href="peppol-kb.html">Knowledge Base</a>
-    <a href="malaysia.html">Malaysia e-Invoice</a>
+    <a href="malaysia.html">Malaysia</a>
   </nav>
 </footer>
 
