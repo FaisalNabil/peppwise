@@ -1,7 +1,7 @@
 {
-  "name": "peppwise",
+  "name": "acmeos-theme",
   "version": "1.0.0",
-  "description": "Peppwise — e-invoice integration specialist site (Peppol C4/C5 + direct clearance)",
+  "description": "AcmeOS — retro desktop-OS Astro theme for SaaS marketing sites",
   "type": "module",
   "private": true,
   "scripts": {

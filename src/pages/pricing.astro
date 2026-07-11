@@ -108,7 +108,7 @@ const jsonLd = {
   z-index: 2; transform: translateY(-50%);
 }
 .corner-card:last-child .corner-arrow { display: none; }
-.peppol-explainer { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.2rem; margin-top: 2rem; }
+.pricing-concepts { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.2rem; margin-top: 2rem; }
 .explainer-item { background: var(--surface); border: 1.5px solid var(--border-strong); border-radius: 6px; padding: 1.2rem; box-shadow: var(--shadow-sm); }
 .explainer-item h5 { font-family: var(--font-head); font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.3rem; }
 .explainer-item p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.55; }
@@ -251,10 +251,10 @@ const jsonLd = {
 .c5-personal-note strong { color: var(--pep-accent); font-style: normal; }
 
 /* ─── ENTERPRISE PROCUREMENT ─── */
-.imda-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 1.5rem; }
-.imda-card { background: var(--surface); border: 1.5px solid var(--border-strong); border-radius: 6px; padding: 1.4rem; box-shadow: var(--shadow-sm); }
-.imda-card h5 { font-family: var(--font-head); font-size: 0.88rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
-.imda-card p  { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+.procurement-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 1.5rem; }
+.procurement-card { background: var(--surface); border: 1.5px solid var(--border-strong); border-radius: 6px; padding: 1.4rem; box-shadow: var(--shadow-sm); }
+.procurement-card h5 { font-family: var(--font-head); font-size: 0.88rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
+.procurement-card p  { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
 
 /* ─── SELF-SERVE VS ENTERPRISE CHECKLIST ─── */
 .crossborder-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; margin-top: 2rem; }
@@ -336,11 +336,11 @@ const jsonLd = {
   .corners-grid { grid-template-columns: 1fr 1fr; }
   .corner-card:nth-child(2) .corner-arrow,
   .corner-card:nth-child(4) .corner-arrow { display: none; }
-  .peppol-explainer { grid-template-columns: 1fr; }
+  .pricing-concepts { grid-template-columns: 1fr; }
   .crossborder-grid { grid-template-columns: 1fr; }
   .service-grid { grid-template-columns: 1fr; gap: 2rem; }
   .impl-grid { grid-template-columns: 1fr; }
-  .imda-grid { grid-template-columns: 1fr; }
+  .procurement-grid { grid-template-columns: 1fr; }
   .for-grid { grid-template-columns: 1fr; }
   .hub-grid { grid-template-columns: 1fr; }
   .contact-section { padding: 4rem 1.5rem; }
@@ -461,7 +461,7 @@ const jsonLd = {
       </div>
     </div>
 
-    <div class="peppol-explainer reveal-group" style="margin-top:1.5rem;">
+    <div class="pricing-concepts reveal-group" style="margin-top:1.5rem;">
       <div class="explainer-item reveal">
         <span class="explainer-tag">Seat-Based Billing</span>
         <h5>Only Pay for Active Members</h5>
@@ -666,20 +666,20 @@ const jsonLd = {
 
     <div style="margin-top:3rem;" class="reveal" id="enterprise">
       <div style="font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--pep-accent);margin-bottom:1rem;">Enterprise Procurement — What It Includes</div>
-      <div class="imda-grid">
-        <div class="imda-card">
+      <div class="procurement-grid">
+        <div class="procurement-card">
           <h5>Security &amp; MSA Review</h5>
           <p>We support your security team's review process — SOC 2-style questionnaires, a signed MSA, and a Data Processing Addendum on request.</p>
         </div>
-        <div class="imda-card">
+        <div class="procurement-card">
           <h5>SSO &amp; SCIM Provisioning</h5>
           <p>SAML-based SSO and SCIM auto-provisioning, configured with your IT team ahead of rollout. See the <a href="/docs#sso">Docs page</a> for details.</p>
         </div>
-        <div class="imda-card">
+        <div class="procurement-card">
           <h5>Custom Invoicing &amp; PO Support</h5>
           <p>Invoiced billing (rather than card), custom payment terms, and purchase-order references on every invoice.</p>
         </div>
-        <div class="imda-card">
+        <div class="procurement-card">
           <h5>Dedicated Success Manager</h5>
           <p>A named point of contact for your rollout, renewal, and any escalations — not a shared support queue.</p>
         </div>

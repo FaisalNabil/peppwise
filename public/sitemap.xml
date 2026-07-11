@@ -1,33 +1,38 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.peppwise.com/</loc>
+    <loc>https://acmeos-demo.example/</loc>
     <priority>1.0</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://www.peppwise.com/peppol</loc>
+    <loc>https://acmeos-demo.example/features</loc>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://www.peppwise.com/peppol-singapore</loc>
+    <loc>https://acmeos-demo.example/solutions</loc>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://www.peppwise.com/peppol-uae</loc>
+    <loc>https://acmeos-demo.example/pricing</loc>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://www.peppwise.com/peppol-kb</loc>
+    <loc>https://acmeos-demo.example/docs</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://www.peppwise.com/malaysia</loc>
-    <priority>0.8</priority>
+    <loc>https://acmeos-demo.example/blog</loc>
+    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://acmeos-demo.example/blog/example-post</loc>
+    <priority>0.6</priority>
     <changefreq>monthly</changefreq>
   </url>
 </urlset>

@@ -1,77 +1,47 @@
-# Peppwise
+# AcmeOS Theme
 
-**Independent Compliance Advisory — Malaysia e-Invoice & Singapore Peppol**
+A retro desktop-OS styled Astro theme for SaaS marketing sites — draggable windows, a taskbar with a live clock, hard offset shadows, and a two-accent-color design system (amber + blue) built in.
 
-> [peppwise.co](https://peppwise.co) · hello@peppwise.co
+9 pages: Home, Features, Solutions, Pricing, Docs & FAQ, Blog (listing + post), Style Guide, and a 404.
 
----
+## Requirements
 
-## What Is Peppwise
+- Node.js 22.12+ and npm 9.6.5+
 
-Peppwise is an independent compliance consulting brand specialising in two distinct areas:
+## Getting Started (Astro source)
 
-| Specialisation | Scope |
-|---|---|
-| **Malaysia e-Invoice Compliance** | LHDN / MyInvois mandate — IRBM API integration, all 5 document types, Phase 2 (1 Jul 2025) & Phase 3 (1 Jan 2026) readiness |
-| **Singapore InvoiceNow & Peppol** | IMDA-certified Access Point onboarding, 5-Corner Model (IRAS C5), cross-border MY↔SG document exchange |
+```bash
+npm install
+npm run dev       # http://localhost:4321
+npm run build     # outputs to dist/
+npm run preview   # serves the dist/ build locally
+```
 
----
+Every page lives in `src/pages/*.astro`. Shared chrome (head/meta/nav/footer/scripts) lives in `src/layouts/BaseLayout.astro`, with reusable pieces in `src/components/` (`Nav`, `Footer`, `Contact`, `Flag`). All hand-written CSS lives in `public/shared.css` — no CSS framework, no scoped-style rewriting.
 
-## Website
+## Using the Flat HTML Bundle
 
-Single-file HTML/CSS/JS website (`peppwise.html`) — no framework dependencies, no build step.
+If you don't use Node/npm, use the pre-built static export instead: the `dist/` folder produced by `npm run build` is plain HTML/CSS/JS — no build step required to deploy it anywhere.
 
-### Page Sections
+To preview it locally, serve it with any static server rather than double-clicking the HTML files directly (the pages reference `/shared.css` and `/flags/*.svg` as root-absolute paths, which only resolve correctly through a server):
 
-1. **Split-screen hero** — dual-panel with expand/collapse interaction
-2. **Malaysia e-Invoice** (`#einvoice`) — 5 services, 8 tech pills, compliance feature card
-3. **Singapore InvoiceNow & Peppol** (`#peppol`) — 5 services, 8 tech pills, mandate feature card
-4. **Compliance Roadmap** (`#roadmap`) — 5-node timeline (MY Phase 1–3, SG InvoiceNow mandates)
-5. **Technical Architecture** (`#techstack`) — e-Invoice document lifecycle + Peppol 4-Corner → 5-Corner flow
-6. **Engagement Models** (`#engage`) — Full-Time / Part-Time Retainer / Project-Based
-7. **Contact** (`#contact`)
+```bash
+npx serve dist/
+```
 
-### Design System
+Then open the printed `localhost` URL.
 
-| Token | Value |
-|---|---|
-| Background | `#0C0A09` |
-| e-Invoice accent | `#0EA5E9` (sky blue) |
-| Peppol accent | `#CA8A04` (gold) |
-| Heading font | EB Garamond |
-| Body font | Lato |
+## Customizing
 
-### Features
+- **Colors, shadows, fonts**: edit the CSS custom properties at the top of `public/shared.css` (`--pep-accent`, `--einv-accent`, `--yellow`, `--shadow-md`, etc.).
+- **Nav links, footer, contact copy**: edit `src/components/Nav.astro`, `Footer.astro`, `Contact.astro`.
+- **Domain**: update `site` in `astro.config.mjs`, and the `Sitemap:` line in `public/robots.txt`.
+- **Region/flag badges**: `<Flag code="sg" />` renders a bordered SVG flag — see `src/components/Flag.astro` and the full catalog on `/style-guide`.
+- **Every reusable component** (buttons, os-windows, cards, badges, type scale, color tokens) is cataloged on `/style-guide` — start there when reskinning.
 
-- Scroll-triggered reveal animations (IntersectionObserver)
-- Mobile hamburger menu with full-screen overlay
-- Responsive: desktop / tablet / mobile breakpoints
-- Pure vanilla JS — no dependencies
+## Credits
 
----
+- Fonts (Space Grotesk, Inter, IBM Plex Mono) loaded via Google Fonts CDN — no bundled font files.
+- Flag icons from the [flag-icons](https://github.com/lipis/flag-icons) package (MIT).
 
-## Deployment
-
-Recommended: **Netlify** or **Vercel** (free tier, static hosting)
-
-1. Connect this repo to Netlify/Vercel
-2. Set publish directory to `/` (root)
-3. Point custom domain `peppwise.co` to deployment
-
----
-
-## Pending Tasks
-
-- [ ] Register domain `peppwise.co`
-- [ ] Set up `hello@peppwise.co` email
-- [ ] Deploy to Netlify / Vercel
-- [ ] Create Peppwise LinkedIn page
-- [ ] Add Calendly / WhatsApp link to contact section
-- [ ] Add anonymised testimonials / case study snippets
-- [ ] Build separate landing pages per specialisation (for ad targeting)
-- [ ] Add meta tags & Open Graph (social sharing previews)
-- [ ] Add favicon
-
----
-
-*© 2026 Peppwise · Independent Compliance Advisory · Malaysia · All engagements strictly confidential · NDA available on request*
+See `THIRD-PARTY-NOTICES.md` for full attribution and `LICENSE` for usage terms.

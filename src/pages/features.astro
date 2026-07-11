@@ -325,7 +325,7 @@ const jsonLd = {
     <div class="content-grid" style="margin-top:2rem;">
       <div class="content-body reveal">
         <p><strong>A Workspace</strong> contains any number of Boards. <strong>A Board</strong> contains Lists (your columns), and each List contains Tasks. Custom fields can be attached at the Board level and inherited by every Task within it.</p>
-        <p>The data model covers the core structure: title, description, assignee, due date, status, priority, and tags — plus any custom fields you define. Integrations (like PINT-style profile extensions in other systems) can layer additional fields on top without breaking the base schema.</p>
+        <p>The data model covers the core structure: title, description, assignee, due date, status, priority, and tags — plus any custom fields you define. Integrations can layer additional fields on top of any entity without breaking the base schema.</p>
         <p>Reading or writing a Task through the API requires passing both the core schema validation and any board-level custom-field rules you've configured.</p>
         <p>We've implemented the full data model — every entity type, every relationship, and the custom-field validation layer — and tested it against real workspace migrations from three different legacy tools.</p>
       </div>

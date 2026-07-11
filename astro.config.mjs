@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://www.peppwise.com',
+  site: 'https://acmeos-demo.example',
   build: { format: 'file' },
   compressHTML: false,
 });

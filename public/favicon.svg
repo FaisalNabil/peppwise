@@ -4,5 +4,5 @@
   <path d="M2 6 a4 4 0 0 1 4 -4 h14 a4 4 0 0 1 4 4 v3.5 h-22 z" fill="#F54E00"/>
   <path d="M1 9.5 H27" stroke="#151515" stroke-width="1.8"/>
   <circle cx="22.5" cy="5.6" r="1.5" fill="#EEEFE9"/>
-  <text x="13.6" y="24.5" font-family="Arial,Helvetica,sans-serif" font-size="14.5" font-weight="900" fill="#151515" text-anchor="middle">P</text>
+  <text x="13.6" y="24.5" font-family="Arial,Helvetica,sans-serif" font-size="14.5" font-weight="900" fill="#151515" text-anchor="middle">A</text>
 </svg>
