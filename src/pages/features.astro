@@ -1,0 +1,515 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Contact from '../components/Contact.astro';
+import Flag from '../components/Flag.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "AcmeOS Workflow Engine",
+      "provider": {"@type":"Organization","name":"AcmeOS","url":"https://acmeos-demo.example"},
+      "description": "Real-time workflow engine for modern teams: task status automation, a shared board data model, and a realtime collaboration layer.",
+      "serviceType": "Workflow &amp; Collaboration Platform",
+      "url": "https://acmeos-demo.example/features"
+    },
+    {
+      "@type": "WebPage",
+      "url": "https://acmeos-demo.example/features",
+      "name": "Features — Workflow Engine, Boards, Realtime Sync | AcmeOS",
+      "isPartOf": {"@type":"WebSite","url":"https://acmeos-demo.example"}
+    }
+  ]
+};
+---
+<BaseLayout
+  title="Features — Workflow Engine, Boards, Realtime Sync | AcmeOS"
+  description="Real-time workflow engine for modern teams: task status automation, a shared board data model, and a realtime collaboration layer built on WebSockets."
+  ogDescription="Task status automation, a shared board data model, and realtime collaboration — the core of AcmeOS."
+  path="/features"
+  active="features"
+  jsonLd={jsonLd}
+>
+<style is:inline slot="head">
+
+/* ─── PAGE HERO ─── */
+.page-hero {
+  background-color: var(--pep-pale);
+  background-image: radial-gradient(rgba(245,78,0,0.12) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  border-bottom: 1.5px solid var(--border-strong);
+  padding: 9rem 3rem 5rem;
+}
+.page-hero .inner {
+  max-width: 1160px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 3rem; align-items: end;
+}
+.page-hero h1 {
+  font-family: var(--font-head);
+  font-size: clamp(2rem, 3.6vw, 3.3rem);
+  font-weight: 700; line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text-primary); margin-bottom: 1rem;
+}
+.page-hero h1 em {
+  font-style: normal; color: var(--pep-accent);
+  text-decoration: underline wavy var(--pep-accent) 2px;
+  text-underline-offset: 7px;
+}
+.page-hero-sub { font-size: 0.95rem; line-height: 1.75; color: var(--text-muted); max-width: 48ch; margin-bottom: 1.5rem; }
+.hero-stats { display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero-stat {
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-radius: 6px; padding: 0.8rem 1.2rem; box-shadow: var(--shadow-sm);
+}
+.hero-stat-num { font-family: var(--font-head); font-size: 1.4rem; font-weight: 700; line-height: 1; color: var(--pep-accent); }
+.hero-stat-lbl { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-top: 0.3rem; }
+
+/* ─── SECTION LAYOUTS ─── */
+.content-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 3rem; align-items: start;
+}
+.content-body { font-size: 0.93rem; line-height: 1.82; color: var(--text-body); }
+.content-body strong { color: var(--text-primary); }
+.content-body p + p { margin-top: 1rem; }
+
+/* ─── SPEC CARDS ─── */
+.spec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 2.5rem; }
+.spec-card {
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-radius: 6px; box-shadow: var(--shadow-sm); padding: 1.4rem;
+  border-top: 4px solid var(--pep-accent);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.spec-card:hover { transform: translate(-1px,-1px); box-shadow: var(--shadow-md); }
+.spec-label { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; color: var(--pep-accent); margin-bottom: 0.5rem; }
+.spec-card h5 { font-family: var(--font-head); font-size: 0.92rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
+.spec-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+
+/* ─── STATUS CODE TABLE ─── */
+.gst-table {
+  width: 100%; border-collapse: separate; border-spacing: 0;
+  margin-top: 1.5rem; font-size: 0.83rem;
+  border: 1.5px solid var(--border-strong); border-radius: 6px; overflow: hidden;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+.gst-table th {
+  text-align: left; padding: 0.6rem 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700;
+  color: var(--bg); background: var(--text-primary);
+  border-bottom: 1.5px solid var(--border-strong);
+}
+.gst-table td { padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border); color: var(--text-body); vertical-align: top; }
+.gst-table tr:last-child td { border-bottom: none; }
+.gst-table tr:hover td { background: var(--bg-2); }
+.code-pill {
+  display: inline-block; font-size: 0.72rem; font-weight: 700;
+  font-family: var(--font-mono); letter-spacing: 0.05em;
+  background: var(--pep-pale); color: var(--pep-accent);
+  border: 1.5px solid var(--pep-accent); padding: 0.1rem 0.5rem; border-radius: 3px;
+}
+
+/* ─── SCHEMA COMPARISON ─── */
+.bis-compare {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0; border: 1.5px solid var(--border-strong); border-radius: 6px; overflow: hidden;
+  margin-top: 2rem; background: var(--surface);
+  box-shadow: var(--shadow-md);
+}
+.bis-col { padding: 1.8rem; }
+.bis-col:first-child { border-right: 1.5px solid var(--border-strong); }
+.bis-col-header {
+  font-family: var(--font-mono);
+  font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+  font-weight: 700; margin-bottom: 1rem;
+}
+.bis-col:first-child .bis-col-header { color: var(--pep-accent); }
+.bis-col:last-child { background: var(--bg-2); }
+.bis-col:last-child .bis-col-header { color: var(--text-muted); }
+.bis-list { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+.bis-list li { font-size: 0.83rem; color: var(--text-muted); display: flex; gap: 0.5rem; align-items: flex-start; line-height: 1.45; }
+.bis-list li::before { font-size: 0.7rem; flex-shrink: 0; margin-top: 1px; }
+.bis-col:first-child .bis-list li::before { content: '✓'; color: var(--pep-accent); }
+.bis-col:last-child .bis-list li::before { content: '→'; color: var(--text-faint); }
+
+/* ─── ROADMAP ─── */
+.roadmap-card {
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-left: 5px solid var(--pep-accent); border-radius: 6px;
+  box-shadow: var(--shadow-sm);
+  padding: 1.6rem 2rem; margin-top: 2rem;
+}
+.roadmap-card h4 { margin-bottom: 0.5rem; }
+.roadmap-card p { font-size: 0.87rem; color: var(--text-muted); line-height: 1.7; }
+.roadmap-card strong { color: var(--text-primary); }
+.callout-box {
+  background: var(--yellow-pale); border: 1.5px solid var(--border-strong);
+  border-left-width: 5px;
+  border-radius: 6px; padding: 1.2rem 1.5rem; margin-top: 1.5rem;
+  font-size: 0.88rem; color: var(--text-body); line-height: 1.7;
+}
+.callout-box strong { color: var(--text-primary); }
+
+/* ─── UNDER THE HOOD ─── */
+.impl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem; }
+.impl-point { display: flex; gap: 1rem; align-items: flex-start; }
+.impl-icon {
+  width: 38px; height: 38px; border-radius: 6px;
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  box-shadow: var(--shadow-sm);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 0.95rem;
+}
+.impl-text h5 { font-family: var(--font-head); font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; }
+.impl-text p  { font-size: 0.8rem; color: var(--text-muted); line-height: 1.55; }
+
+/* ─── CONTACT ─── */
+.contact-section { text-align: center; padding: 5rem 3rem; border-top: 1.5px solid var(--border-strong); }
+.contact-email {
+  font-family: var(--font-mono); font-size: 1.15rem; font-weight: 500;
+  color: var(--pep-accent); text-decoration: none;
+  border-bottom: 2px solid var(--pep-border); padding-bottom: 2px;
+  display: inline-block; margin: 1rem 0 2rem; transition: border-color 0.2s;
+}
+.contact-email:hover { border-color: var(--pep-accent); }
+.contact-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .page-hero { padding: 8rem 2rem 4rem; }
+  .page-hero .inner { grid-template-columns: 1fr; }
+  .spec-grid { grid-template-columns: 1fr 1fr; }
+  .content-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+@media (max-width: 900px) {
+  .page-hero { padding: 7rem 1.5rem 3.5rem; }
+  .spec-grid { grid-template-columns: 1fr; }
+  .bis-compare { grid-template-columns: 1fr; }
+  .bis-col:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+  .impl-grid { grid-template-columns: 1fr; }
+  .contact-section { padding: 4rem 1.5rem; }
+  .contact-btns { flex-direction: column; align-items: center; }
+  .btn, .btn-ghost { width: 100%; max-width: 300px; text-align: center; }
+}
+@media (max-width: 600px) {
+  .hero-stats { flex-direction: column; }
+  .gst-table { font-size: 0.78rem; }
+}
+</style>
+
+<!-- ═══ PAGE HERO ═══ -->
+<div class="page-hero">
+  <div class="inner">
+    <div>
+      <div class="eyebrow eyebrow-amber" style="animation:fadeUp 0.6s ease both;">Core Product · Workflow Engine · Boards · Automations · Realtime Sync</div>
+      <h1 style="animation:fadeUp 0.6s ease 0.1s both;">
+        Real-time workflow<br>
+        engine for<br>
+        <em>modern teams.</em>
+      </h1>
+      <p class="page-hero-sub" style="animation:fadeUp 0.6s ease 0.2s both;">
+        Task status automation, a shared board data model, and a realtime collaboration layer — built, tested, and running in production for teams of every size.
+      </p>
+      <div class="hero-stats" style="animation:fadeUp 0.6s ease 0.3s both;">
+        <div class="hero-stat">
+          <div class="hero-stat-num">Live</div>
+          <div class="hero-stat-lbl">Since 2024</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">50K+</div>
+          <div class="hero-stat-lbl">Teams Onboard</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">v1→v2</div>
+          <div class="hero-stat-lbl">Schema Migration Ready</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0.8rem;animation:fadeUp 0.6s ease 0.35s both;">
+      <a href="#contact" class="btn btn-amber">Book a Demo</a>
+      <a href="/docs" class="btn-ghost" style="text-align:center;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;">View Docs &amp; FAQ →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ WORKFLOW ENGINE ═══ -->
+<div class="section-wrap no-border" id="workflow">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Workflows</div>
+    <h2 class="reveal">AcmeOS's Task <em>Status Engine</em></h2>
+    <p class="lead reveal">Every task in AcmeOS moves through a defined set of status codes. The status engine is what turns a static board into something that actually drives work forward.</p>
+
+    <div class="content-grid" style="margin-top:2.5rem;">
+      <div>
+        <div class="eyebrow eyebrow-amber reveal" style="margin-bottom:1.2rem;">What the Status Engine Adds Over a Static Board</div>
+        <div class="content-body reveal">
+          <p>A plain kanban board only tracks <strong>where</strong> a task sits. AcmeOS's status engine also tracks <strong>why</strong> it's there and <strong>what happens next</strong> — each status can trigger an automation the moment a task enters it.</p>
+          <p>The most-used status is <strong>Blocked</strong> — a mandatory field on every task that, when set, automatically notifies the assignee's manager and pauses any dependent automations until it's cleared.</p>
+          <p>The second most-used capability is <strong>auto-assignment</strong> — routing new tasks to the right person based on tags, workload, or a round-robin rule, without anyone touching the board manually.</p>
+          <p>We've implemented the full status engine — every code, every transition rule, and the validation layer that stops an invalid transition (like skipping straight from To Do to Done) before it happens.</p>
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow eyebrow-amber reveal" style="margin-bottom:1rem;">Task Status Codes</div>
+        <table class="gst-table reveal">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Description</th>
+              <th>Triggers</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="code-pill">TODO</span></td>
+              <td>Not yet started</td>
+              <td>None</td>
+            </tr>
+            <tr>
+              <td><span class="code-pill">IN_PROGRESS</span></td>
+              <td>Actively being worked on</td>
+              <td>Starts the time-tracking clock</td>
+            </tr>
+            <tr>
+              <td><span class="code-pill">BLOCKED</span></td>
+              <td>Waiting on a dependency</td>
+              <td>Notifies assignee's manager</td>
+            </tr>
+            <tr>
+              <td><span class="code-pill">IN_REVIEW</span></td>
+              <td>Awaiting approval</td>
+              <td>Assigns a reviewer automatically</td>
+            </tr>
+            <tr>
+              <td><span class="code-pill">DONE</span></td>
+              <td>Complete and closed</td>
+              <td>Fires any dependent automations</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="spec-grid reveal-group" style="margin-top:2.5rem;">
+      <div class="spec-card reveal">
+        <div class="spec-label">Required Field</div>
+        <h5>Status Field</h5>
+        <p>Every task carries a status field at all times. Automations and reporting both key off this field, so it can never be left empty.</p>
+      </div>
+      <div class="spec-card reveal">
+        <div class="spec-label">Optional Automation</div>
+        <h5>Auto-Assignment</h5>
+        <p>Route new tasks to the right person automatically by tag, workload, or round-robin — configurable per board.</p>
+      </div>
+      <div class="spec-card reveal">
+        <div class="spec-label">Validation</div>
+        <h5>Transition Rules</h5>
+        <p>Invalid status jumps are rejected before they happen. We've implemented and tested every transition rule, including custom per-board overrides.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DATA MODEL ═══ -->
+<div class="section-wrap alt" id="data-model">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Data Model</div>
+    <h2 class="reveal">The Board <em>Structure Standard</em></h2>
+    <p class="lead reveal">The data model layer defines how a Workspace, Board, List, and Task relate to each other — it's what every integration and automation is ultimately built on top of.</p>
+
+    <div class="content-grid" style="margin-top:2rem;">
+      <div class="content-body reveal">
+        <p><strong>A Workspace</strong> contains any number of Boards. <strong>A Board</strong> contains Lists (your columns), and each List contains Tasks. Custom fields can be attached at the Board level and inherited by every Task within it.</p>
+        <p>The data model covers the core structure: title, description, assignee, due date, status, priority, and tags — plus any custom fields you define. Integrations (like PINT-style profile extensions in other systems) can layer additional fields on top without breaking the base schema.</p>
+        <p>Reading or writing a Task through the API requires passing both the core schema validation and any board-level custom-field rules you've configured.</p>
+        <p>We've implemented the full data model — every entity type, every relationship, and the custom-field validation layer — and tested it against real workspace migrations from three different legacy tools.</p>
+      </div>
+      <div>
+        <div style="font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--pep-accent);margin-bottom:1rem;" class="reveal">Core Entity Types</div>
+        <div class="spec-grid reveal-group" style="grid-template-columns:1fr 1fr;margin-top:0;">
+          <div class="spec-card reveal" style="border-top-color:var(--pep-accent);">
+            <div class="spec-label">Task</div>
+            <h5>Core Entity</h5>
+            <p>The primary unit of work. Carries status, assignee, due date, priority, tags, and any custom fields.</p>
+          </div>
+          <div class="spec-card reveal">
+            <div class="spec-label">Comment</div>
+            <h5>Thread Entity</h5>
+            <p>Attached to a task, supports mentions and file attachments, and fires a notification on post.</p>
+          </div>
+          <div class="spec-card reveal">
+            <div class="spec-label">Attachment</div>
+            <h5>File Entity</h5>
+            <p>Any file uploaded to a task or comment. Versioned automatically — the previous copy is never overwritten.</p>
+          </div>
+          <div class="spec-card reveal">
+            <div class="spec-label">Automation</div>
+            <h5>Rule Entity</h5>
+            <p>A trigger plus an action, scoped to a board. Can be enabled, disabled, or duplicated without affecting existing runs.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout-box reveal">
+      <strong>"Validated the full data model against three separate legacy-tool migrations"</strong> — including custom fields, automation rules, and comment threads. The most common migration failure we've seen is a custom field type mismatch (e.g. text vs. number) at import time. We've built the validation logic that catches this before it corrupts a board.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SCHEMA V2 ROADMAP ═══ -->
+<div class="section-wrap surface" id="roadmap">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Looking Ahead</div>
+    <h2 class="reveal">Planning for <em>Schema v2</em></h2>
+    <p class="lead reveal">Schema v2 is the next major revision of AcmeOS's data model. It's currently in closed beta. Here's what's changing, what stays the same, and how to build on v1 today while staying ready for the migration.</p>
+
+    <div class="bis-compare reveal">
+      <div class="bis-col">
+        <div class="bis-col-header">What Schema v2 Changes from v1</div>
+        <ul class="bis-list">
+          <li>Nested sub-tasks become a first-class entity instead of a linked task</li>
+          <li>Custom fields gain native multi-select and formula types</li>
+          <li>Stricter validation — some previously optional fields become required</li>
+          <li>Improved alignment across all API endpoints for consistent pagination</li>
+          <li>Revised automation rule syntax for chained conditions</li>
+          <li>Updated tag taxonomy with nested categories</li>
+        </ul>
+      </div>
+      <div class="bis-col">
+        <div class="bis-col-header">What Stays the Same</div>
+        <ul class="bis-list">
+          <li>Still JSON over REST (no format change)</li>
+          <li>The Workspace → Board → List → Task hierarchy is unchanged</li>
+          <li>Webhook delivery and signing are unchanged</li>
+          <li>API key scoping and authentication are unchanged</li>
+          <li>Existing custom fields carry over — no re-mapping needed</li>
+          <li>Core entity semantics (task, comment, attachment) are mostly preserved</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="roadmap-card reveal">
+      <h4>Timeline &amp; Beta Access</h4>
+      <p>As of this release, <strong>Schema v2 is in closed beta</strong> — our team is testing it with a small group of design-partner workspaces. There is no forced migration date yet; v1 remains fully supported.</p>
+      <p style="margin-top:0.8rem;">Expect a <strong>phased opt-in window</strong> where both v1 and v2 schemas are accepted side by side, before an eventual v1 sunset date announced well in advance. Enterprise customers get early access on request.</p>
+    </div>
+
+    <div class="callout-box reveal">
+      <strong>If you're integrating with the API today:</strong> build against v1 — it's the current stable schema. But keep field names and automation rules in configuration rather than hardcoded, so the v2 migration is a config update, not a rewrite. We publish beta-access details on the <a href="/blog" style="color:var(--pep-accent);font-weight:700;">blog</a> as the closed beta progresses.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ REALTIME COLLABORATION ═══ -->
+<div class="section-wrap alt" id="realtime">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Realtime — The Collaboration Layer</div>
+    <h2 class="reveal">Presence as the <em>Missing Piece</em></h2>
+    <p class="lead reveal">AcmeOS goes beyond saving changes to the database. Every edit is also broadcast live to everyone viewing the same board — enabling true multiplayer editing, not just eventual consistency.</p>
+
+    <div class="content-grid" style="margin-top:2rem;">
+      <div class="content-body reveal">
+        <p>In a typical REST API, a write goes to the database and stops there — other clients only see it on their next poll or page refresh. AcmeOS adds a <strong>realtime layer</strong> alongside every write.</p>
+        <p>When a task updates, the change is simultaneously written to the database and broadcast over a WebSocket connection to every client currently viewing that board — including cursor position and who's typing where.</p>
+        <p>This powers <strong>live presence indicators</strong>, instant board updates with no refresh, and conflict-free collaborative editing on task descriptions and comments.</p>
+        <p>Not every board needs the realtime layer active — you can disable it per board to reduce connection overhead on boards with a single owner.</p>
+      </div>
+      <div class="reveal">
+        <div class="card card-amber" style="padding:1.8rem;">
+          <div style="font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--pep-accent);margin-bottom:1.2rem;">Realtime Quick Reference</div>
+          <ul class="checklist">
+            <li>
+              <svg class="check-icon check-amber" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"></polyline></svg>
+              Broadcasts parallel to every database write
+            </li>
+            <li>
+              <svg class="check-icon check-amber" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"></polyline></svg>
+              Live cursor and typing-presence indicators
+            </li>
+            <li>
+              <svg class="check-icon check-amber" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"></polyline></svg>
+              Conflict-free collaborative text editing
+            </li>
+            <li>
+              <svg class="check-icon check-amber" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"></polyline></svg>
+              Can be disabled per board to save connections
+            </li>
+            <li>
+              <svg class="check-icon check-amber" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"></polyline></svg>
+              Reduces stale-data conflicts across the team
+            </li>
+          </ul>
+          <div class="divider" style="margin:1.2rem 0;"></div>
+          <a href="/docs#webhooks" class="btn btn-amber" style="display:block;text-align:center;">Full Realtime Deep Dive →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ UNDER THE HOOD ═══ -->
+<div class="section-wrap surface" id="experience">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Under the Hood</div>
+    <h2 class="reveal">Built, <em>Not Just Announced</em></h2>
+    <p class="lead reveal">Every item below is a real, shipped part of AcmeOS — from the sync engine to multi-region hosting.</p>
+
+    <div class="impl-grid reveal-group">
+      <div class="impl-point reveal">
+        <div class="impl-icon">🔗</div>
+        <div class="impl-text">
+          <h5>Realtime Sync Engine</h5>
+          <p>WebSocket-based broadcast layer running alongside every write, powering live presence and instant board updates.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon"><Flag code="sg" /></div>
+        <div class="impl-text">
+          <h5>Multi-Region Hosting</h5>
+          <p>Workspace data is hosted in-region on request — useful for teams with data-residency requirements across APAC, EU, or the Americas.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">📄</div>
+        <div class="impl-text">
+          <h5>Task Data Model</h5>
+          <p>The full entity schema — tasks, comments, attachments, automations — validated and tested against real production workspaces.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">📡</div>
+        <div class="impl-text">
+          <h5>WebSocket Protocol</h5>
+          <p>Signed connection handshake, automatic reconnect with backoff, and message ordering guarantees — even on flaky mobile connections.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">⚡</div>
+        <div class="impl-text">
+          <h5>Automation Pipeline</h5>
+          <p>Trigger evaluation, action execution, retry queue, and run logging — the full pipeline described on the <a href="/solutions#lifecycle">Solutions page</a>.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">🔍</div>
+        <div class="impl-text">
+          <h5>Full-Text Search Indexing</h5>
+          <p>Every task, comment, and attachment name is indexed for instant search across an entire workspace, updated in real time.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<Contact eyebrowClass="eyebrow-amber" buttonClass="btn-amber">
+  <Fragment slot="heading">Ready to Build Your<br><em>First Workflow?</em></Fragment>
+  <Fragment slot="lead">AcmeOS is free to start. Whether you need onboarding, automation setup, or a workspace migration — first consultation is complimentary.</Fragment>
+</Contact>
+
+</BaseLayout>

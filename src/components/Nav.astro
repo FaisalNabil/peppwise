@@ -1,28 +1,29 @@
 ---
 interface Props {
-  active: 'home' | 'peppol' | 'peppol-singapore' | 'peppol-uae' | 'peppol-kb' | 'malaysia';
+  active: 'home' | 'features' | 'solutions' | 'pricing' | 'docs' | 'blog' | 'none';
 }
 const { active } = Astro.props;
-const peppolSection = ['peppol', 'peppol-singapore', 'peppol-uae', 'peppol-kb'].includes(active);
+const productSection = ['features', 'solutions', 'pricing'].includes(active);
+const resourcesSection = ['docs', 'blog'].includes(active);
 ---
 <!-- NAV -->
 <nav id="main-nav">
-  <a href="/" class="nav-logo">Pepp<span>wise</span></a>
+  <a href="/" class="nav-logo">Acme<span>OS</span></a>
   <div class="nav-links">
     <a href="/" class:list={[{ 'nav-active': active === 'home' }]}>Home</a>
     <div class="nav-dropdown">
-      <a href="/peppol" class:list={['nav-dropdown-trigger', { 'nav-active': peppolSection }]}>Peppol <span class="dropdown-arrow">▾</span></a>
+      <a href="/features" class:list={['nav-dropdown-trigger', { 'nav-active': productSection }]}>Product <span class="dropdown-arrow">▾</span></a>
       <div class="nav-dropdown-menu">
-        <a href="/peppol" class:list={[{ 'active-sub': active === 'peppol' }]}>Overview · C4 vs C5</a>
-        <a href="/peppol-singapore" class:list={[{ 'active-sub': active === 'peppol-singapore' }]}>Singapore InvoiceNow</a>
-        <a href="/peppol-uae" class:list={[{ 'active-sub': active === 'peppol-uae' }]}>UAE eInvoicing</a>
-        <a href="/peppol-kb" class:list={[{ 'active-sub': active === 'peppol-kb' }]}>Knowledge Base</a>
+        <a href="/features" class:list={[{ 'active-sub': active === 'features' }]}>Features</a>
+        <a href="/solutions" class:list={[{ 'active-sub': active === 'solutions' }]}>Solutions</a>
+        <a href="/pricing" class:list={[{ 'active-sub': active === 'pricing' }]}>Pricing</a>
       </div>
     </div>
     <div class="nav-dropdown">
-      <a href="/malaysia" class:list={['nav-dropdown-trigger', { 'nav-active': active === 'malaysia' }]}>Direct Clearance <span class="dropdown-arrow">▾</span></a>
+      <a href="/docs" class:list={['nav-dropdown-trigger', { 'nav-active': resourcesSection }]}>Resources <span class="dropdown-arrow">▾</span></a>
       <div class="nav-dropdown-menu">
-        <a href="/malaysia" class:list={[{ 'active-sub': active === 'malaysia' }]}>Malaysia e-Invoice</a>
+        <a href="/docs" class:list={[{ 'active-sub': active === 'docs' }]}>Docs &amp; FAQ</a>
+        <a href="/blog" class:list={[{ 'active-sub': active === 'blog' }]}>Blog</a>
       </div>
     </div>
     <a href="#contact" class="nav-cta">Get in Touch</a>
@@ -33,10 +34,10 @@ const peppolSection = ['peppol', 'peppol-singapore', 'peppol-uae', 'peppol-kb'].
 </nav>
 <div class="nav-mobile-overlay" id="nav-mobile-overlay">
   <a href="/" class="mobile-nav-link">Home</a>
-  <a href="/peppol" class="mobile-nav-link">Peppol Overview</a>
-  <a href="/peppol-singapore" class="mobile-nav-link">Singapore AP</a>
-  <a href="/peppol-uae" class="mobile-nav-link">UAE eInvoicing</a>
-  <a href="/peppol-kb" class="mobile-nav-link">Knowledge Base</a>
-  <a href="/malaysia" class="mobile-nav-link">Malaysia e-Invoice</a>
+  <a href="/features" class="mobile-nav-link">Features</a>
+  <a href="/solutions" class="mobile-nav-link">Solutions</a>
+  <a href="/pricing" class="mobile-nav-link">Pricing</a>
+  <a href="/docs" class="mobile-nav-link">Docs &amp; FAQ</a>
+  <a href="/blog" class="mobile-nav-link">Blog</a>
   <a href="#contact" class="mobile-nav-link">Get in Touch</a>
 </div>

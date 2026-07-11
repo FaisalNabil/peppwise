@@ -1,35 +1,33 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Contact from '../components/Contact.astro';
-import Flag from '../components/Flag.astro';
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "Service",
-      "name": "Malaysia e-Invoice IRBM API Integration",
-      "provider": {"@type":"Organization","name":"Peppwise","url":"https://www.peppwise.com"},
-      "description": "Fully completed IRBM API integration for Malaysia e-Invoice service providers. All MyInvois endpoints, all 5 document types, X.509 digital signature, UBL 2.1 XML mapping.",
-      "serviceType": "Malaysia e-Invoice API Integration",
-      "areaServed": "MY",
-      "url": "https://www.peppwise.com/malaysia"
+      "name": "AcmeOS Enterprise Integrations",
+      "provider": {"@type":"Organization","name":"AcmeOS","url":"https://acmeos-demo.example"},
+      "description": "Full integration API coverage, a managed enterprise rollout playbook, and automation tooling for teams migrating off spreadsheets and legacy tools.",
+      "serviceType": "SaaS Integration & Onboarding",
+      "url": "https://acmeos-demo.example/solutions"
     },
     {
       "@type": "WebPage",
-      "url": "https://www.peppwise.com/malaysia",
-      "name": "Malaysia e-Invoice API Integration — IRBM, MyInvois, LHDN | Peppwise",
-      "isPartOf": {"@type":"WebSite","url":"https://www.peppwise.com"}
+      "url": "https://acmeos-demo.example/solutions",
+      "name": "Solutions — Enterprise Integrations, Rollout Playbook, Automations | AcmeOS",
+      "isPartOf": {"@type":"WebSite","url":"https://acmeos-demo.example"}
     }
   ]
 };
 ---
 <BaseLayout
-  title="Malaysia e-Invoice API Integration — IRBM, MyInvois, LHDN | Peppwise"
-  description="Fully completed IRBM API integration for Malaysia e-Invoice service providers. All MyInvois endpoints covered, all 5 document types, X.509 signature, production-tested and ready to connect."
-  ogDescription="Fully completed IRBM API for service providers. All MyInvois endpoints implemented, all 5 document types, X.509 signature, UBL 2.1. Production-ready."
-  path="/malaysia"
-  active="malaysia"
+  title="Solutions — Enterprise Integrations, Rollout Playbook, Automations | AcmeOS"
+  description="Full integration API coverage, a managed enterprise rollout playbook, and automation tooling for teams migrating off spreadsheets and legacy project tools."
+  ogDescription="Full integration API, a managed rollout playbook, and automation tooling for teams migrating to AcmeOS. Built for enterprise scale."
+  path="/solutions"
+  active="solutions"
   jsonLd={jsonLd}
 >
 <style is:inline slot="head">
@@ -148,7 +146,7 @@ const jsonLd = {
 .phase-title { font-family: var(--font-head); font-size: 0.92rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
 .phase-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
 
-/* ─── DOCUMENT TYPES ─── */
+/* ─── AUTOMATION TRIGGER TYPES ─── */
 .doctype-grid {
   display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 1.2rem; margin-top: 2.5rem;
@@ -264,84 +262,84 @@ const jsonLd = {
 <div class="page-hero">
   <div class="inner">
     <div>
-      <div class="eyebrow eyebrow-blue" style="animation:fadeUp 0.6s ease both;">Direct Clearance · Malaysia e-Invoice · LHDN / IRBM · MyInvois</div>
+      <div class="eyebrow eyebrow-blue" style="animation:fadeUp 0.6s ease both;">Solutions · Enterprise Rollout · Integrations · Automations</div>
       <h1 style="animation:fadeUp 0.6s ease 0.1s both;">
-        Malaysia e-Invoice.<br>
-        IRBM API — <em>fully completed.</em>
+        Enterprise integrations.<br>
+        Fully <em>supported.</em>
       </h1>
       <p class="page-hero-sub" style="animation:fadeUp 0.6s ease 0.2s both;">
-        Malaysia runs a direct-clearance model: invoices clear through IRBM's MyInvois API before they are valid — no Peppol network in the loop. Every endpoint implemented, tested against sandbox and production. All 5 document types. X.509 digital signature.
+        Rolling AcmeOS out past a single team means covering the whole integration surface — not just the happy path. Every endpoint implemented, every rollout phase mapped, tested at real enterprise scale.
       </p>
       <div class="hero-stats" style="animation:fadeUp 0.6s ease 0.3s both;">
         <div class="hero-stat">
           <div class="hero-stat-num">8</div>
-          <div class="hero-stat-lbl">API Endpoints Covered</div>
+          <div class="hero-stat-lbl">Integration Endpoints Covered</div>
         </div>
         <div class="hero-stat">
           <div class="hero-stat-num">5</div>
-          <div class="hero-stat-lbl">IRBM Document Types</div>
+          <div class="hero-stat-lbl">Automation Trigger Types</div>
         </div>
         <div class="hero-stat">
-          <div class="hero-stat-num">X.509</div>
-          <div class="hero-stat-lbl">Digital Signature</div>
+          <div class="hero-stat-num">SSO</div>
+          <div class="hero-stat-lbl">SAML + SCIM Ready</div>
         </div>
       </div>
     </div>
     <div style="display:flex;flex-direction:column;gap:0.8rem;animation:fadeUp 0.6s ease 0.35s both;">
-      <a href="#contact" class="btn btn-blue">Book a Free Assessment</a>
-      <a href="/peppol-singapore" class="btn-ghost" style="text-align:center;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;">Also need Peppol? →</a>
+      <a href="#contact" class="btn btn-blue">Book a Rollout Call</a>
+      <a href="/features" class="btn-ghost" style="text-align:center;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;">See core features →</a>
     </div>
   </div>
 </div>
 
-<!-- ═══ IRBM API COVERAGE ═══ -->
+<!-- ═══ INTEGRATION API COVERAGE ═══ -->
 <div class="section-wrap no-border" id="api">
   <div class="inner">
-    <div class="eyebrow eyebrow-blue reveal">IRBM API Coverage</div>
-    <h2 class="reveal">Every MyInvois Endpoint. <em>Implemented.</em></h2>
-    <p class="lead reveal">Building a Malaysia e-Invoice integration means covering all IRBM API endpoints — not just document submission. Below is the complete API surface, every one personally implemented and production-tested.</p>
+    <div class="eyebrow eyebrow-blue reveal">Integration API Coverage</div>
+    <h2 class="reveal">Every Endpoint. <em>Implemented.</em></h2>
+    <p class="lead reveal">A real enterprise rollout means more than reading and writing tasks — it means the full integration surface below, ready to plug into your existing stack.</p>
 
     <div class="api-grid reveal">
       <div class="api-card">
         <span class="api-method method-post">POST</span>
-        <h5>Submit Document</h5>
-        <code>/api/v1.0/documentsubmissions</code>
+        <h5>Create Task</h5>
+        <code>/api/v1.0/tasks</code>
         <div class="api-done">Implemented</div>
       </div>
       <div class="api-card">
         <span class="api-method method-get">GET</span>
-        <h5>Get Submission Status</h5>
-        <code>/api/v1.0/documentsubmissions/&#123;uid&#125;</code>
+        <h5>Get Task Status</h5>
+        <code>/api/v1.0/tasks/&#123;id&#125;</code>
         <div class="api-done">Implemented</div>
       </div>
       <div class="api-card">
         <span class="api-method method-get">GET</span>
-        <h5>Get Document Details</h5>
-        <code>/api/v1.0/documents/&#123;uid&#125;/details</code>
+        <h5>Get Workspace Details</h5>
+        <code>/api/v1.0/workspaces/&#123;id&#125;</code>
         <div class="api-done">Implemented</div>
       </div>
       <div class="api-card">
         <span class="api-method method-put">PUT</span>
-        <h5>Cancel Document</h5>
-        <code>/api/v1.0/documents/state/&#123;uid&#125;/state</code>
+        <h5>Update Task State</h5>
+        <code>/api/v1.0/tasks/&#123;id&#125;/state</code>
         <div class="api-done">Implemented</div>
       </div>
       <div class="api-card">
         <span class="api-method method-put">PUT</span>
-        <h5>Reject Document</h5>
-        <code>/api/v1.0/documents/state/&#123;uid&#125;/state</code>
+        <h5>Archive Task</h5>
+        <code>/api/v1.0/tasks/&#123;id&#125;/archive</code>
         <div class="api-done">Implemented</div>
       </div>
       <div class="api-card">
         <span class="api-method method-get">GET</span>
-        <h5>Get Documents (Search)</h5>
-        <code>/api/v1.0/documents/search</code>
+        <h5>Search Tasks</h5>
+        <code>/api/v1.0/tasks/search</code>
         <div class="api-done">Implemented</div>
       </div>
       <div class="api-card">
         <span class="api-method method-get">GET</span>
-        <h5>Validate Taxpayer TIN</h5>
-        <code>/api/v1.0/taxpayer/validate/&#123;tin&#125;</code>
+        <h5>Validate Team Member</h5>
+        <code>/api/v1.0/members/validate/&#123;email&#125;</code>
         <div class="api-done">Implemented</div>
       </div>
       <div class="api-card">
@@ -353,100 +351,100 @@ const jsonLd = {
     </div>
 
     <div class="api-callout reveal">
-      <p><strong>What this means for service providers:</strong> If you are building a middleware, ERP connector, or SaaS platform that needs to connect businesses to IRBM's MyInvois, this API layer is complete. Document submission, real-time status polling, rejection detection, cancellation flows, TIN validation, and OAuth token management — all endpoints implemented, tested in sandbox and production, and ready to integrate into your product.</p>
-      <p style="margin-top:0.8rem;"><strong>Peppol on the horizon:</strong> MDEC is Malaysia's designated Peppol Authority and a PINT MY profile is aligning MyInvois documents with the Peppol standard. When Malaysian flows converge with the Peppol network, the same stack behind my <a href="/peppol-singapore" style="color:var(--einv-accent);font-weight:700;">Singapore</a> and <a href="/peppol-uae" style="color:var(--einv-accent);font-weight:700;">UAE</a> work applies here.</p>
+      <p><strong>What this means for your team:</strong> If you're building an internal tool, an ERP bridge, or a custom dashboard on top of AcmeOS, this API layer is complete. Task management, real-time status polling, archival, search, member validation, and OAuth token management — all endpoints implemented, tested, and ready to integrate.</p>
+      <p style="margin-top:0.8rem;"><strong>SSO on the roadmap for every plan:</strong> SAML-based SSO and SCIM provisioning ship on Enterprise today, with the same identity layer available to Pro workspaces on request. See <a href="/features" style="color:var(--einv-accent);font-weight:700;">Features</a> for the full breakdown.</p>
     </div>
   </div>
 </div>
 
-<!-- ═══ PHASE STATUS ═══ -->
+<!-- ═══ ROLLOUT PHASES ═══ -->
 <div class="section-wrap alt" id="phases">
   <div class="inner">
-    <div class="eyebrow eyebrow-blue reveal">Rollout Status</div>
-    <h2 class="reveal"><Flag code="my" /> Malaysia e-Invoice <em>All Phases Live</em></h2>
-    <p class="lead reveal">All three phases of Malaysia's mandatory e-invoicing rollout are now active. If your business is not yet compliant, every transaction without a validated IRBM e-invoice is a potential penalty.</p>
+    <div class="eyebrow eyebrow-blue reveal">Rollout Playbook</div>
+    <h2 class="reveal">Company-Wide Rollout <em>Made Simple</em></h2>
+    <p class="lead reveal">Enterprise rollouts succeed when they're staged, not switched on overnight. This is the same three-phase playbook our team uses with every customer moving off spreadsheets or a legacy tool.</p>
 
     <div class="phase-grid reveal-group">
       <div class="phase-card reveal">
-        <span class="phase-status status-live">✓ Live Since Aug 2024</span>
-        <div class="phase-date">Phase 1</div>
-        <div class="phase-title">Annual Turnover &gt; RM 100 Million</div>
-        <p class="phase-desc">Large corporations — the first wave. Mandatory API or MyInvois Portal submission required. LHDN validation and UUID assignment live since August 2024.</p>
+        <span class="phase-status status-live">Phase 1</span>
+        <div class="phase-date">Weeks 1–2</div>
+        <div class="phase-title">Pilot Team</div>
+        <p class="phase-desc">One team migrates their existing workflow into AcmeOS, with a dedicated onboarding session and a direct line to support for fast feedback.</p>
       </div>
       <div class="phase-card reveal">
-        <span class="phase-status status-live">✓ Live Since Jul 2025</span>
-        <div class="phase-date">Phase 2</div>
-        <div class="phase-title">Annual Turnover &gt; RM 25 Million</div>
-        <p class="phase-desc">Mid-size businesses including manufacturers, distributors, and service firms above RM25M. Mandatory since 1 July 2025. API integration is the standard path for this group.</p>
+        <span class="phase-status status-live">Phase 2</span>
+        <div class="phase-date">Weeks 3–6</div>
+        <div class="phase-title">Department-Wide</div>
+        <p class="phase-desc">Once the pilot team's workflows are proven, roll out to the rest of the department with templates and automations already configured.</p>
       </div>
       <div class="phase-card reveal">
-        <span class="phase-status status-live">✓ Live Since Jan 2026</span>
-        <div class="phase-date">Phase 3</div>
-        <div class="phase-title">All Remaining Businesses</div>
-        <p class="phase-desc">All Malaysian businesses regardless of turnover must comply as of 1 January 2026. No exemptions remain. If you are not yet connected, every invoice issued without IRBM validation is non-compliant.</p>
+        <span class="phase-status status-live">Phase 3</span>
+        <div class="phase-date">Weeks 7+</div>
+        <div class="phase-title">Company-Wide</div>
+        <p class="phase-desc">Full rollout across every team, with SSO enforced, roles finalised, and legacy tools decommissioned on your own timeline.</p>
       </div>
     </div>
 
     <div style="margin-top:2rem;padding:1.4rem 1.6rem;background:var(--yellow-pale);border:1.5px solid var(--border-strong);border-left:5px solid var(--yellow);border-radius:6px;box-shadow:var(--shadow-sm);" class="reveal">
-      <h4 style="color:#92400E;margin-bottom:0.5rem;">⚠ Non-Compliance Penalties (Still Enforced)</h4>
-      <p style="font-size:0.87rem;color:#78350F;line-height:1.6;">Under the Income Tax Act 1967, failure to issue a valid e-invoice carries a penalty of <strong>RM200 to RM1,000 per invoice</strong>. Repeated or wilful non-compliance can result in fines of <strong>up to RM20,000</strong>, imprisonment, or both. All deadlines have passed — penalties are now in effect across all business sizes.</p>
+      <h4 style="margin-bottom:0.5rem;">Why a staged rollout beats a big-bang switch</h4>
+      <p style="font-size:0.87rem;color:var(--text-muted);line-height:1.6;">Teams that migrate all at once tend to hit the same friction: half-configured automations, unclear ownership, and a support queue that spikes on day one. Staging the rollout by team keeps automations tested before they're company-wide, and gives your admins time to tune roles and permissions before everyone's watching.</p>
     </div>
   </div>
 </div>
 
-<!-- ═══ 5 DOCUMENT TYPES ═══ -->
-<div class="section-wrap surface" id="documents">
+<!-- ═══ AUTOMATION TRIGGER TYPES ═══ -->
+<div class="section-wrap surface" id="triggers">
   <div class="inner">
-    <div class="eyebrow eyebrow-blue reveal">IRBM Document Types</div>
-    <h2 class="reveal">All 5 Mandatory <em>Document Types</em></h2>
-    <p class="lead reveal">IRBM mandates five distinct e-invoice document types. Every type has its own use case, mandatory fields, and issuance party. The complete API integration covers all five.</p>
+    <div class="eyebrow eyebrow-blue reveal">Automation Triggers</div>
+    <h2 class="reveal">Five Trigger <em>Types</em></h2>
+    <p class="lead reveal">Every automation in AcmeOS starts with one of five trigger types. Each has its own use case, configuration, and ownership model.</p>
 
     <div class="doctype-grid reveal-group">
       <div class="doctype-card reveal">
         <div class="doctype-num">Type 01</div>
-        <h4><span>Invoice</span></h4>
-        <p class="doctype-when">Standard commercial invoice for any taxable supply of goods or services — B2B and B2C.</p>
-        <div class="doctype-who">Issued by: Supplier</div>
-        <div class="doctype-fields">Key fields: Supplier TIN, Buyer TIN, MSIC code, SST registration, line-item tax categories.</div>
+        <h4><span>Scheduled</span></h4>
+        <p class="doctype-when">Runs on a fixed cadence — daily standup reminders, weekly reports, monthly billing summaries.</p>
+        <div class="doctype-who">Configured by: Admin or Editor</div>
+        <div class="doctype-fields">Key fields: Cron expression, timezone, recipient list.</div>
       </div>
       <div class="doctype-card reveal">
         <div class="doctype-num">Type 02</div>
-        <h4><span>Credit Note</span></h4>
-        <p class="doctype-when">Issued to reduce the value of a previously validated invoice — returns, discounts, downward corrections.</p>
-        <div class="doctype-who">Issued by: Supplier</div>
-        <div class="doctype-fields">Must reference the original invoice UUID. Reduces taxable supply and buyer's input tax claim.</div>
+        <h4><span>Event-Based</span></h4>
+        <p class="doctype-when">Fires the moment something happens in the workspace — a task moves to Done, a form is submitted.</p>
+        <div class="doctype-who">Configured by: Editor</div>
+        <div class="doctype-fields">Triggers instantly, no polling delay.</div>
       </div>
       <div class="doctype-card reveal">
         <div class="doctype-num">Type 03</div>
-        <h4><span>Debit Note</span></h4>
-        <p class="doctype-when">Issued to increase the value of a previously validated invoice — additional charges, upward adjustments.</p>
-        <div class="doctype-who">Issued by: Supplier</div>
-        <div class="doctype-fields">Must reference the original invoice UUID. Increases taxable supply and buyer's input tax.</div>
+        <h4><span>Conditional</span></h4>
+        <p class="doctype-when">Only runs when a field matches a rule — priority is High, or assignee is empty after 24 hours.</p>
+        <div class="doctype-who">Configured by: Editor</div>
+        <div class="doctype-fields">Supports AND/OR rule chains across any custom field.</div>
       </div>
       <div class="doctype-card reveal">
         <div class="doctype-num">Type 04</div>
-        <h4><span>Refund Note</span></h4>
-        <p class="doctype-when">Issued when a settled invoice is subsequently refunded. Distinct from Credit Note in that payment has already occurred.</p>
-        <div class="doctype-who">Issued by: Supplier</div>
-        <div class="doctype-fields">References original UUID. Triggers tax position adjustment for both parties.</div>
+        <h4><span>Webhook-Triggered</span></h4>
+        <p class="doctype-when">Started by an inbound webhook from an external tool — a form service, a support inbox, a CI pipeline.</p>
+        <div class="doctype-who">Configured by: Admin</div>
+        <div class="doctype-fields">Requires a signed inbound endpoint URL.</div>
       </div>
       <div class="doctype-card reveal">
         <div class="doctype-num">Type 05</div>
-        <h4><span>Self-Billed Invoice</span></h4>
-        <p class="doctype-when">Buyer issues invoice on behalf of supplier — for agents, dealers, distributors, foreign suppliers, and other IRBM-defined categories.</p>
-        <div class="doctype-who">Issued by: Buyer</div>
-        <div class="doctype-fields">Requires IRBM approval. Both TINs required. Buyer assumes the compliance obligation.</div>
+        <h4><span>Manual</span></h4>
+        <p class="doctype-when">Triggered on demand by a team member clicking a button — for one-off actions that shouldn't run automatically.</p>
+        <div class="doctype-who">Configured by: Any Editor</div>
+        <div class="doctype-fields">Optional confirmation step before running.</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══ TECHNICAL LIFECYCLE ═══ -->
-<div class="section-wrap alt" id="architecture">
+<!-- ═══ AUTOMATION LIFECYCLE ═══ -->
+<div class="section-wrap alt" id="lifecycle">
   <div class="inner">
     <div class="eyebrow eyebrow-blue reveal">Technical Architecture</div>
-    <h2 class="reveal">The LHDN Document <em>Lifecycle</em></h2>
-    <p class="lead reveal">Every validated e-invoice passes through this five-stage flow. Understanding each step — especially the 72-hour window — is critical to building a correct integration.</p>
+    <h2 class="reveal">The Automation <em>Lifecycle</em></h2>
+    <p class="lead reveal">Every automation run passes through this five-stage flow. Understanding it makes debugging a stuck automation straightforward.</p>
 
     <div class="lifecycle-steps">
       <div class="lc-step">
@@ -454,8 +452,8 @@ const jsonLd = {
           <div class="lc-circle">1</div><div class="lc-connector"></div>
         </div>
         <div class="lc-body reveal">
-          <h4>Document Created in ERP or Accounting System</h4>
-          <p>Invoice generated with all mandatory IRBM fields: Supplier TIN, Buyer TIN, MSIC code, SST registration, and line-item tax codes. UBL 2.1 XML mapped from internal ERP data structures.</p>
+          <h4>Trigger Fires</h4>
+          <p>One of the five trigger types activates — a schedule, an event, a condition becoming true, an inbound webhook, or a manual click.</p>
         </div>
       </div>
       <div class="lc-step">
@@ -463,9 +461,9 @@ const jsonLd = {
           <div class="lc-circle">2</div><div class="lc-connector"></div>
         </div>
         <div class="lc-body reveal">
-          <span class="lc-badge">Two Paths</span>
-          <h4>Signed &amp; Submitted to LHDN</h4>
-          <p>Document signed with <strong>X.509 digital certificate</strong>. Submission via <strong>LHDN API</strong> (programmatic — recommended for volume) or <strong>MyInvois Portal</strong> (manual — for small volumes). Phase 2 and Phase 3 businesses use API integration.</p>
+          <span class="lc-badge">Validated</span>
+          <h4>Conditions Evaluated</h4>
+          <p>Any rule chain attached to the automation is checked. If conditions aren't met, the run stops here and is logged as skipped.</p>
         </div>
       </div>
       <div class="lc-step">
@@ -473,9 +471,9 @@ const jsonLd = {
           <div class="lc-circle">3</div><div class="lc-connector"></div>
         </div>
         <div class="lc-body reveal">
-          <span class="lc-badge">Real-Time</span>
-          <h4>Validated by LHDN — UUID &amp; QR Code Assigned</h4>
-          <p>LHDN validates schema, TIN references, tax calculations, and MSIC codes in real time. On success: <strong>UUID</strong> and <strong>QR code</strong> assigned. LHDN timestamp starts the 72-hour window.</p>
+          <span class="lc-badge">Executed</span>
+          <h4>Action Runs</h4>
+          <p>The configured action executes — move a task, send a notification, call a webhook, update a field. Retries automatically on transient failure.</p>
         </div>
       </div>
       <div class="lc-step">
@@ -483,9 +481,9 @@ const jsonLd = {
           <div class="lc-circle">4</div><div class="lc-connector"></div>
         </div>
         <div class="lc-body reveal">
-          <span class="lc-badge">72-Hour Window</span>
-          <h4>Buyer &amp; Supplier Action Window</h4>
-          <p>From LHDN validation timestamp: Buyer may reject (wrong amounts, wrong party); Supplier may cancel. After 72 hours, neither action is possible — invoice is confirmed. Your ERP must monitor and surface alerts.</p>
+          <span class="lc-badge">Logged</span>
+          <h4>Run Result Recorded</h4>
+          <p>Every run — success, skip, or failure — is written to the automation's run history with full input/output detail for debugging.</p>
         </div>
       </div>
       <div class="lc-step">
@@ -493,114 +491,114 @@ const jsonLd = {
           <div class="lc-circle">5</div><div class="lc-connector"></div>
         </div>
         <div class="lc-body reveal">
-          <h4>Validated Invoice Archived</h4>
-          <p>If not rejected or cancelled, invoice is confirmed. Both parties retain the document — including UUID and QR code — for IRBM's archival period. QR links to LHDN's verification portal.</p>
+          <h4>Team Notified</h4>
+          <p>If the automation owner has alerts enabled, a failed run notifies them immediately rather than silently failing in the background.</p>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══ IMPLEMENTATION EXPERIENCE ═══ -->
-<div class="section-wrap surface" id="experience">
+<!-- ═══ BUILT FOR RELIABILITY ═══ -->
+<div class="section-wrap surface" id="reliability">
   <div class="inner">
-    <div class="eyebrow eyebrow-blue reveal">Implementation Experience</div>
-    <h2 class="reveal">Implemented, <em>Not Theorised</em></h2>
-    <p class="lead reveal">Every item below reflects work personally built, tested, and deployed in production environments — not knowledge drawn from documentation alone.</p>
+    <div class="eyebrow eyebrow-blue reveal">Built for Reliability</div>
+    <h2 class="reveal">Enterprise-Grade, <em>Not Just Enterprise-Priced</em></h2>
+    <p class="lead reveal">Every item below is a real, shipped feature — not a roadmap promise.</p>
 
     <div class="impl-grid reveal-group">
       <div class="impl-point reveal">
-        <div class="impl-icon">✍</div>
+        <div class="impl-icon">🗂</div>
         <div class="impl-text">
-          <h5>X.509 Digital Signature</h5>
-          <p>Certificate embedded into the submission payload prior to LHDN API call. Covers certificate provisioning, signing algorithm, and signature validation handling.</p>
+          <h5>Full Audit Logging</h5>
+          <p>Every permission change, login, and API call recorded with actor, timestamp, and before/after state — exportable for compliance review.</p>
         </div>
       </div>
       <div class="impl-point reveal">
-        <div class="impl-icon">⚙</div>
+        <div class="impl-icon">🔁</div>
         <div class="impl-text">
-          <h5>LHDN API — All 8 Endpoints</h5>
-          <p>Submit, get status, get details, cancel, reject, search, validate TIN, and OAuth authentication — all implemented and tested against LHDN sandbox and production.</p>
+          <h5>Automatic Retry Queue</h5>
+          <p>Failed automation steps retry with exponential backoff before being surfaced as a failure — transient errors resolve themselves.</p>
         </div>
       </div>
       <div class="impl-point reveal">
-        <div class="impl-icon">📄</div>
+        <div class="impl-icon">✅</div>
         <div class="impl-text">
-          <h5>UBL 2.1 XML Mapping</h5>
-          <p>Internal ERP invoice data mapped to the IRBM UBL 2.1 schema. Covers namespace handling, extension schema compliance, and all mandatory and conditional field population.</p>
+          <h5>Data Validation on Import</h5>
+          <p>Bulk imports are validated field-by-field before committing, with a downloadable error report for anything that doesn't pass.</p>
         </div>
       </div>
       <div class="impl-point reveal">
-        <div class="impl-icon">🏷</div>
+        <div class="impl-icon">🔐</div>
         <div class="impl-text">
-          <h5>MSIC Code Integration</h5>
-          <p>MSIC lookup table integrated with product/service catalogue. Automated assignment at line-item level based on product classification rules.</p>
+          <h5>Role-Based Trigger Permissions</h5>
+          <p>Only Admins can configure webhook-triggered automations — preventing an Editor from accidentally exposing an internal workflow.</p>
         </div>
       </div>
       <div class="impl-point reveal">
-        <div class="impl-icon">↩</div>
+        <div class="impl-icon">🔔</div>
         <div class="impl-text">
-          <h5>Rejection &amp; Cancellation Flow</h5>
-          <p>Buyer rejection reflected back into ERP in near real-time. Supplier cancellation with 72-hour enforcement and ERP status synchronisation.</p>
+          <h5>Failure Alerts</h5>
+          <p>Automation owners get notified the moment a run fails, with a direct link to the run log — no silent failures.</p>
         </div>
       </div>
       <div class="impl-point reveal">
-        <div class="impl-icon">🗄</div>
+        <div class="impl-icon">🕓</div>
         <div class="impl-text">
-          <h5>UUID &amp; QR Code Archival</h5>
-          <p>UUID and QR code stored against each invoice record. QR verification link embedded in customer-facing PDF. Archival retention policy implemented.</p>
+          <h5>Full Version History</h5>
+          <p>Every board, task, and automation keeps a complete edit history — restore any previous version in one click.</p>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══ SERVICES ═══ -->
+<!-- ═══ SOLUTIONS WE OFFER ═══ -->
 <div class="section-wrap alt" id="services">
   <div class="inner">
-    <div class="eyebrow eyebrow-blue reveal">What I Offer</div>
-    <h2 class="reveal">Services for <em><Flag code="my" /> Malaysia e-Invoice</em></h2>
+    <div class="eyebrow eyebrow-blue reveal">What We Offer</div>
+    <h2 class="reveal">Solutions for <em>Enterprise Teams</em></h2>
 
     <div class="service-grid" style="margin-top:2.5rem;">
       <ul class="service-list reveal-group">
         <li class="service-item reveal">
           <span class="service-num">01</span>
           <div>
-            <h4>IRBM API Integration for Service Providers</h4>
-            <p>Complete middleware or SDK layer connecting your service to MyInvois. All 8 endpoints covered: submission, validation, status polling, UUID/QR retrieval, rejection, cancellation, TIN validation, and OAuth.</p>
-            <div class="deliverables">Deliverables: Production-ready API middleware, endpoint reference, error-handling playbook</div>
+            <h4>Custom Integration Build</h4>
+            <p>A dedicated integration connecting AcmeOS to your internal tools — covering all 8 API endpoints, authentication, and error handling.</p>
+            <div class="deliverables">Deliverables: Production-ready integration, endpoint reference, error-handling playbook</div>
           </div>
         </li>
         <li class="service-item reveal">
           <span class="service-num">02</span>
           <div>
-            <h4>ERP &amp; Accounting System Bridge</h4>
-            <p>Connect SAP, Oracle, Xero, SQL Accounting, or custom systems to the e-invoice pipeline. No disruption to existing finance workflows. Covers all 5 IRBM document types.</p>
-            <div class="deliverables">Deliverables: Integration spec, ERP connector, UAT sign-off checklist</div>
+            <h4>Legacy Tool Migration</h4>
+            <p>Move existing boards, tickets, and history out of Trello, Asana, Jira, or spreadsheets with zero data loss and no disruption to active work.</p>
+            <div class="deliverables">Deliverables: Migration plan, data mapping, cut-over checklist</div>
           </div>
         </li>
         <li class="service-item reveal">
           <span class="service-num">03</span>
           <div>
-            <h4>Gap Assessment &amp; Readiness Audit</h4>
-            <p>A structured review of your current invoicing stack, data quality, and team readiness — delivered as a ranked action list with timeline estimates.</p>
-            <div class="deliverables">Deliverables: Gap report, prioritised action list, implementation roadmap</div>
+            <h4>Rollout Readiness Audit</h4>
+            <p>A structured review of your current workflows, data quality, and team readiness — delivered as a ranked action list with timeline estimates.</p>
+            <div class="deliverables">Deliverables: Gap report, prioritised action list, rollout roadmap</div>
           </div>
         </li>
         <li class="service-item reveal">
           <span class="service-num">04</span>
           <div>
-            <h4>Team Training &amp; Documentation</h4>
-            <p>Finance and IT team handoff — SOPs covering daily submission, error handling, rejection response, and MyInvois portal navigation. Includes advisory support.</p>
-            <div class="deliverables">Deliverables: SOP documents, training session, Q&amp;A reference guide</div>
+            <h4>Team Training &amp; Enablement</h4>
+            <p>Live onboarding sessions for every department, covering daily use, automation building, and admin controls. Includes ongoing support.</p>
+            <div class="deliverables">Deliverables: Training sessions, SOP documents, Q&amp;A reference guide</div>
           </div>
         </li>
         <li class="service-item reveal">
           <span class="service-num">05</span>
           <div>
-            <h4>Full Document Type Compliance</h4>
-            <p>Coverage of all five IRBM document types — including the commonly missed Self-Billed Invoice (buyer-issued) flows for agents, dealers, distributors, and foreign suppliers.</p>
-            <div class="deliverables">Deliverables: All 5 document templates, submission tests, Self-Billed eligibility checklist</div>
+            <h4>SSO &amp; Security Review</h4>
+            <p>Configure SAML SSO and SCIM provisioning, review role assignments, and set up audit log exports ahead of a compliance review.</p>
+            <div class="deliverables">Deliverables: SSO configuration, role audit, exportable access log</div>
           </div>
         </li>
       </ul>
@@ -609,36 +607,36 @@ const jsonLd = {
         <div class="card card-blue" style="padding:2rem;position:sticky;top:7rem;">
           <div style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;color:var(--einv-accent);margin-bottom:1.5rem;">API Completeness</div>
           <div style="font-family:var(--font-head);font-size:2.2rem;font-weight:700;line-height:1;color:var(--einv-accent);">8 / 8</div>
-          <div style="font-size:0.78rem;color:var(--text-muted);margin:0.4rem 0 1.5rem;">IRBM API endpoints implemented</div>
+          <div style="font-size:0.78rem;color:var(--text-muted);margin:0.4rem 0 1.5rem;">Integration API endpoints implemented</div>
           <div class="divider"></div>
           <ul class="checklist" style="margin-bottom:1.5rem;">
             <li>
-              <svg class="check-icon check-blue" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+              <svg class="check-icon check-blue" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"></polyline></svg>
               Authentication (OAuth 2.0 token flow)
             </li>
             <li>
-              <svg class="check-icon check-blue" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-              Submit document
+              <svg class="check-icon check-blue" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"></polyline></svg>
+              Create &amp; update tasks
             </li>
             <li>
-              <svg class="check-icon check-blue" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-              Get submission &amp; document status
+              <svg class="check-icon check-blue" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"></polyline></svg>
+              Get task &amp; workspace status
             </li>
             <li>
-              <svg class="check-icon check-blue" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-              Cancel &amp; reject document
+              <svg class="check-icon check-blue" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"></polyline></svg>
+              Archive &amp; restore
             </li>
             <li>
-              <svg class="check-icon check-blue" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-              Search / list documents
+              <svg class="check-icon check-blue" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"></polyline></svg>
+              Search / list tasks
             </li>
             <li>
-              <svg class="check-icon check-blue" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-              Validate taxpayer TIN
+              <svg class="check-icon check-blue" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"></polyline></svg>
+              Validate team member
             </li>
           </ul>
           <div class="divider"></div>
-          <a href="#contact" class="btn btn-blue" style="display:block;text-align:center;margin-top:1rem;">Get a Free Assessment →</a>
+          <a href="#contact" class="btn btn-blue" style="display:block;text-align:center;margin-top:1rem;">Book a Rollout Call →</a>
         </div>
       </div>
     </div>
@@ -646,8 +644,8 @@ const jsonLd = {
 </div>
 
 <Contact eyebrowClass="eyebrow-blue" buttonClass="btn-blue">
-  <Fragment slot="heading">Ready to Connect Your<br><em>Service to MyInvois?</em></Fragment>
-  <Fragment slot="lead">Whether you are building a middleware, connecting an ERP, or assessing your compliance posture — first consultation is complimentary. All three phases are now live.</Fragment>
+  <Fragment slot="heading">Ready to Roll Out<br><em>Across Your Company?</em></Fragment>
+  <Fragment slot="lead">Whether you're integrating an internal tool, migrating off a legacy tracker, or planning an enterprise-wide rollout — first consultation is complimentary.</Fragment>
 </Contact>
 
 </BaseLayout>

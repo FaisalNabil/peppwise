@@ -1,0 +1,603 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://acmeos-demo.example/docs",
+      "name": "AcmeOS Docs — API Keys, Webhooks, Roles, Billing, SSO | AcmeOS",
+      "description": "Plain-English guide to AcmeOS: authentication, webhooks, workspace roles, automations, billing, data export, rate limits, and SSO/SCIM.",
+      "isPartOf": {"@type":"WebSite","url":"https://acmeos-demo.example"}
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I authenticate API requests?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every request needs an API key in the Authorization header. Keys are scoped per workspace and can be restricted to read-only or read-write access."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are webhooks used for?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Webhooks push real-time events (task created, workflow completed, member invited) to your own endpoint so you don't have to poll the API."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do workspace roles work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every member has one role per workspace — Owner, Admin, Editor, or Viewer — controlling what they can create, edit, or just see."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What's the difference between the Free, Pro, and Enterprise plans?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Free covers a single workspace with core features. Pro adds automations, integrations, and higher limits. Enterprise adds SSO/SCIM, audit logs, and dedicated support."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does AcmeOS support Single Sign-On?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, on the Enterprise plan. AcmeOS supports SAML-based SSO and SCIM for automated user provisioning and deprovisioning."
+          }
+        }
+      ]
+    }
+  ]
+};
+---
+<BaseLayout
+  title="AcmeOS Docs — API Keys, Webhooks, Roles, Billing, SSO | AcmeOS"
+  description="Plain-English guide to AcmeOS: authentication, webhooks, workspace roles, automations, billing, data export, rate limits, and SSO/SCIM."
+  path="/docs"
+  active="docs"
+  jsonLd={jsonLd}
+>
+<style is:inline slot="head">
+
+/* ─── KB PAGE HERO ─── */
+.kb-hero {
+  background-color: var(--bg-2);
+  background-image: radial-gradient(var(--bg-3) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  border-bottom: 1.5px solid var(--border-strong);
+  padding: 9rem 3rem 4.5rem;
+}
+.kb-hero .inner {
+  max-width: 860px; margin: 0 auto;
+}
+.kb-hero h1 {
+  font-family: var(--font-head);
+  font-size: clamp(2.2rem, 4.4vw, 3.5rem);
+  font-weight: 700; line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--text-primary); margin-bottom: 1rem;
+}
+.kb-hero-sub {
+  font-size: 1rem; line-height: 1.75;
+  color: var(--text-muted); max-width: 60ch;
+  margin-bottom: 2rem;
+}
+
+/* ─── KB CONTENT AREA ─── */
+.kb-wrap {
+  max-width: 860px; margin: 0 auto;
+  padding: 0 3rem 5rem;
+}
+
+/* ─── ARTICLE DIVIDER ─── */
+.kb-section-header {
+  padding: 3rem 0 0;
+}
+
+/* ─── FLOW DIAGRAM ─── */
+.flow-row {
+  display: flex; align-items: center; gap: 0;
+  margin: 1.5rem 0; flex-wrap: wrap;
+}
+.flow-node {
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-radius: 6px; padding: 0.6rem 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem; font-weight: 700;
+  color: var(--text-primary); white-space: nowrap;
+  box-shadow: var(--shadow-sm);
+}
+.flow-node.active {
+  background: var(--yellow);
+}
+.flow-arrow {
+  font-family: var(--font-mono);
+  font-size: 0.85rem; color: var(--text-muted);
+  padding: 0 0.5rem; flex-shrink: 0;
+}
+
+/* ─── PROTOCOL DETAIL TABLE ─── */
+.kb-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 0.8rem; margin-top: 1.5rem;
+}
+.kb-table th {
+  text-align: left; font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-primary); font-weight: 700;
+  border-bottom: 1.5px solid var(--border-strong);
+  padding: 0.5rem 1rem 0.5rem 0;
+}
+.kb-table td {
+  padding: 0.65rem 1rem 0.65rem 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-body); vertical-align: top;
+}
+.kb-table tr:last-child td { border-bottom: none; }
+.kb-table td:first-child { font-weight: 700; color: var(--text-primary); white-space: nowrap; }
+
+/* ─── CALLOUT / ANALOGY ─── */
+.kb-note {
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-left-width: 5px;
+  padding: 1rem 1.4rem; margin-top: 1.5rem; border-radius: 6px;
+  box-shadow: var(--shadow-sm);
+  font-size: 0.88rem; color: var(--text-muted); line-height: 1.7;
+}
+.kb-note strong { color: var(--text-primary); }
+.kb-note.kb-note-practice {
+  border-left-color: var(--pep-accent);
+  background: var(--pep-pale);
+}
+.kb-note.kb-note-practice strong { color: var(--pep-accent); }
+
+/* ─── ARTICLE NUMBER BADGE ─── */
+.kb-number {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 6px;
+  background: var(--yellow); border: 1.5px solid var(--border-strong);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-mono);
+  font-size: 0.7rem; font-weight: 700; color: var(--text-primary);
+  margin-bottom: 0.8rem; flex-shrink: 0;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .kb-hero { padding: 8rem 2rem 4rem; }
+  .kb-wrap { padding: 0 2rem 4rem; }
+}
+@media (max-width: 900px) {
+  .kb-hero { padding: 7rem 1.5rem 3.5rem; }
+  .kb-wrap { padding: 0 1.5rem 3.5rem; }
+  .flow-row { gap: 0; }
+}
+@media (max-width: 640px) {
+  .kb-table { font-size: 0.75rem; }
+  .flow-node { font-size: 0.68rem; padding: 0.5rem 0.75rem; }
+}
+</style>
+
+<!-- ═══ HERO ═══ -->
+<div class="kb-hero">
+  <div class="inner">
+    <div class="eyebrow" style="animation:fadeUp 0.6s ease both;">AcmeOS · Explained</div>
+    <h1 style="animation:fadeUp 0.6s ease 0.08s both;">Docs &amp;<br><em style="font-style:normal;color:var(--pep-accent);text-decoration:underline wavy var(--pep-accent) 2px;text-underline-offset:7px;">FAQ</em></h1>
+    <p class="kb-hero-sub" style="animation:fadeUp 0.6s ease 0.16s both;">
+      Plain-English explanations of how AcmeOS actually works — written by the team that built it. No marketing language, no vague abstractions.
+    </p>
+    <nav class="kb-jump-links" style="animation:fadeUp 0.6s ease 0.24s both;" aria-label="Jump to article">
+      <a href="#api-keys">API Keys</a>
+      <a href="#webhooks">Webhooks</a>
+      <a href="#rate-limits">Rate Limits</a>
+      <a href="#roles">Roles</a>
+      <a href="#onboarding">Onboarding</a>
+      <a href="#billing">Billing</a>
+      <a href="#data-export">Data Export</a>
+      <a href="#plans">Plan Tiers</a>
+      <a href="#sso">SSO / SCIM</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ═══ ARTICLES ═══ -->
+<div class="kb-wrap">
+
+  <!-- ─── ARTICLE 1: API Keys ─── -->
+  <div class="kb-article reveal-group" id="api-keys">
+    <div class="kb-number reveal">1</div>
+    <span class="kb-tag reveal">Infrastructure</span>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">API Keys &amp; Authentication</h3>
+    <div class="kb-article-body reveal">
+      <p>An <strong>API key</strong> is how your code proves it's allowed to talk to AcmeOS. Every request must carry a key in the <code style="font-size:0.85em;background:var(--bg-3);padding:1px 5px;border-radius:3px;">Authorization</code> header — no key, no access.</p>
+      <p>Keys are scoped to a workspace, never to your whole account. That means a leaked key from one project can't touch data in another. You can generate as many keys as you need and revoke any of them instantly.</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>Read vs. Read-Write Keys</h5>
+        <p>Every key is created as either read-only or read-write. Use read-only keys for reporting dashboards and analytics — if it leaks, nothing can be changed.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Key Rotation</h5>
+        <p>Rotate keys from the workspace settings page at any time. The old key keeps working for 24 hours so you can redeploy without downtime, then it's revoked automatically.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Per-Environment Keys</h5>
+        <p>Generate separate keys for staging and production. This keeps test traffic out of your production usage graphs and rate limits.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Where Keys Live</h5>
+        <p>Never hardcode a key in client-side code — it's visible to anyone who opens dev tools. Keys should only ever be used from a server or backend job.</p>
+      </div>
+    </div>
+
+    <div class="flow-row reveal" style="margin-top:1.8rem;">
+      <div class="flow-node">Request</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node active">Auth Middleware</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node active">Rate Limiter</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">Your Handler</div>
+    </div>
+
+    <div class="kb-note kb-note-practice reveal">
+      <strong>From practice:</strong> Most integration bugs we see come from a read-only key being used where a write is needed. Check your key's scope first before digging into anything else.
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 2: Webhooks ─── -->
+  <div class="kb-article reveal-group" id="webhooks">
+    <div class="kb-number reveal">2</div>
+    <span class="kb-tag reveal">Routing</span>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">Webhooks</h3>
+    <div class="kb-article-body reveal">
+      <p>A <strong>webhook</strong> is AcmeOS pushing an event to your own endpoint the moment it happens — instead of you polling the API over and over hoping something changed.</p>
+      <p>Subscribe to the events you care about (task created, workflow completed, member invited) and we'll POST a signed JSON payload to your URL. Your endpoint verifies the signature, then does whatever it needs to.</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>Signed Payloads</h5>
+        <p>Every webhook is signed with your workspace's signing secret. Verify the signature before trusting the payload — this stops spoofed requests from third parties.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Delivery Retries</h5>
+        <p>If your endpoint doesn't return a 2xx response, we retry with exponential backoff for up to 24 hours, then mark the delivery as failed.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Event Types</h5>
+        <p>Subscribe per event type from the workspace settings page — you don't have to receive every event, just the ones your integration needs.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Idempotency</h5>
+        <p>Every event has a unique ID. Store it and skip processing if you see the same ID twice — retries can occasionally cause a duplicate delivery.</p>
+      </div>
+    </div>
+
+    <table class="kb-table reveal">
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Fires when</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>task.created</td><td>A new task is added to any workspace board</td></tr>
+        <tr><td>task.completed</td><td>A task is marked done</td></tr>
+        <tr><td>workflow.completed</td><td>An automation finishes running end-to-end</td></tr>
+        <tr><td>member.invited</td><td>A teammate is invited to the workspace</td></tr>
+        <tr><td>plan.changed</td><td>The workspace upgrades, downgrades, or cancels</td></tr>
+      </tbody>
+    </table>
+
+    <div class="kb-note kb-note-practice reveal">
+      <strong>From practice:</strong> Build your webhook handler to return a 2xx response immediately and process the payload asynchronously — slow handlers are the most common cause of missed events.
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 3: Rate Limits ─── -->
+  <div class="kb-article reveal-group" id="rate-limits">
+    <div class="kb-number reveal">3</div>
+    <span class="kb-tag reveal">Routing</span>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">Rate Limits</h3>
+    <div class="kb-article-body reveal">
+      <p><strong>Rate limits</strong> cap how many requests a single API key can make in a rolling window, so one runaway script can't degrade the platform for everyone else.</p>
+      <p>Limits scale with your plan — Free workspaces get a modest allowance suited to light scripting, Pro and Enterprise get considerably more headroom for production integrations.</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>Response Headers</h5>
+        <p>Every response includes your remaining quota and when it resets, so you can back off proactively instead of waiting for a 429.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Handling a 429</h5>
+        <p>A 429 response includes a <code style="font-size:0.75rem;background:var(--bg-3);padding:1px 5px;border-radius:3px;">Retry-After</code> header. Respect it — retrying immediately just extends your own backoff window.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Per-Key, Not Per-Workspace</h5>
+        <p>Limits apply per API key, not per workspace. Splitting traffic across separate keys for separate services gives each one its own quota.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Burst Allowance</h5>
+        <p>A short burst above the steady-state limit is tolerated before throttling kicks in — useful for bulk imports and one-off syncs.</p>
+      </div>
+    </div>
+
+    <div class="kb-analogy reveal">
+      <strong>Analogy:</strong> think of it like a bucket that refills at a steady rate — you can drain it quickly in a burst, but it needs time to refill before you can do that again.
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 4: Roles ─── -->
+  <div class="kb-article reveal-group" id="roles">
+    <div class="kb-number reveal">4</div>
+    <span class="kb-tag reveal">Access Control</span>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">Workspace Roles &amp; Permissions</h3>
+    <div class="kb-article-body reveal">
+      <p>Every member of a workspace has exactly one <strong>role</strong>, which decides what they can create, edit, or just see. Roles are set per workspace — the same person can be an Admin in one and a Viewer in another.</p>
+      <p>Permissions are additive down the hierarchy: an Owner can do everything an Admin can, an Admin everything an Editor can, and so on.</p>
+    </div>
+
+    <table class="kb-table reveal">
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th>Can do</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Owner</td><td>Everything, including billing, deleting the workspace, and transferring ownership</td></tr>
+        <tr><td>Admin</td><td>Manage members, integrations, and API keys; everything an Editor can</td></tr>
+        <tr><td>Editor</td><td>Create and edit tasks, boards, and automations</td></tr>
+        <tr><td>Viewer</td><td>Read-only access to boards, tasks, and reports</td></tr>
+      </tbody>
+    </table>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>Guest Access</h5>
+        <p>Invite an external collaborator as a Guest, scoped to a single board rather than the whole workspace — they never see anything outside it.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Ownership Transfer</h5>
+        <p>Transferring ownership requires the current Owner to confirm via email — it can't be done by an Admin alone, even with full access otherwise.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Audit Log (Enterprise)</h5>
+        <p>Enterprise workspaces get a full audit log of every permission change, login, and API key creation — exportable for compliance review.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>API Keys Inherit Roles</h5>
+        <p>An API key created by an Editor can't do more than an Editor could in the UI — the same permission boundaries apply everywhere.</p>
+      </div>
+    </div>
+
+    <div class="kb-note kb-note-practice reveal">
+      <strong>From practice:</strong> Default new integrations to Editor, not Admin. Most integrations never need to manage billing or invite members, and least-privilege access limits the blast radius if a key ever leaks.
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 5: Onboarding ─── -->
+  <div class="kb-article reveal-group" id="onboarding">
+    <div class="kb-number reveal">5</div>
+    <span class="kb-tag reveal">Setup Phase</span>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">Onboarding a Workspace</h3>
+    <div class="kb-article-body reveal">
+      <p><strong>Onboarding</strong> covers everything from creating your first workspace through to your team actually using it day to day. Most workspaces are productive within the first session — there's no lengthy setup wizard required.</p>
+      <p>A typical rollout: create the workspace, invite your core team, connect one integration (Slack or email are the most common first step), and set up your first automation.</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>Starter Templates</h5>
+        <p>New workspaces can start from a template — sprint board, content calendar, hiring pipeline — rather than a blank board, to shorten time-to-value.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Bulk Invites</h5>
+        <p>Invite your whole team at once via email list or by connecting your identity provider — no need to send individual invites one at a time.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Importing Existing Data</h5>
+        <p>CSV import and dedicated importers for common tools let you bring existing boards and tasks in without manual re-entry.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Setting Notification Preferences</h5>
+        <p>Each member controls their own notification channel (in-app, email, Slack) and frequency — this is not an admin-level setting.</p>
+      </div>
+    </div>
+
+    <div class="kb-analogy reveal">
+      <strong>Simple summary:</strong> create workspace → invite team → connect an integration → automate one recurring task. Most teams see value from that first automation alone.
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 6: Billing ─── -->
+  <div class="kb-article reveal-group" id="billing">
+    <div class="kb-number reveal">6</div>
+    <span class="kb-tag reveal">Setup Phase</span>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">Billing &amp; Invoicing</h3>
+    <div class="kb-article-body reveal">
+      <p><strong>Billing</strong> is per workspace, not per account — if you belong to three workspaces, you (or whoever owns each one) are billed separately for each.</p>
+      <p>The flow is simple: start a trial, pick a plan when you're ready, add a card, and from then on you're invoiced automatically on the same date each month or year.</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>Seat-Based Pricing</h5>
+        <p>Pro and Enterprise plans are priced per active member per month. Guests and Viewers on some plans don't count toward your seat total.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Mid-Cycle Changes</h5>
+        <p>Adding seats mid-cycle is prorated automatically. Removing seats takes effect at the next billing cycle, with no partial refund.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Invoices &amp; Receipts</h5>
+        <p>Every charge generates a downloadable PDF invoice from the billing settings page — useful for expense reports and accounting.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Annual Billing Discount</h5>
+        <p>Switching from monthly to annual billing applies a discount automatically and locks in the current per-seat price for the year.</p>
+      </div>
+    </div>
+
+    <div class="flow-row reveal" style="margin-top:1.8rem;">
+      <div class="flow-node">Trial Started</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">Plan Selected</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node active">Card on File</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">Invoice Issued</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">Payment</div>
+    </div>
+
+    <div class="kb-note kb-note-practice reveal">
+      <strong>From practice:</strong> Set a billing contact separate from the workspace Owner if the person managing the card isn't the person using the product day to day — invoices and dunning emails go to whoever's listed as billing contact.
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 7: Data Export ─── -->
+  <div class="kb-article reveal-group" id="data-export">
+    <div class="kb-number reveal">7</div>
+    <span class="kb-tag reveal">Infrastructure</span>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">Data Export &amp; Backups</h3>
+    <div class="kb-article-body reveal">
+      <p>Your data is never locked in. <strong>Data export</strong> covers pulling a full copy of a workspace — boards, tasks, comments, files — in a portable format, whenever you want.</p>
+      <p>Exports run as a background job and email you a download link when ready. Large workspaces with lots of attachments may take a few minutes rather than being instant.</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>Export Formats</h5>
+        <p>CSV for tabular data, JSON for the full structured export including relationships between tasks, comments, and members.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Scheduled Backups (Enterprise)</h5>
+        <p>Enterprise workspaces can schedule automatic exports to an S3 bucket you control, on a daily or weekly cadence.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Who Can Export</h5>
+        <p>Only Owners and Admins can trigger a full workspace export — Editors can export the individual boards they have access to.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Account Deletion</h5>
+        <p>Deleting a workspace gives you 30 days to export before data is permanently purged — deletion itself is immediate, the data isn't.</p>
+      </div>
+    </div>
+
+    <div class="kb-note kb-note-practice reveal">
+      <strong>From practice:</strong> Run a test export before you actually need one for a migration or audit — the JSON format takes a little getting used to on the first pass.
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 8: Plan Tiers ─── -->
+  <div class="kb-article reveal-group" id="plans">
+    <div class="kb-number reveal">8</div>
+    <span class="kb-tag reveal">Plan Tiers</span>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">Free vs. Pro vs. Enterprise</h3>
+    <div class="kb-article-body reveal">
+      <p>The tier describes <strong>how much of AcmeOS you get access to</strong>, not a different product. Every plan runs on the same platform — upgrading just unlocks more seats, more automation runs, and more admin controls.</p>
+      <p><strong>Free</strong> covers a single workspace with the core features — boards, tasks, and basic integrations. <strong>Pro</strong> adds unlimited automations, the full integrations directory, and higher rate limits. <strong>Enterprise</strong> adds SSO/SCIM, audit logs, scheduled backups, and a dedicated support contact.</p>
+    </div>
+
+    <div class="flow-row reveal" style="margin-top:1.8rem;">
+      <div class="flow-node">Free</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node active">Pro</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node">Enterprise</div>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>Where Free Fits</h5>
+        <p>Small teams and solo projects that need boards and tasks but don't yet need automation at scale or advanced permissions.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Where Pro Fits</h5>
+        <p>Growing teams running recurring workflows across multiple integrations, needing headroom on rate limits and automation runs.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>What Changes for Implementers</h5>
+        <p>Upgrading doesn't require re-integrating — the same API keys and webhooks keep working, you simply get more quota and more endpoints unlocked.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Why Teams Upgrade</h5>
+        <p>The most common upgrade trigger is hitting the Free plan's automation-run cap, not seat count — see the <a href="/pricing" style="color:var(--pep-accent);font-weight:700;">pricing page</a> for exact limits.</p>
+      </div>
+    </div>
+
+    <div class="kb-note kb-note-practice reveal">
+      <strong>From practice:</strong> Start on Free, instrument your usage, and let actual automation volume decide when to upgrade rather than guessing up front.
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 9: SSO / SCIM ─── -->
+  <div class="kb-article reveal-group" id="sso">
+    <div class="kb-number reveal">9</div>
+    <span class="kb-tag reveal">Enterprise</span>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">SSO &amp; SCIM (Enterprise)</h3>
+    <div class="kb-article-body reveal">
+      <p><strong>SSO (Single Sign-On)</strong> lets your team log into AcmeOS using your existing identity provider — Okta, Azure AD, Google Workspace — instead of a separate password. <strong>SCIM</strong> goes further: it automatically provisions and deprovisions accounts as people join or leave your identity provider, so IT never has to manually add or remove AcmeOS access.</p>
+      <p>Both are available on the Enterprise plan and are configured once by an Owner or Admin from the workspace's security settings.</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>SAML-Based SSO</h5>
+        <p>AcmeOS supports the SAML 2.0 protocol used by every major identity provider — setup is a metadata exchange, no custom code required.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Automated Deprovisioning</h5>
+        <p>When someone is removed from your identity provider, SCIM removes their AcmeOS access within minutes — no manual offboarding step to forget.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Enforced SSO</h5>
+        <p>Once enabled, you can require SSO for the whole workspace, blocking password-based login entirely for stronger security posture.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Role Mapping</h5>
+        <p>Map identity-provider groups to AcmeOS roles, so someone added to your "Engineering" group is automatically made an Editor, no manual step needed.</p>
+      </div>
+    </div>
+
+    <div class="kb-analogy reveal">
+      <strong>Analogy:</strong> SSO is the front door key that works everywhere. SCIM is the automatic locksmith that cuts a new key the moment someone joins, and takes it back the moment they leave.
+    </div>
+
+    <div class="kb-note kb-note-practice reveal">
+      <strong>From practice:</strong> For SSO/SCIM setup or a security review ahead of a rollout, see the <a href="/solutions" style="color:var(--pep-accent);font-weight:700;">Solutions page</a> or reach out directly.
+    </div>
+  </div>
+
+</div><!-- /kb-wrap -->
+
+<!-- ═══ CONTACT ═══ -->
+<div class="contact-section" id="contact" style="background:var(--bg-2);border-top:1.5px solid var(--border-strong);text-align:center;padding:5rem 3rem;">
+  <div class="eyebrow eyebrow-center reveal" style="margin-bottom:1.5rem;">Have a Question?</div>
+  <h2 class="reveal">Need Help Getting<br><em>Set Up?</em></h2>
+  <p class="lead reveal" style="margin:1rem auto 0.5rem;text-align:center;max-width:52ch;">
+    These articles cover the concepts. If you're evaluating AcmeOS for your team — onboarding, SSO setup, or a plan comparison — reach out directly.
+  </p>
+  <a href="mailto:hello@acmeos.example" class="contact-email reveal">hello@acmeos.example</a>
+  <div class="contact-btns reveal">
+    <a href="/pricing" class="btn btn-amber">View Pricing</a>
+    <a href="mailto:hello@acmeos.example?subject=Book%20a%20Demo" class="btn-ghost">Book a Demo</a>
+  </div>
+</div>
+
+</BaseLayout>

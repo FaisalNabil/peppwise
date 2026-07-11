@@ -1,0 +1,941 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Contact from '../components/Contact.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Product",
+      "name": "AcmeOS",
+      "description": "Real-time workflow platform for teams — task management, automations, and integrations across Free, Pro, Business, and Enterprise plans.",
+      "brand": {"@type":"Organization","name":"AcmeOS","url":"https://acmeos-demo.example"},
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "USD",
+        "lowPrice": "0",
+        "highPrice": "24",
+        "offerCount": "4"
+      },
+      "url": "https://acmeos-demo.example/pricing"
+    },
+    {
+      "@type": "WebPage",
+      "url": "https://acmeos-demo.example/pricing",
+      "name": "Pricing — Free, Pro, Business, Enterprise | AcmeOS",
+      "isPartOf": {"@type":"WebSite","url":"https://acmeos-demo.example"}
+    }
+  ]
+};
+---
+<BaseLayout
+  title="Pricing — Free, Pro, Business, Enterprise | AcmeOS"
+  description="Simple seat-based pricing for AcmeOS. Start free, upgrade to Pro or Business as you grow, or talk to us about Enterprise, Nonprofit, Startup, and Education programs."
+  ogDescription="Start free, upgrade as you grow. Seat-based pricing plus Nonprofit, Startup, and Education discount programs."
+  path="/pricing"
+  active="pricing"
+  jsonLd={jsonLd}
+>
+<style is:inline slot="head">
+
+/* ─── PAGE HERO ─── */
+.page-hero {
+  background-color: var(--pep-pale);
+  background-image: radial-gradient(rgba(245,78,0,0.12) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  border-bottom: 1.5px solid var(--border-strong);
+  padding: 9rem 3rem 5rem;
+}
+.page-hero .inner {
+  max-width: 1160px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 3rem; align-items: end;
+}
+.page-hero h1 {
+  font-family: var(--font-head);
+  font-size: clamp(2rem, 3.6vw, 3.3rem);
+  font-weight: 700; line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text-primary); margin-bottom: 1rem;
+}
+.page-hero h1 em {
+  font-style: normal; color: var(--pep-accent);
+  text-decoration: underline wavy var(--pep-accent) 2px;
+  text-underline-offset: 7px;
+}
+.page-hero-sub {
+  font-size: 0.95rem; line-height: 1.75;
+  color: var(--text-muted); max-width: 48ch; margin-bottom: 1.5rem;
+}
+.hero-stats { display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero-stat {
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-radius: 6px; padding: 0.8rem 1.2rem; box-shadow: var(--shadow-sm);
+}
+.hero-stat-num {
+  font-family: var(--font-head);
+  font-size: 1.6rem; font-weight: 700; line-height: 1; color: var(--pep-accent);
+}
+.hero-stat-lbl {
+  font-family: var(--font-mono);
+  font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-muted); margin-top: 0.3rem;
+}
+
+/* ─── HOW PRICING WORKS ─── */
+.corners-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0; margin-top: 2.5rem;
+  border: 1.5px solid var(--border-strong); border-radius: 6px; overflow: hidden;
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+}
+.corner-card {
+  background: var(--surface); padding: 1.5rem;
+  border-right: 1.5px solid var(--border-strong); position: relative;
+}
+.corner-card:last-child { border-right: none; }
+.corner-label { font-family: var(--font-head); font-size: 1.8rem; font-weight: 700; color: var(--pep-accent); line-height: 1; margin-bottom: 0.4rem; }
+.corner-title { font-family: var(--font-head); font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
+.corner-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.55; }
+.corner-arrow {
+  position: absolute; top: 50%; right: -13px;
+  width: 26px; height: 26px;
+  background: var(--yellow); border: 1.5px solid var(--border-strong); border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.7rem; font-weight: 700; color: var(--text-primary);
+  z-index: 2; transform: translateY(-50%);
+}
+.corner-card:last-child .corner-arrow { display: none; }
+.peppol-explainer { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.2rem; margin-top: 2rem; }
+.explainer-item { background: var(--surface); border: 1.5px solid var(--border-strong); border-radius: 6px; padding: 1.2rem; box-shadow: var(--shadow-sm); }
+.explainer-item h5 { font-family: var(--font-head); font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.3rem; }
+.explainer-item p { font-size: 0.78rem; color: var(--text-muted); line-height: 1.55; }
+.explainer-tag {
+  font-family: var(--font-mono);
+  font-size: 0.55rem; letter-spacing: 0.08em; text-transform: uppercase;
+  font-weight: 700; color: var(--pep-accent);
+  background: var(--pep-pale); border: 1.5px solid var(--pep-accent);
+  padding: 0.15rem 0.5rem; border-radius: 3px;
+  display: inline-block; margin-bottom: 0.5rem;
+}
+
+/* ─── SELF-SERVE VS ENTERPRISE COMPARE ─── */
+.model-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 1.8rem; margin-top: 2.5rem; align-items: stretch; }
+.model-compare .os-window { display: flex; flex-direction: column; }
+.model-compare .os-body { flex: 1; }
+.mc-chain {
+  font-family: var(--font-mono);
+  font-size: 0.72rem; font-weight: 700;
+  color: var(--text-primary);
+  background: var(--bg-2);
+  border: 1.5px solid var(--border-strong);
+  border-radius: 4px;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  line-height: 1.8;
+}
+.mc-chain .mc-c5 { color: var(--pep-accent); }
+.model-compare h3 { margin-bottom: 0.5rem; font-size: 1.15rem; }
+.model-compare .mc-desc { font-size: 0.84rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1rem; }
+.mc-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+.mc-list li {
+  font-size: 0.8rem; color: var(--text-muted);
+  display: flex; gap: 0.5rem; align-items: flex-start; line-height: 1.5;
+}
+.mc-list li::before { content: '→'; font-family: var(--font-mono); color: var(--pep-accent); flex-shrink: 0; }
+.mc-list li strong { color: var(--text-primary); }
+.mc-list li a { color: var(--pep-accent); font-weight: 700; text-decoration: none; }
+.mc-list li a:hover { text-decoration: underline wavy var(--pep-accent) 1px; text-underline-offset: 4px; }
+
+/* ─── PLAN GRID ─── */
+.country-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin-top: 2.5rem; }
+.country-card {
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-radius: 6px; box-shadow: var(--shadow-sm); padding: 1.4rem;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.country-card:hover { transform: translate(-1px,-1px); box-shadow: var(--shadow-md); }
+.country-card.featured { border-left: 4px solid var(--pep-accent); grid-column: span 2; }
+.country-flag { font-size: 1.6rem; margin-bottom: 0.5rem; display: block; }
+.country-name { font-family: var(--font-head); font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.2rem; }
+.country-auth { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.6rem; }
+.country-status {
+  font-family: var(--font-mono);
+  font-size: 0.55rem; letter-spacing: 0.06em; text-transform: uppercase;
+  font-weight: 700; padding: 0.18rem 0.55rem;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 3px; display: inline-block; margin-bottom: 0.6rem;
+}
+.status-live-green { background: #C9F2D8; color: #0B5C2E; }
+.status-mandate    { background: var(--yellow); color: var(--text-primary); }
+.status-progress   { background: var(--einv-pale); color: var(--einv-accent); }
+.status-eval       { background: var(--bg-3); color: var(--text-muted); }
+.country-link { font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700; color: var(--pep-accent); text-decoration: none; display: inline-block; margin-top: 0.6rem; }
+.country-link:hover { text-decoration: underline wavy var(--pep-accent) 1px; text-underline-offset: 4px; }
+.country-note { font-size: 0.77rem; color: var(--text-muted); line-height: 1.5; }
+
+/* ─── UPGRADE PATH TIMELINE ─── */
+.sg-section { border-left: 4px solid var(--pep-accent); padding-left: 2rem; }
+.sg-timeline { display: flex; flex-direction: column; gap: 0; margin-top: 1.5rem; }
+.sg-tl-item {
+  display: grid; grid-template-columns: 8rem 1fr;
+  gap: 1.5rem; align-items: start;
+  padding-bottom: 1.2rem;
+  border-left: 1px solid var(--pep-border);
+  margin-left: 0.5rem; padding-left: 1.5rem;
+  position: relative;
+}
+.sg-tl-item::before {
+  content: '';
+  position: absolute; left: -5px; top: 5px;
+  width: 9px; height: 9px; border-radius: 2px;
+  background: var(--pep-accent); border: 2px solid var(--surface);
+  box-shadow: 0 0 0 2px var(--pep-accent);
+}
+.sg-tl-item:last-child { border-left: none; }
+.sg-date { font-size: 0.75rem; font-weight: 700; color: var(--pep-accent); padding-top: 2px; }
+.sg-desc { font-size: 0.86rem; color: var(--text-body); line-height: 1.6; }
+.sg-desc strong { color: var(--text-primary); }
+
+/* ─── BILLING LIFECYCLE FLOW ─── */
+.corner-flow { display: flex; flex-direction: column; margin-top: 2rem; }
+.cf-step { display: grid; grid-template-columns: 3rem 1fr; gap: 1.2rem; align-items: stretch; }
+.cf-line { display: flex; flex-direction: column; align-items: center; }
+.cf-circle {
+  width: 32px; height: 32px; border-radius: 6px;
+  border: 1.5px solid var(--border-strong);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.65rem; font-weight: 700; color: var(--pep-accent);
+  background: var(--surface); flex-shrink: 0; position: relative; z-index: 2;
+  box-shadow: var(--shadow-sm);
+}
+.cf-circle.c5 { background: var(--yellow); color: var(--text-primary); }
+.cf-connector { flex: 1; width: 1px; background: var(--pep-border); min-height: 1rem; margin: 3px 0; }
+.cf-step:last-child .cf-connector { display: none; }
+.cf-body { padding-bottom: 1.8rem; }
+.cf-badge {
+  display: inline-block; font-family: var(--font-mono);
+  font-size: 0.55rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.15rem 0.5rem; border-radius: 3px;
+  background: var(--pep-pale); color: var(--pep-accent);
+  border: 1.5px solid var(--pep-accent); margin-bottom: 0.3rem;
+}
+.cf-body h4 { font-size: 0.95rem; margin-bottom: 0.4rem; }
+.cf-body p  { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; }
+
+/* ─── BILLING QUICK REFERENCE ─── */
+.c5-kb {
+  background: var(--pep-pale); border: 1.5px solid var(--border-strong);
+  border-left: 5px solid var(--pep-accent); border-radius: 6px;
+  box-shadow: var(--shadow-md);
+  padding: 2rem 2.5rem; margin-top: 2rem;
+}
+.c5-kb-title { font-family: var(--font-head); font-size: 1.2rem; font-weight: 700; color: var(--pep-accent); margin-bottom: 1.5rem; }
+.c5-kb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.c5-kb-item h5 { font-size: 0.83rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
+.c5-kb-item p  { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+.c5-kb-item ul { list-style: none; margin-top: 0.4rem; display: flex; flex-direction: column; gap: 0.3rem; }
+.c5-kb-item ul li { font-size: 0.78rem; color: var(--text-muted); display: flex; gap: 0.4rem; align-items: flex-start; }
+.c5-kb-item ul li::before { content: '·'; color: var(--pep-accent); font-weight: 700; }
+.c5-personal-note {
+  font-size: 0.84rem; color: var(--text-body);
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-radius: 6px; padding: 1rem 1.2rem;
+  font-style: italic; line-height: 1.65;
+}
+.c5-personal-note strong { color: var(--pep-accent); font-style: normal; }
+
+/* ─── ENTERPRISE PROCUREMENT ─── */
+.imda-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 1.5rem; }
+.imda-card { background: var(--surface); border: 1.5px solid var(--border-strong); border-radius: 6px; padding: 1.4rem; box-shadow: var(--shadow-sm); }
+.imda-card h5 { font-family: var(--font-head); font-size: 0.88rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
+.imda-card p  { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+
+/* ─── SELF-SERVE VS ENTERPRISE CHECKLIST ─── */
+.crossborder-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; margin-top: 2rem; }
+.cb-col h4 { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.8rem; }
+.cb-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.cb-col ul li { font-size: 0.86rem; color: var(--text-muted); display: flex; gap: 0.6rem; align-items: flex-start; line-height: 1.55; }
+.cb-col ul li::before { content: '→'; color: var(--pep-accent); font-weight: 700; flex-shrink: 0; }
+
+/* ─── BILLING INFRASTRUCTURE ─── */
+.impl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem; }
+.impl-point { display: flex; gap: 1rem; align-items: flex-start; }
+.impl-icon {
+  width: 38px; height: 38px; border-radius: 6px;
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  box-shadow: var(--shadow-sm);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 0.95rem;
+}
+.impl-text h5 { font-family: var(--font-head); font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; }
+.impl-text p  { font-size: 0.8rem; color: var(--text-muted); line-height: 1.55; }
+
+/* ─── ADD-ON SERVICES ─── */
+.service-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start; margin-top: 0; }
+.service-list { list-style: none; display: flex; flex-direction: column; gap: 1.6rem; }
+.service-item { display: grid; grid-template-columns: 2.4rem 1fr; gap: 1rem; align-items: start; }
+.service-num { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--pep-accent); font-weight: 700; padding-top: 0.2rem; }
+.service-item h4 { margin-bottom: 0.3rem; }
+.service-item p  { font-size: 0.86rem; color: var(--text-muted); line-height: 1.65; }
+.deliverables { margin-top: 0.6rem; font-size: 0.78rem; color: var(--text-faint); font-style: italic; }
+
+/* ─── WHICH PLAN FITS YOU ─── */
+.for-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+.for-card { background: var(--surface); border: 1.5px solid var(--border-strong); border-radius: 6px; padding: 1.3rem; box-shadow: var(--shadow-sm); }
+.for-card h5 { font-family: var(--font-head); font-size: 0.88rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.3rem; }
+.for-card p  { font-size: 0.78rem; color: var(--text-muted); line-height: 1.55; }
+
+/* ─── COMPARE FURTHER HUB ─── */
+.hub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; }
+.hub-card {
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-radius: 6px; box-shadow: var(--shadow-sm); padding: 2rem;
+  text-decoration: none; display: block;
+  border-left: 5px solid var(--pep-accent);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.hub-card:hover { box-shadow: var(--shadow-md); transform: translate(-1px,-1px); }
+.hub-eyebrow { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; color: var(--pep-accent); margin-bottom: 0.6rem; }
+.hub-card h3 { margin-bottom: 0.5rem; }
+.hub-card p { font-size: 0.86rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1rem; }
+.hub-link { font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--pep-accent); display: flex; align-items: center; gap: 0.4rem; }
+.hub-link svg { transition: transform 0.2s; }
+.hub-card:hover .hub-link svg { transform: translateX(4px); }
+
+/* ─── CONTACT ─── */
+.contact-section { text-align: center; padding: 5rem 3rem; border-top: 1.5px solid var(--border-strong); }
+.contact-email {
+  font-family: var(--font-mono); font-size: 1.15rem; font-weight: 500;
+  color: var(--pep-accent); text-decoration: none;
+  border-bottom: 2px solid var(--pep-border); padding-bottom: 2px;
+  display: inline-block; margin: 1rem 0 2rem; transition: border-color 0.2s;
+}
+.contact-email:hover { border-color: var(--pep-accent); }
+.contact-btns { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .page-hero { padding: 8rem 2rem 4rem; }
+  .page-hero .inner { grid-template-columns: 1fr; }
+  .country-grid { grid-template-columns: repeat(2, 1fr); }
+  .country-card.featured { grid-column: span 1; }
+  .corners-grid { grid-template-columns: repeat(2, 1fr); }
+  .corner-card:nth-child(2) .corner-arrow { display: none; }
+  .c5-kb-grid { grid-template-columns: 1fr; }
+  .impl-grid { gap: 1.5rem; }
+}
+@media (max-width: 900px) {
+  .page-hero { padding: 7rem 1.5rem 3.5rem; }
+  .country-grid { grid-template-columns: 1fr 1fr; }
+  .corners-grid { grid-template-columns: 1fr 1fr; }
+  .corner-card:nth-child(2) .corner-arrow,
+  .corner-card:nth-child(4) .corner-arrow { display: none; }
+  .peppol-explainer { grid-template-columns: 1fr; }
+  .crossborder-grid { grid-template-columns: 1fr; }
+  .service-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .impl-grid { grid-template-columns: 1fr; }
+  .imda-grid { grid-template-columns: 1fr; }
+  .for-grid { grid-template-columns: 1fr; }
+  .hub-grid { grid-template-columns: 1fr; }
+  .contact-section { padding: 4rem 1.5rem; }
+  .contact-btns { flex-direction: column; align-items: center; }
+  .btn, .btn-ghost { width: 100%; max-width: 300px; text-align: center; }
+  .sg-tl-item { grid-template-columns: 5.5rem 1fr; }
+}
+@media (max-width: 640px) {
+  .country-grid { grid-template-columns: 1fr; }
+  .hero-stats { flex-direction: column; }
+  .c5-kb { padding: 1.5rem; }
+}
+@media (max-width: 900px) {
+  .model-compare { grid-template-columns: 1fr; }
+}
+</style>
+
+<!-- ═══ PAGE HERO ═══ -->
+<div class="page-hero">
+  <div class="inner">
+    <div>
+      <div class="eyebrow eyebrow-amber" style="animation:fadeUp 0.6s ease both;">Pricing · Free to Start · Seat-Based · Nonprofit &amp; Startup Programs</div>
+      <h1 style="animation:fadeUp 0.6s ease 0.1s both;">
+        Simple pricing.<br>
+        Start free.<br>
+        <em>Upgrade when you're ready.</em>
+      </h1>
+      <p class="page-hero-sub" style="animation:fadeUp 0.6s ease 0.2s both;">
+        From a solo pilot to a company-wide rollout — one seat-based pricing model, discount programs for Nonprofits, Startups, and Education, and a straightforward path to Enterprise when you need SSO and audit logs.
+      </p>
+      <div class="hero-stats" style="animation:fadeUp 0.6s ease 0.3s both;">
+        <div class="hero-stat">
+          <div class="hero-stat-num">$0</div>
+          <div class="hero-stat-lbl">Free Forever Plan</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">4</div>
+          <div class="hero-stat-lbl">Core Plan Tiers</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">4</div>
+          <div class="hero-stat-lbl">Discount Programs</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0.8rem;animation:fadeUp 0.6s ease 0.35s both;">
+      <a href="mailto:hello@acmeos.example" class="btn btn-amber">Start Free →</a>
+      <a href="#enterprise" class="btn-ghost" style="text-align:center;">Talk to Sales →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ HOW PRICING WORKS ═══ -->
+<div class="section-wrap no-border" id="how-it-works">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">How Pricing Works</div>
+    <h2 class="reveal">Seat-Based. <em>No Surprises.</em></h2>
+    <p class="lead reveal">AcmeOS bills per active seat, per month or per year. Unlike some tools, you're never charged for automations run or API calls made — the plan tier decides what's unlocked, not how much you use it.</p>
+
+    <div class="corners-grid reveal">
+      <div class="corner-card">
+        <div class="corner-arrow">→</div>
+        <div class="corner-label">1</div>
+        <div class="corner-title">Choose a Plan</div>
+        <p class="corner-desc">Pick Free, Pro, or Business based on the features your team needs — not a usage estimate.</p>
+      </div>
+      <div class="corner-card">
+        <div class="corner-arrow">→</div>
+        <div class="corner-label">2</div>
+        <div class="corner-title">Add Seats</div>
+        <p class="corner-desc">Invite your team. Seats are prorated automatically if you add people mid-cycle.</p>
+      </div>
+      <div class="corner-card">
+        <div class="corner-arrow">→</div>
+        <div class="corner-label">3</div>
+        <div class="corner-title">Pick a Billing Cycle</div>
+        <p class="corner-desc">Monthly for flexibility, or annual for a built-in discount locked in for the year.</p>
+      </div>
+      <div class="corner-card">
+        <div class="corner-label">4</div>
+        <div class="corner-title">Upgrade Anytime</div>
+        <p class="corner-desc">Move up a tier the moment you need it — no downtime, no re-integration required.</p>
+      </div>
+    </div>
+
+    <div class="model-compare reveal-group">
+      <div class="os-window reveal">
+        <div class="os-titlebar os-titlebar-red">
+          <span class="os-title">self_serve.dia</span>
+          <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
+        </div>
+        <div class="os-body">
+          <div class="mc-chain">Sign Up → Card on File → Instant Access</div>
+          <h3>Self-Serve</h3>
+          <p class="mc-desc">Free, Pro, and Business are all self-serve — no sales call required. Add your card, pick a plan, and you're live in under a minute.</p>
+          <ul class="mc-list">
+            <li><strong>Free</strong> — no card required at all</li>
+            <li><strong>Pro / Business</strong> — instant upgrade from in-app billing</li>
+            <li><strong>Cancel anytime</strong> — no lock-in contract</li>
+          </ul>
+        </div>
+      </div>
+      <div class="os-window reveal">
+        <div class="os-titlebar os-titlebar-red">
+          <span class="os-title">enterprise.dia</span>
+          <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
+        </div>
+        <div class="os-body">
+          <div class="mc-chain">Sales Call → Contract → <span class="mc-c5">Dedicated Rollout</span></div>
+          <h3>Enterprise</h3>
+          <p class="mc-desc">For teams that need SSO, audit logs, a custom contract, or a dedicated rollout plan — the same platform, with a procurement process built for IT and security review.</p>
+          <ul class="mc-list">
+            <li><strong>SSO/SCIM</strong> — see the <a href="/docs#sso">Docs page</a></li>
+            <li><strong>Custom contract terms</strong> — MSA, DPA, custom SLA</li>
+            <li><strong>Dedicated rollout</strong> — see the <a href="/solutions">Solutions page</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="peppol-explainer reveal-group" style="margin-top:1.5rem;">
+      <div class="explainer-item reveal">
+        <span class="explainer-tag">Seat-Based Billing</span>
+        <h5>Only Pay for Active Members</h5>
+        <p>Viewers and Guests don't count toward your seat total on most plans — you only pay for members who create and edit.</p>
+      </div>
+      <div class="explainer-item reveal">
+        <span class="explainer-tag">Proration</span>
+        <h5>Fair Mid-Cycle Changes</h5>
+        <p>Adding a seat mid-cycle charges only the remaining days in the period. Removing a seat takes effect next cycle.</p>
+      </div>
+      <div class="explainer-item reveal">
+        <span class="explainer-tag">Annual Discount</span>
+        <h5>Save by Billing Yearly</h5>
+        <p>Switch to annual billing any time to lock in a discounted per-seat rate for the full year.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PLAN &amp; PROGRAM GRID ═══ -->
+<div class="section-wrap alt" id="plans">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Plans &amp; Programs</div>
+    <h2 class="reveal">Find the <em>Right Fit</em></h2>
+    <p class="lead reveal">Four core plans, plus discount programs for Nonprofits, Startups, Education, and Agencies. Everyone starts on the same platform — the tier just decides what's unlocked.</p>
+
+    <div class="country-grid reveal-group">
+      <div class="country-card featured reveal">
+        <span class="country-flag">🆓</span>
+        <div class="country-name">Free</div>
+        <div class="country-auth">$0 / seat / month · billed nothing, ever</div>
+        <span class="country-status status-live-green">✓ Free Forever</span>
+        <div class="country-note">One workspace, core boards and tasks, community support. No credit card required to start — the plan most solo projects and small pilots never outgrow.</div>
+        <a href="mailto:hello@acmeos.example" class="country-link">Start Free →</a>
+      </div>
+      <div class="country-card featured reveal" style="border-left-color:var(--yellow);">
+        <span class="country-flag">⭐</span>
+        <div class="country-name">Pro</div>
+        <div class="country-auth">$12 / seat / month · billed monthly or annually</div>
+        <span class="country-status status-mandate">Most Popular</span>
+        <div class="country-note">Unlimited automations, the full integrations directory, and higher rate limits. The plan most growing teams land on once a single workflow becomes several.</div>
+        <a href="mailto:hello@acmeos.example?subject=Upgrade%20to%20Pro" class="country-link">Upgrade to Pro →</a>
+      </div>
+      <div class="country-card reveal">
+        <span class="country-flag">📊</span>
+        <div class="country-name">Business</div>
+        <div class="country-auth">$24 / seat / month</div>
+        <span class="country-status status-live-green">✓ Live</span>
+        <div class="country-note">Advanced permissions, scheduled data exports, and priority support for scaling teams that need more control than Pro offers.</div>
+      </div>
+      <div class="country-card reveal">
+        <span class="country-flag">🏢</span>
+        <div class="country-name">Enterprise</div>
+        <div class="country-auth">Custom pricing</div>
+        <span class="country-status status-progress">Contact Sales</span>
+        <div class="country-note">SSO/SCIM, full audit logs, a dedicated customer success manager, and custom contract terms for regulated or security-conscious organizations.</div>
+      </div>
+      <div class="country-card reveal">
+        <span class="country-flag">💚</span>
+        <div class="country-name">Nonprofit Program</div>
+        <div class="country-auth">For registered nonprofits</div>
+        <span class="country-status status-mandate">40% Off Pro</span>
+        <div class="country-note">Registered nonprofits get 40% off any paid plan. Apply with your registration details — most applications are approved within two business days.</div>
+      </div>
+      <div class="country-card reveal">
+        <span class="country-flag">🚀</span>
+        <div class="country-name">Startup Program</div>
+        <div class="country-auth">For companies under 2 years old</div>
+        <span class="country-status status-live-green">6 Months Free</span>
+        <div class="country-note">Early-stage startups (under 2 years old, under $1M raised) get 6 months of Pro free. No credit card required to apply.</div>
+      </div>
+      <div class="country-card reveal">
+        <span class="country-flag">🎓</span>
+        <div class="country-name">Education Program</div>
+        <div class="country-auth">For students and educators</div>
+        <span class="country-status status-eval">Free for Students</span>
+        <div class="country-note">Verified students and educators get Pro free for the duration of their studies. Verification takes under a minute via your school email.</div>
+      </div>
+      <div class="country-card reveal">
+        <span class="country-flag">🤝</span>
+        <div class="country-name">Agency Partner Program</div>
+        <div class="country-auth">For agencies managing 5+ client workspaces</div>
+        <span class="country-status status-progress">Volume Discount</span>
+        <div class="country-note">Agencies managing multiple client workspaces get volume discounts and a single consolidated invoice across every client account.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ UPGRADE PATH ═══ -->
+<div class="section-wrap surface" id="upgrade-path">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Upgrade Path</div>
+    <h2 class="reveal">How Teams <em>Actually Upgrade</em></h2>
+    <p class="lead reveal">Nobody picks a plan by guessing future usage — teams upgrade when they hit a specific wall. Here's the pattern we see most often.</p>
+
+    <div class="sg-section reveal" style="margin-top:0;">
+      <div style="font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--pep-accent);margin-bottom:1rem;">A Typical Upgrade Journey</div>
+      <div class="sg-timeline">
+        <div class="sg-tl-item">
+          <div class="sg-date">Day 1</div>
+          <div class="sg-desc"><strong>Start on Free</strong> — a small team or solo project sets up their first board and a handful of tasks.</div>
+        </div>
+        <div class="sg-tl-item">
+          <div class="sg-date">Week 3-6</div>
+          <div class="sg-desc"><strong>Hit the automation cap</strong> — the team's first recurring workflow needs more automation runs than Free allows. Upgrade to Pro.</div>
+        </div>
+        <div class="sg-tl-item">
+          <div class="sg-date">Month 6+</div>
+          <div class="sg-desc"><strong>Need SSO or an audit log</strong> — IT or security asks for single sign-on ahead of a company-wide rollout. <strong>Talk to Enterprise sales.</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:3rem;" class="reveal">
+      <div style="font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--pep-accent);margin-bottom:0.5rem;">What Happens on Every Billing Cycle</div>
+      <p style="font-size:0.88rem;color:var(--text-muted);line-height:1.7;max-width:58ch;margin-bottom:1.5rem;">Every plan — free or paid — runs through the same five-step billing cycle behind the scenes, whether or not a card is on file.</p>
+
+      <div class="corner-flow">
+        <div class="cf-step">
+          <div class="cf-line"><div class="cf-circle">1</div><div class="cf-connector"></div></div>
+          <div class="cf-body reveal">
+            <h4>Trial or Free Plan Started</h4>
+            <p>New workspace begins on Free or a 14-day Pro trial — either way, no card is required to explore the product.</p>
+          </div>
+        </div>
+        <div class="cf-step">
+          <div class="cf-line"><div class="cf-circle">2</div><div class="cf-connector"></div></div>
+          <div class="cf-body reveal">
+            <h4>Plan Selected</h4>
+            <p>The workspace Owner picks a tier — Free stays free, paid tiers move to the next step.</p>
+          </div>
+        </div>
+        <div class="cf-step">
+          <div class="cf-line"><div class="cf-circle">3</div><div class="cf-connector"></div></div>
+          <div class="cf-body reveal">
+            <h4>Payment Method Added</h4>
+            <p>Card or invoiced payment method is attached to the workspace's billing contact, not the individual member.</p>
+          </div>
+        </div>
+        <div class="cf-step">
+          <div class="cf-line"><div class="cf-circle">4</div><div class="cf-connector"></div></div>
+          <div class="cf-body reveal">
+            <h4>Invoice Generated</h4>
+            <p>A PDF invoice is generated automatically on the billing date, prorated for any seats added mid-cycle.</p>
+          </div>
+        </div>
+        <div class="cf-step">
+          <div class="cf-line"><div class="cf-circle c5">5</div><div class="cf-connector"></div></div>
+          <div class="cf-body reveal">
+            <span class="cf-badge">Automatic · No Extra Step</span>
+            <h4>Finance Team Notified</h4>
+            <p>The invoice is emailed directly to whoever's set as billing contact — ready to drop straight into an expense report.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="c5-kb reveal">
+      <div class="c5-kb-title">💳 Billing Quick Reference</div>
+      <div class="c5-kb-grid">
+        <div class="c5-kb-item">
+          <h5>What Finance Receives</h5>
+          <ul>
+            <li>A PDF invoice on every billing date</li>
+            <li>Itemized seat count and per-seat rate</li>
+            <li>Proration line items for mid-cycle changes</li>
+            <li>Tax breakdown where applicable</li>
+          </ul>
+        </div>
+        <div class="c5-kb-item">
+          <h5>What Finance Can Do</h5>
+          <ul>
+            <li>Download every historical invoice anytime</li>
+            <li>Update the billing contact independently of the Owner</li>
+            <li>Switch between monthly and annual billing</li>
+            <li>Set a purchase-order reference for Enterprise invoices</li>
+          </ul>
+        </div>
+        <div class="c5-kb-item">
+          <h5>What You Gain</h5>
+          <ul>
+            <li>No surprise usage-based charges, ever</li>
+            <li>Predictable per-seat cost for budgeting</li>
+            <li>Instant downgrade if headcount shrinks</li>
+            <li>Annual discount locked for a full year</li>
+          </ul>
+        </div>
+        <div class="c5-kb-item">
+          <h5>What Admins Must Set Up</h5>
+          <ul>
+            <li>Assign a billing contact separate from the Owner (optional)</li>
+            <li>Confirm seat count matches active members before renewal</li>
+            <li>Set a PO reference for Enterprise invoicing</li>
+          </ul>
+        </div>
+      </div>
+      <div class="c5-personal-note">
+        <strong>"We built the whole billing pipeline in-house</strong> — seat metering, proration, invoice generation, and dunning retries. No surprises, no third-party billing portal to log into separately."
+      </div>
+    </div>
+
+    <div style="margin-top:3rem;" class="reveal" id="enterprise">
+      <div style="font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--pep-accent);margin-bottom:1rem;">Enterprise Procurement — What It Includes</div>
+      <div class="imda-grid">
+        <div class="imda-card">
+          <h5>Security &amp; MSA Review</h5>
+          <p>We support your security team's review process — SOC 2-style questionnaires, a signed MSA, and a Data Processing Addendum on request.</p>
+        </div>
+        <div class="imda-card">
+          <h5>SSO &amp; SCIM Provisioning</h5>
+          <p>SAML-based SSO and SCIM auto-provisioning, configured with your IT team ahead of rollout. See the <a href="/docs#sso">Docs page</a> for details.</p>
+        </div>
+        <div class="imda-card">
+          <h5>Custom Invoicing &amp; PO Support</h5>
+          <p>Invoiced billing (rather than card), custom payment terms, and purchase-order references on every invoice.</p>
+        </div>
+        <div class="imda-card">
+          <h5>Dedicated Success Manager</h5>
+          <p>A named point of contact for your rollout, renewal, and any escalations — not a shared support queue.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SELF-SERVE VS ENTERPRISE CHECKLIST ═══ -->
+<div class="section-wrap alt" id="checklist">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Which Path Is Right?</div>
+    <h2 class="reveal">Self-Serve <em>or Talk to Sales?</em></h2>
+    <p class="lead reveal">Most teams know within a minute which path fits. Here's the checklist we point people to.</p>
+
+    <div class="crossborder-grid reveal">
+      <div class="cb-col">
+        <h4>💳 Go Self-Serve If You Need</h4>
+        <ul>
+          <li>Free, Pro, or Business — no procurement process</li>
+          <li>To be live within a few minutes of signing up</li>
+          <li>A monthly or annual card-based subscription</li>
+          <li>No SSO requirement from your IT team yet</li>
+          <li>Standard terms, no custom contract</li>
+        </ul>
+      </div>
+      <div class="cb-col">
+        <h4>🏢 Talk to Sales If You Need</h4>
+        <ul>
+          <li>SSO/SCIM provisioning before rollout</li>
+          <li>A signed MSA, DPA, or custom SLA</li>
+          <li>Invoiced billing with a purchase order</li>
+          <li>A dedicated rollout plan across departments</li>
+          <li>Volume seat discounts above 50 seats</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ BILLING INFRASTRUCTURE ═══ -->
+<div class="section-wrap surface" id="infrastructure">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Billing Infrastructure</div>
+    <h2 class="reveal">Built, <em>Not Bolted On</em></h2>
+    <p class="lead reveal">Every item below reflects the billing system as it actually runs in production — not a roadmap item.</p>
+
+    <div class="impl-grid reveal-group">
+      <div class="impl-point reveal">
+        <div class="impl-icon">🎫</div>
+        <div class="impl-text">
+          <h5>Seat-Based Metering</h5>
+          <p>Active-member counting runs continuously, so your invoice always reflects real usage, not a manual seat count.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">➗</div>
+        <div class="impl-text">
+          <h5>Proration Engine</h5>
+          <p>Adding or removing seats mid-cycle recalculates the invoice automatically — down to the day.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">📅</div>
+        <div class="impl-text">
+          <h5>Annual Discount Handling</h5>
+          <p>Switching billing cycles locks in the discounted rate immediately and adjusts the next invoice accordingly.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">📄</div>
+        <div class="impl-text">
+          <h5>Invoice &amp; PDF Generation</h5>
+          <p>Every charge generates a downloadable PDF automatically, itemized and ready for an expense report.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">🔁</div>
+        <div class="impl-text">
+          <h5>Dunning &amp; Retry Logic</h5>
+          <p>A failed card retries automatically over several days with email reminders before any access is restricted.</p>
+        </div>
+      </div>
+      <div class="impl-point reveal">
+        <div class="impl-icon">🌍</div>
+        <div class="impl-text">
+          <h5>Multi-Currency Support</h5>
+          <p>Billed in your local currency where supported, with tax calculated correctly for your region.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ADD-ON SERVICES ═══ -->
+<div class="section-wrap alt" id="services">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Add-On Services</div>
+    <h2 class="reveal">Beyond the <em>Standard Plans</em></h2>
+
+    <div class="service-grid" style="margin-top:2.5rem;">
+      <ul class="service-list reveal-group">
+        <li class="service-item reveal">
+          <span class="service-num">01</span>
+          <div>
+            <h4>Onboarding Concierge</h4>
+            <p>A dedicated session to import your existing data, set up your first boards, and configure your first automations.</p>
+            <div class="deliverables">Available on: Business and Enterprise</div>
+          </div>
+        </li>
+        <li class="service-item reveal">
+          <span class="service-num">02</span>
+          <div>
+            <h4>Custom Contract Terms</h4>
+            <p>Non-standard payment terms, a custom SLA, or specific data-residency requirements written into your agreement.</p>
+            <div class="deliverables">Available on: Enterprise</div>
+          </div>
+        </li>
+        <li class="service-item reveal">
+          <span class="service-num">03</span>
+          <div>
+            <h4>Volume Seat Discounts</h4>
+            <p>Automatic tiered discounting once your workspace crosses 50, 100, or 250 seats — no negotiation required.</p>
+            <div class="deliverables">Available on: Business and Enterprise</div>
+          </div>
+        </li>
+        <li class="service-item reveal">
+          <span class="service-num">04</span>
+          <div>
+            <h4>Migration Assistance</h4>
+            <p>Hands-on help moving boards, tasks, and history out of a legacy tool with zero data loss.</p>
+            <div class="deliverables">Available on: All paid plans</div>
+          </div>
+        </li>
+        <li class="service-item reveal">
+          <span class="service-num">05</span>
+          <div>
+            <h4>Dedicated Slack Channel</h4>
+            <p>A shared Slack channel with our team for fast-turnaround support during and after rollout.</p>
+            <div class="deliverables">Available on: Enterprise</div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="reveal">
+        <div class="card card-amber" style="padding:2rem;position:sticky;top:7rem;">
+          <div style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;color:var(--pep-accent);margin-bottom:1.5rem;">Plans at a Glance</div>
+          <div style="font-family:var(--font-head);font-size:2.2rem;font-weight:700;line-height:1;color:var(--pep-accent);">$0 → $24</div>
+          <div style="font-size:0.78rem;color:var(--text-muted);margin:0.4rem 0 1.5rem;">Per seat, per month — Free through Business</div>
+          <div class="divider"></div>
+          <ul class="checklist" style="margin-bottom:1.5rem;">
+            <li>
+              <svg class="check-icon check-amber" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"></polyline></svg>
+              Free forever — no card required
+            </li>
+            <li>
+              <svg class="check-icon check-amber" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"></polyline></svg>
+              Pro unlocks unlimited automations
+            </li>
+            <li>
+              <svg class="check-icon check-amber" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"></polyline></svg>
+              Business adds advanced permissions
+            </li>
+            <li>
+              <svg class="check-icon check-amber" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"></polyline></svg>
+              Enterprise adds SSO/SCIM &amp; audit logs
+            </li>
+            <li>
+              <svg class="check-icon check-amber" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"></polyline></svg>
+              Nonprofit, Startup &amp; Education discounts
+            </li>
+          </ul>
+          <div class="divider"></div>
+          <a href="/features" class="btn btn-amber" style="display:block;text-align:center;margin-top:1rem;">See Full Feature Comparison →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ WHICH PLAN FITS YOU ═══ -->
+<div class="section-wrap surface" id="for-whom">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Which Plan Fits You</div>
+    <h2 class="reveal">Find Yourself <em>Below</em></h2>
+    <p class="lead reveal">Most teams recognize themselves in one of these right away.</p>
+    <div class="for-grid reveal-group">
+      <div class="for-card reveal">
+        <h5>🧑‍💻 Solo Founder or Freelancer</h5>
+        <p>A single person tracking their own projects and client work. Free covers this comfortably, no upgrade needed.</p>
+      </div>
+      <div class="for-card reveal">
+        <h5>📈 Growing Startup Team</h5>
+        <p>A handful of people running a few recurring workflows. Pro's unlimited automations is usually the trigger to upgrade.</p>
+      </div>
+      <div class="for-card reveal">
+        <h5>🏗 Scaling Mid-Size Team</h5>
+        <p>Multiple departments, more nuanced permission needs. Business's advanced controls and data export fit here.</p>
+      </div>
+      <div class="for-card reveal">
+        <h5>🏢 Regulated Enterprise</h5>
+        <p>Security review, SSO requirement, and a procurement process before anyone signs a contract. Talk to Enterprise sales.</p>
+      </div>
+      <div class="for-card reveal">
+        <h5>💚 Registered Nonprofit</h5>
+        <p>Mission-driven organizations get 40% off any paid plan — apply with your registration details.</p>
+      </div>
+      <div class="for-card reveal">
+        <h5>🤝 Agency Managing Clients</h5>
+        <p>Running five or more client workspaces gets you into the Agency Partner Program with volume pricing and one invoice.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ COMPARE FURTHER ═══ -->
+<div class="section-wrap alt">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Go Deeper</div>
+    <h2 class="reveal">Explore <em>Further</em></h2>
+    <p class="lead reveal">This page covers the pricing. For the platform itself, see the pages below.</p>
+    <div class="hub-grid reveal-group">
+      <a href="/features" class="hub-card reveal">
+        <div class="hub-eyebrow">Core Product · Workflow Engine</div>
+        <h3>Explore Features</h3>
+        <p>The status engine, the board data model, and the realtime collaboration layer that every plan runs on.</p>
+        <div class="hub-link">
+          Go to Features
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+        </div>
+      </a>
+      <a href="/solutions" class="hub-card reveal" style="border-left-color:var(--yellow);">
+        <div class="hub-eyebrow">Enterprise · Integrations · Rollout</div>
+        <h3>Enterprise Solutions</h3>
+        <p>The full integration API, a staged rollout playbook, and the automation lifecycle behind every workflow.</p>
+        <div class="hub-link">
+          Go to Solutions
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+        </div>
+      </a>
+      <a href="/docs" class="hub-card reveal">
+        <div class="hub-eyebrow">API Keys · Webhooks · Roles · SSO</div>
+        <h3>Docs &amp; FAQ</h3>
+        <p>Plain-English explanations of how AcmeOS actually works, written by the team that built it.</p>
+        <div class="hub-link">
+          Go to Docs
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"></path></svg>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<Contact eyebrowClass="eyebrow-amber" buttonClass="btn-amber">
+  <Fragment slot="heading">Ready to Pick<br><em>Your Plan?</em></Fragment>
+  <Fragment slot="lead">Start free, upgrade anytime. Questions about Enterprise, or a Nonprofit or Startup discount — reach out directly.</Fragment>
+</Contact>
+
+</BaseLayout>

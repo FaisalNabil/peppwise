@@ -7,13 +7,14 @@ interface Props {
   description: string;
   ogTitle?: string;
   ogDescription?: string;
-  path: string; // '' for home, '/peppol', '/peppol-singapore', ...
-  active: 'home' | 'peppol' | 'peppol-singapore' | 'peppol-uae' | 'peppol-kb' | 'malaysia';
+  path: string; // '' for home, '/features', '/pricing', ...
+  active: 'home' | 'features' | 'solutions' | 'pricing' | 'docs' | 'blog' | 'none';
   jsonLd: object;
 }
 const { title, description, ogTitle = title, ogDescription = description, path, active, jsonLd } = Astro.props;
-const url = `https://www.peppwise.com${path}`;
-const canonical = path === '' ? 'https://www.peppwise.com/' : url;
+const site = Astro.site as URL;
+const url = new URL(path.replace(/^\//, ''), site).href;
+const canonical = path === '' ? site.href : url;
 ---
 <!DOCTYPE html>
 <html lang="en">

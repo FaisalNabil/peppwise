@@ -1,67 +1,63 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Contact from '../components/Contact.astro';
-import Flag from '../components/Flag.astro';
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "https://www.peppwise.com/#org",
-      "name": "Peppwise",
-      "url": "https://www.peppwise.com",
-      "logo": "https://www.peppwise.com/favicon.svg",
-      "email": "hello@peppwise.com",
-      "description": "Independent e-invoice integration specialist covering Peppol C4 and C5 markets (Singapore InvoiceNow, UAE eInvoicing DCTCE / PINT AE) and direct-clearance mandates (Malaysia IRBM MyInvois).",
-      "areaServed": ["SG","AE","MY"]
+      "@id": "https://acmeos-demo.example/#org",
+      "name": "AcmeOS",
+      "url": "https://acmeos-demo.example",
+      "logo": "https://acmeos-demo.example/favicon.svg",
+      "email": "hello@acmeos.example",
+      "description": "Real-time workflow platform for modern teams — task boards, automations, integrations, and enterprise-grade SSO/SCIM.",
+      "areaServed": "Worldwide"
     },
     {
       "@type": "WebSite",
-      "@id": "https://www.peppwise.com/#site",
-      "url": "https://www.peppwise.com",
-      "name": "Peppwise",
-      "publisher": {"@id":"https://www.peppwise.com/#org"}
+      "@id": "https://acmeos-demo.example/#site",
+      "url": "https://acmeos-demo.example",
+      "name": "AcmeOS",
+      "publisher": {"@id":"https://acmeos-demo.example/#org"}
     },
     {
       "@type": "Service",
-      "name": "Peppol Access Point Development — Singapore",
-      "provider": {"@id":"https://www.peppwise.com/#org"},
-      "description": "End-to-end Peppol Access Point development for Singapore InvoiceNow: IMDA certification, AS4 messaging, SMP/SML routing, BIS 3.0, PINT SG, and C5 IRAS GST automation.",
-      "serviceType": "Peppol Access Point Development",
-      "areaServed": "SG",
-      "url": "https://www.peppwise.com/peppol-singapore"
+      "name": "AcmeOS Workflow Engine",
+      "provider": {"@id":"https://acmeos-demo.example/#org"},
+      "description": "Task status automation, custom fields, and a realtime collaboration layer built on WebSockets.",
+      "serviceType": "Workflow &amp; Collaboration Platform",
+      "url": "https://acmeos-demo.example/features"
     },
     {
       "@type": "Service",
-      "name": "UAE eInvoicing Integration — PINT AE / DCTCE",
-      "provider": {"@id":"https://www.peppwise.com/#org"},
-      "description": "UAE eInvoicing readiness and integration: PINT AE document mapping, DCTCE 5-corner architecture, Tax Data Document reporting to the FTA, and Accredited Service Provider integration.",
-      "serviceType": "E-Invoicing Integration",
-      "areaServed": "AE",
-      "url": "https://www.peppwise.com/peppol-uae"
+      "name": "AcmeOS Enterprise Solutions",
+      "provider": {"@id":"https://acmeos-demo.example/#org"},
+      "description": "Full integration API, a managed enterprise rollout playbook, and automation tooling for teams migrating off legacy tools.",
+      "serviceType": "SaaS Integration &amp; Onboarding",
+      "url": "https://acmeos-demo.example/solutions"
     },
     {
       "@type": "Service",
-      "name": "Malaysia e-Invoice Integration — IRBM MyInvois",
-      "provider": {"@id":"https://www.peppwise.com/#org"},
-      "description": "Malaysia e-Invoice direct-clearance integration: full IRBM MyInvois API, X.509 digital signature, UBL 2.1 mapping, all 5 document types.",
-      "serviceType": "E-Invoicing Integration",
-      "areaServed": "MY",
-      "url": "https://www.peppwise.com/malaysia"
+      "name": "AcmeOS Plans &amp; Pricing",
+      "provider": {"@id":"https://acmeos-demo.example/#org"},
+      "description": "Seat-based pricing from Free through Enterprise, plus Nonprofit, Startup, and Education discount programs.",
+      "serviceType": "SaaS Subscription",
+      "url": "https://acmeos-demo.example/pricing"
     },
-    {"@type":"SiteNavigationElement","name":"Peppol Overview","url":"https://www.peppwise.com/peppol"},
-    {"@type":"SiteNavigationElement","name":"Singapore Access Point","url":"https://www.peppwise.com/peppol-singapore"},
-    {"@type":"SiteNavigationElement","name":"UAE eInvoicing","url":"https://www.peppwise.com/peppol-uae"},
-    {"@type":"SiteNavigationElement","name":"Peppol Knowledge Base","url":"https://www.peppwise.com/peppol-kb"},
-    {"@type":"SiteNavigationElement","name":"Malaysia e-Invoice","url":"https://www.peppwise.com/malaysia"}
+    {"@type":"SiteNavigationElement","name":"Features","url":"https://acmeos-demo.example/features"},
+    {"@type":"SiteNavigationElement","name":"Solutions","url":"https://acmeos-demo.example/solutions"},
+    {"@type":"SiteNavigationElement","name":"Pricing","url":"https://acmeos-demo.example/pricing"},
+    {"@type":"SiteNavigationElement","name":"Docs &amp; FAQ","url":"https://acmeos-demo.example/docs"},
+    {"@type":"SiteNavigationElement","name":"Blog","url":"https://acmeos-demo.example/blog"}
   ]
 };
 ---
 <BaseLayout
-  title="Peppol & E-Invoice Integration — Singapore, UAE, Malaysia — Peppwise"
-  description="E-invoice integration specialist across Peppol C4 and C5 markets — Singapore InvoiceNow (IRAS C5), UAE eInvoicing (DCTCE, PINT AE) — and direct-clearance mandates like Malaysia MyInvois (IRBM API)."
-  ogDescription="Peppol C4/C5 and direct-clearance e-invoice integration. Singapore InvoiceNow, UAE DCTCE / PINT AE, Malaysia IRBM MyInvois. Built, not theorised."
+  title="AcmeOS — Real-Time Workflow Platform for Modern Teams"
+  description="AcmeOS is a real-time workflow platform: task boards, status automations, webhooks and integrations, and enterprise SSO/SCIM — built, not just announced."
+  ogDescription="Task boards, automations, and realtime collaboration for modern teams. Built, not just announced."
   path=""
   active="home"
   jsonLd={jsonLd}
@@ -276,7 +272,7 @@ const jsonLd = {
 .rm-label { font-size: 0.76rem; font-weight: 700; color: var(--text-primary); line-height: 1.3; }
 .rm-sub { font-weight: 400; color: var(--text-muted); font-size: 0.7rem; }
 
-/* ─── ENGAGEMENT MODELS ─── */
+/* ─── GETTING STARTED ─── */
 .engage-grid {
   display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 1.8rem; margin-top: 3rem;
@@ -356,25 +352,25 @@ const jsonLd = {
   <div class="hero-desk" id="hero-desk">
 
     <div class="desktop-icons">
-      <a href="/peppol-singapore" class="desktop-icon">
-        <span class="di-glyph"><Flag code="sg" /></span>
-        <span class="di-label">Singapore_AP.exe</span>
+      <a href="/features" class="desktop-icon">
+        <span class="di-glyph">💻</span>
+        <span class="di-label">Dashboard.exe</span>
       </a>
-      <a href="/peppol-uae" class="desktop-icon">
-        <span class="di-glyph"><Flag code="ae" /></span>
-        <span class="di-label">UAE_eInvoicing.exe</span>
+      <a href="/solutions" class="desktop-icon">
+        <span class="di-glyph">⚡</span>
+        <span class="di-label">Automations.exe</span>
       </a>
-      <a href="/malaysia" class="desktop-icon">
-        <span class="di-glyph"><Flag code="my" /></span>
-        <span class="di-label">Malaysia_eInvoice.exe</span>
+      <a href="/pricing" class="desktop-icon">
+        <span class="di-glyph">💳</span>
+        <span class="di-label">Pricing.exe</span>
       </a>
-      <a href="/peppol" class="desktop-icon">
-        <span class="di-glyph">🌐</span>
-        <span class="di-label">Peppol_Overview.exe</span>
-      </a>
-      <a href="/peppol-kb" class="desktop-icon">
+      <a href="/docs" class="desktop-icon">
         <span class="di-glyph">📖</span>
-        <span class="di-label">Knowledge_Base.hlp</span>
+        <span class="di-label">Docs.hlp</span>
+      </a>
+      <a href="/blog" class="desktop-icon">
+        <span class="di-glyph">📰</span>
+        <span class="di-label">Blog.txt</span>
       </a>
       <a href="#contact" class="desktop-icon">
         <span class="di-glyph">✉️</span>
@@ -388,61 +384,61 @@ const jsonLd = {
         <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
       </div>
       <div class="os-body">
-        <div class="hero-tag">E-Invoice Integration Specialist</div>
+        <div class="hero-tag">Real-Time Workflow Platform</div>
         <h1>
-          E-invoice infrastructure.<br>
-          Any country. <em>Any model.</em>
+          Real-time workflows.<br>
+          Any team. <em>Any scale.</em>
         </h1>
         <p class="hero-sub">
-          I build e-invoicing integrations across Peppol C4 and C5 markets — Singapore InvoiceNow (IRAS C5), UAE eInvoicing (DCTCE / PINT AE) — and direct-clearance mandates like Malaysia's IRBM MyInvois. Personally built. Not just advised on.
+          AcmeOS is a task and automation platform built around a realtime collaboration layer — task boards, status automations, webhooks, and enterprise SSO/SCIM. Built, not just announced.
         </p>
         <div class="hero-stats">
           <div class="hero-stat-inline">
-            <span class="num">50+</span>
-            <span class="lbl">Peppol Countries</span>
+            <span class="num">50K+</span>
+            <span class="lbl">Teams Onboard</span>
           </div>
           <div class="hero-stat-inline">
-            <span class="num">2×C5</span>
-            <span class="lbl"><Flag code="sg" /> IRAS · <Flag code="ae" /> FTA</span>
+            <span class="num">2×Sync</span>
+            <span class="lbl">Realtime · Enterprise SSO</span>
           </div>
           <div class="hero-stat-inline">
-            <span class="num">3</span>
-            <span class="lbl">Tax Authorities Integrated</span>
+            <span class="num">4</span>
+            <span class="lbl">Plan Tiers</span>
           </div>
         </div>
         <div class="hero-btns">
-          <a href="/peppol-singapore" class="btn btn-amber">Singapore AP →</a>
-          <a href="/peppol-uae" class="btn-ghost">UAE eInvoicing →</a>
+          <a href="/features" class="btn btn-amber">Explore Features →</a>
+          <a href="/pricing" class="btn-ghost">View Pricing →</a>
         </div>
       </div>
     </div>
 
     <div class="os-window os-draggable hero-window" id="win-coverage">
       <div class="os-titlebar os-titlebar-red">
-        <span class="os-title">coverage_map.sys</span>
+        <span class="os-title">platform_status.sys</span>
         <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
       </div>
       <div class="os-body" style="padding: 0.6rem 1.2rem;">
         <div class="coverage-rows">
-          <a href="/peppol-singapore" class="coverage-row">
-            <span class="cov-track cov-track-pep">Peppol C5</span>
-            <span class="cov-name"><Flag code="sg" /> Singapore InvoiceNow</span>
+          <a href="/features" class="coverage-row">
+            <span class="cov-track cov-track-pep">Platform</span>
+            <span class="cov-name">Core Workflow Engine</span>
             <span class="cov-status cov-live">Live</span>
           </a>
-          <a href="/peppol-uae" class="coverage-row">
-            <span class="cov-track cov-track-pep">Peppol C5</span>
-            <span class="cov-name"><Flag code="ae" /> UAE eInvoicing · DCTCE</span>
-            <span class="cov-status cov-upcoming">Jan 2027</span>
-          </a>
-          <a href="/peppol" class="coverage-row">
-            <span class="cov-track cov-track-pep">Peppol C4</span>
-            <span class="cov-name"><Flag code="eu" /> EU · <Flag code="au" /> AU/NZ · <Flag code="jp" /> JP</span>
+          <a href="/features#realtime" class="coverage-row">
+            <span class="cov-track cov-track-pep">Platform</span>
+            <span class="cov-name">Realtime Automations</span>
             <span class="cov-status cov-live">Live</span>
           </a>
-          <a href="/malaysia" class="coverage-row">
-            <span class="cov-track cov-track-dc">Clearance</span>
-            <span class="cov-name"><Flag code="my" /> Malaysia MyInvois</span>
+          <a href="/solutions" class="coverage-row">
+            <span class="cov-track cov-track-pep">Platform</span>
+            <span class="cov-name">Integrations Directory · 50+</span>
             <span class="cov-status cov-live">Live</span>
+          </a>
+          <a href="/docs#sso" class="coverage-row">
+            <span class="cov-track cov-track-dc">Enterprise</span>
+            <span class="cov-name">SSO &amp; SCIM Provisioning</span>
+            <span class="cov-status cov-upcoming">Beta</span>
           </a>
         </div>
       </div>
@@ -451,9 +447,9 @@ const jsonLd = {
   </div>
 
   <div class="taskbar hero-taskbar">
-    <a href="#contact" class="taskbar-start">⊞ Peppwise</a>
+    <a href="#contact" class="taskbar-start">⊞ AcmeOS</a>
     <button class="taskbar-btn tb-active" data-win="win-welcome" type="button">welcome.exe</button>
-    <button class="taskbar-btn" data-win="win-coverage" type="button">coverage_map.sys</button>
+    <button class="taskbar-btn" data-win="win-coverage" type="button">platform_status.sys</button>
     <span class="taskbar-clock" id="taskbar-clock">--:--</span>
   </div>
 </section>
@@ -461,71 +457,71 @@ const jsonLd = {
 <!-- ═══ OFFERING MATRIX ═══ -->
 <div class="section-wrap" id="offer">
   <div class="inner">
-    <div class="eyebrow eyebrow-amber reveal">What I Build</div>
-    <h2 class="reveal">One service. <em>Three country models.</em></h2>
-    <p class="lead reveal">Every e-invoicing mandate fits one of three architectures. I have built production integrations in each — so wherever your next market is, the model is already familiar.</p>
+    <div class="eyebrow eyebrow-amber reveal">What You Get</div>
+    <h2 class="reveal">One platform. <em>Three product areas.</em></h2>
+    <p class="lead reveal">Every workspace starts with the same core — the product areas below are what you unlock as your team grows.</p>
 
     <div class="matrix-grid reveal-group">
       <div class="os-window reveal">
         <div class="os-titlebar os-titlebar-red">
-          <span class="os-title">peppol_c4.cfg</span>
+          <span class="os-title">workflow_engine.cfg</span>
           <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
         </div>
         <div class="os-body">
-          <div class="mx-model mx-model-pep">Peppol · 4-Corner</div>
-          <h3>C4 — Network Exchange</h3>
-          <p class="mx-desc">The classic Peppol model: invoices flow between trading partners through certified Access Points. No tax authority in the loop.</p>
+          <div class="mx-model mx-model-pep">Core Product</div>
+          <h3>Workflow Engine</h3>
+          <p class="mx-desc">Boards, tasks, and a status engine that actually drives work forward — not just a place to park cards.</p>
           <ul class="mx-list">
-            <li><strong>Access Point</strong> &amp; SMP/SML setup</li>
-            <li><strong>BIS 3.0 / PINT</strong> document mapping</li>
-            <li>AS4 messaging, MLR handling</li>
-            <li>EU · Australia/NZ · Japan markets</li>
+            <li><strong>Boards</strong> &amp; task status codes</li>
+            <li><strong>Custom fields</strong> &amp; saved views</li>
+            <li>Comments &amp; file attachments</li>
+            <li>Full-text search across everything</li>
           </ul>
           <div class="mx-links">
-            <a href="/peppol" class="mx-link mx-link-pep">How C4 Works</a>
+            <a href="/features" class="mx-link mx-link-pep">How It Works</a>
           </div>
         </div>
       </div>
 
       <div class="os-window reveal">
         <div class="os-titlebar os-titlebar-red">
-          <span class="os-title">peppol_c5.cfg</span>
+          <span class="os-title">automations.cfg</span>
           <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
         </div>
         <div class="os-body">
-          <div class="mx-model mx-model-pep">Peppol · 5-Corner</div>
-          <h3>C5 — Tax Authority CTC</h3>
-          <p class="mx-desc">Peppol exchange plus a fifth corner: the tax authority receives invoice data continuously. The model regulators are converging on.</p>
+          <div class="mx-model mx-model-pep">Add-On</div>
+          <h3>Automations &amp; Integrations</h3>
+          <p class="mx-desc">Trigger-based automations plus a full integrations directory, so AcmeOS fits into whatever your team already uses.</p>
           <ul class="mx-list">
-            <li><strong>Singapore</strong> — IRAS C5 GST transmission</li>
-            <li><strong>UAE</strong> — FTA via DCTCE, Tax Data Document</li>
-            <li>PINT SG / PINT AE specialisations</li>
-            <li>ASP / Access Point integration</li>
+            <li><strong>Webhooks</strong> &amp; scheduled triggers</li>
+            <li>50+ integrations directory</li>
+            <li>Realtime sync engine</li>
+            <li>API keys &amp; rate limits</li>
           </ul>
           <div class="mx-links">
-            <a href="/peppol-singapore" class="mx-link mx-link-pep">Singapore</a>
-            <a href="/peppol-uae" class="mx-link">UAE</a>
+            <a href="/solutions" class="mx-link mx-link-pep">Solutions</a>
+            <a href="/docs" class="mx-link">Docs</a>
           </div>
         </div>
       </div>
 
       <div class="os-window reveal">
         <div class="os-titlebar os-titlebar-blue">
-          <span class="os-title">direct_clearance.cfg</span>
+          <span class="os-title">enterprise.cfg</span>
           <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
         </div>
         <div class="os-body">
-          <div class="mx-model mx-model-dc">Non-Peppol · National API</div>
-          <h3>Direct Clearance</h3>
-          <p class="mx-desc">No Peppol network — invoices clear directly through the tax authority's own API before they are valid. Each country builds its own.</p>
+          <div class="mx-model mx-model-dc">Enterprise</div>
+          <h3>Enterprise Controls</h3>
+          <p class="mx-desc">SSO, audit logs, and role-based permissions for teams that need IT and security sign-off before rolling out.</p>
           <ul class="mx-list">
-            <li><strong>Malaysia</strong> — IRBM MyInvois API</li>
-            <li>UBL 2.1, X.509 signature, all 5 doc types</li>
-            <li>72-hour rejection &amp; cancellation flow</li>
-            <li>PINT MY alignment on the horizon</li>
+            <li><strong>SSO/SCIM</strong> provisioning</li>
+            <li>Full audit logging</li>
+            <li>Role-based permissions</li>
+            <li>Dedicated success manager</li>
           </ul>
           <div class="mx-links">
-            <a href="/malaysia" class="mx-link mx-link-dc">Malaysia e-Invoice</a>
+            <a href="/solutions#reliability" class="mx-link mx-link-dc">Enterprise Solutions</a>
           </div>
         </div>
       </div>
@@ -538,51 +534,51 @@ const jsonLd = {
   <div class="inner">
     <div class="cred-grid">
       <div class="reveal">
-        <div class="eyebrow eyebrow-amber">About This Practice</div>
-        <h2>Not a consultancy.<br><em>One specialist who has built it.</em></h2>
+        <div class="eyebrow eyebrow-amber">About AcmeOS</div>
+        <h2>Not just another board.<br><em>Built for how teams actually work.</em></h2>
         <p class="cred-body">
-          I have personally implemented <strong>Peppol Access Points end-to-end</strong> — IMDA-certified AP onboarding, AS4 messaging protocol, SMP/SML registration, Peppol BIS 3.0 and PINT SG document mapping, and the pioneering C5 IRAS GST data forwarding pipeline.
+          We built AcmeOS around a simple idea: a task board should do more than sit still. <strong>Realtime sync</strong>, a <strong>status engine</strong> that actually drives automations, and a full <strong>webhook and API layer</strong> — all shipped, not roadmapped.
           <br><br>
-          I have also personally implemented <strong>Malaysia e-Invoice end-to-end</strong> — the complete IRBM / MyInvois API for service providers, X.509 digital signature, UBL 2.1 mapping, and all 5 document types.
+          We also built the enterprise layer teams actually ask for — <strong>SAML SSO, SCIM provisioning, full audit logging</strong> — without making every workspace wait for it.
           <br><br>
-          The same architecture now lands in the <strong>UAE as DCTCE</strong> — a Peppol 5-corner model with PINT AE documents and Tax Data Document reporting to the FTA. This is not advisory at arm's length. This is <strong>production implementation experience</strong>.
+          This isn't a MVP with a pricing page bolted on. This is <strong>production infrastructure</strong>, running for 50,000+ teams today.
         </p>
       </div>
 
       <div class="proof-grid reveal">
         <div class="os-window proof-pep">
           <div class="os-titlebar os-titlebar-red">
-            <span class="os-title">peppol_ap.log</span>
+            <span class="os-title">workflow_engine.log</span>
             <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
           </div>
           <div class="os-body">
             <ul class="proof-list">
-              <li>IMDA-certified AP integration</li>
-              <li>AS4 messaging protocol</li>
-              <li>SMP/SML registration</li>
-              <li>Peppol BIS 3.0 mapping</li>
-              <li>PINT SG extensions</li>
-              <li>C5 / IRAS GST data forwarding</li>
-              <li>PINT AE / DCTCE readiness</li>
-              <li>ERP integration (SAP, Oracle, Xero)</li>
+              <li>Realtime sync engine</li>
+              <li>Status-code automation</li>
+              <li>Custom fields &amp; saved views</li>
+              <li>Webhook + API platform</li>
+              <li>Full-text search indexing</li>
+              <li>50+ integrations directory</li>
+              <li>Audit-ready activity logging</li>
+              <li>ERP &amp; CRM connectors</li>
             </ul>
           </div>
         </div>
         <div class="os-window proof-dc">
           <div class="os-titlebar os-titlebar-blue">
-            <span class="os-title">my_einvoice.log</span>
+            <span class="os-title">enterprise.log</span>
             <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
           </div>
           <div class="os-body">
             <ul class="proof-list">
-              <li>Full IRBM API coverage</li>
-              <li>X.509 digital signature</li>
-              <li>UBL 2.1 XML mapping</li>
-              <li>MSIC code classification</li>
-              <li>All 5 document types</li>
-              <li>Rejection &amp; cancellation flow</li>
-              <li>UUID &amp; QR code archival</li>
-              <li>72-hour window handling</li>
+              <li>SAML SSO &amp; SCIM</li>
+              <li>Role-based permissions</li>
+              <li>Data export &amp; backups</li>
+              <li>Seat-based billing engine</li>
+              <li>Multi-region hosting</li>
+              <li>Dunning &amp; invoicing</li>
+              <li>Volume discount tiers</li>
+              <li>Dedicated success manager</li>
             </ul>
           </div>
         </div>
@@ -591,108 +587,108 @@ const jsonLd = {
   </div>
 </div>
 
-<!-- ═══ MANDATE TIMELINE ═══ -->
+<!-- ═══ PRODUCT TIMELINE ═══ -->
 <div class="section-wrap" id="roadmap">
   <div class="inner">
-    <div class="eyebrow eyebrow-amber reveal">Mandate Timeline</div>
-    <h2 class="reveal">Live mandates behind. <em>UAE ahead.</em></h2>
-    <p class="lead reveal">Singapore and Malaysia mandates are fully live. The UAE pilot starts July 2026, with mandatory phases through 2027 — the window to build is now.</p>
+    <div class="eyebrow eyebrow-amber reveal">Product Timeline</div>
+    <h2 class="reveal">Shipped fast. <em>Still shipping.</em></h2>
+    <p class="lead reveal">Core platform and enterprise controls are fully live. Schema v2 opens for closed beta next — the window to give feedback is now.</p>
 
     <div class="roadmap-nodes reveal-group">
       <div class="rm-node reveal">
         <div class="rm-dot filled-blue"></div>
         <div>
-          <span class="rm-tag rm-tag-blue">MY e-Invoice</span>
-          <div class="rm-date rm-date-blue">Aug 2024</div>
-          <div class="rm-label">Phase 1 Live<br><span class="rm-sub">&gt;RM100M turnover</span></div>
+          <span class="rm-tag rm-tag-blue">Platform</span>
+          <div class="rm-date rm-date-blue">2024</div>
+          <div class="rm-label">AcmeOS v1<br><span class="rm-sub">Public launch</span></div>
         </div>
       </div>
       <div class="rm-node reveal">
         <div class="rm-dot filled-amber"></div>
         <div>
-          <span class="rm-tag rm-tag-amber">SG InvoiceNow</span>
-          <div class="rm-date rm-date-amber">Nov 2025</div>
-          <div class="rm-label">All GST Businesses<br><span class="rm-sub">IMDA mandate — live</span></div>
+          <span class="rm-tag rm-tag-amber">Realtime</span>
+          <div class="rm-date rm-date-amber">Mar 2025</div>
+          <div class="rm-label">Sync Engine<br><span class="rm-sub">Realtime collab ships</span></div>
         </div>
       </div>
       <div class="rm-node reveal">
         <div class="rm-dot filled-blue"></div>
         <div>
-          <span class="rm-tag rm-tag-blue">MY e-Invoice</span>
-          <div class="rm-date rm-date-blue">Jan 2026</div>
-          <div class="rm-label">All Businesses<br><span class="rm-sub">No exemptions remain</span></div>
+          <span class="rm-tag rm-tag-blue">Enterprise</span>
+          <div class="rm-date rm-date-blue">Sep 2025</div>
+          <div class="rm-label">SSO / SCIM<br><span class="rm-sub">Enterprise tier live</span></div>
         </div>
       </div>
       <div class="rm-node reveal">
         <div class="rm-dot upcoming"></div>
         <div>
-          <span class="rm-tag rm-tag-amber">UAE eInvoicing</span>
+          <span class="rm-tag rm-tag-amber">Automations</span>
           <div class="rm-date rm-date-amber">Jul 2026</div>
-          <div class="rm-label">Pilot Begins<br><span class="rm-sub">DCTCE goes live</span></div>
+          <div class="rm-label">Automation v2<br><span class="rm-sub">Chained conditions</span></div>
         </div>
       </div>
       <div class="rm-node reveal">
         <div class="rm-dot"></div>
         <div>
-          <span class="rm-tag rm-tag-amber">UAE eInvoicing</span>
+          <span class="rm-tag rm-tag-amber">Schema</span>
           <div class="rm-date rm-date-amber">Jan 2027</div>
-          <div class="rm-label">Phase 1 Mandatory<br><span class="rm-sub">≥ AED 50M revenue</span></div>
+          <div class="rm-label">Schema v2 Beta<br><span class="rm-sub">Closed beta opens</span></div>
         </div>
       </div>
       <div class="rm-node reveal">
         <div class="rm-dot"></div>
         <div>
-          <span class="rm-tag rm-tag-amber">UAE eInvoicing</span>
+          <span class="rm-tag rm-tag-amber">Schema</span>
           <div class="rm-date rm-date-amber">Jul 2027</div>
-          <div class="rm-label">Phase 2 Mandatory<br><span class="rm-sub">Remaining businesses</span></div>
+          <div class="rm-label">Schema v2 GA<br><span class="rm-sub">General availability</span></div>
         </div>
       </div>
     </div>
 
     <div style="display:flex;gap:1.5rem;margin-top:3rem;flex-wrap:wrap;">
-      <a href="/peppol-uae" class="btn btn-amber">UAE eInvoicing →</a>
-      <a href="/peppol-singapore" class="btn-ghost">Singapore Access Point →</a>
-      <a href="/malaysia" class="btn-ghost">Malaysia e-Invoice →</a>
+      <a href="/solutions" class="btn btn-amber">Explore Solutions →</a>
+      <a href="/docs" class="btn-ghost">View Docs →</a>
+      <a href="/pricing" class="btn-ghost">See Pricing →</a>
     </div>
   </div>
 </div>
 
-<!-- ═══ ENGAGEMENT MODELS ═══ -->
+<!-- ═══ GETTING STARTED ═══ -->
 <div class="section-wrap alt" id="engage">
   <div class="inner">
-    <div class="eyebrow eyebrow-muted reveal">Engagement</div>
-    <h2 class="reveal">Work with me <em>on your terms</em></h2>
-    <p class="lead reveal">I adapt to your business structure. Whether you need embedded e-invoicing expertise, scoped delivery, or a permanent hire — available across all models.</p>
+    <div class="eyebrow eyebrow-muted reveal">Getting Started</div>
+    <h2 class="reveal">Choose how <em>you get started</em></h2>
+    <p class="lead reveal">Every workspace starts the same way — free sign-up. From there, pick the onboarding path that fits your team's size.</p>
 
     <div class="engage-grid reveal-group">
       <div class="os-window reveal">
         <div class="os-titlebar">
-          <span class="os-title">model_01.cfg</span>
+          <span class="os-title">self_serve.cfg</span>
           <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
         </div>
         <div class="os-body">
-          <h3>Full-Time Hire</h3>
-          <p>Join your team as a dedicated Peppol and e-invoice specialist — embedded, fully aligned, and on-call. Ideal for companies mid-implementation or with continuous compliance requirements.</p>
+          <h3>Self-Serve</h3>
+          <p>Sign up, invite your team, and explore at your own pace. Full docs and in-app guides included — ideal for small teams and solo projects.</p>
         </div>
       </div>
       <div class="os-window reveal">
         <div class="os-titlebar os-titlebar-yellow">
-          <span class="os-title">model_02.cfg</span>
+          <span class="os-title">guided.cfg</span>
           <span class="engage-badge">Most Popular</span>
         </div>
         <div class="os-body">
-          <h3>Part-Time / Retainer</h3>
-          <p>Consistent expert guidance without the full-time overhead. Monthly retainer or weekly hour packages. Perfect for companies that need steady e-invoicing support without headcount.</p>
+          <h3>Guided Onboarding</h3>
+          <p>A dedicated onboarding session to import your data, set up your first boards, and configure your first automations. Available from Business plan up.</p>
         </div>
       </div>
       <div class="os-window reveal">
         <div class="os-titlebar">
-          <span class="os-title">model_03.cfg</span>
+          <span class="os-title">migration.cfg</span>
           <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
         </div>
         <div class="os-body">
-          <h3>Project-Based</h3>
-          <p>A defined scope, clear deliverables, and a fixed timeline. Best for one-time AP implementations, UAE readiness builds, readiness audits, or new-country rollouts. Fixed-price or milestone billing.</p>
+          <h3>White-Glove Migration</h3>
+          <p>Full migration off a legacy tool with zero data loss, custom automation setup, and team training. Best for company-wide enterprise rollouts.</p>
         </div>
       </div>
     </div>
@@ -700,8 +696,8 @@ const jsonLd = {
 </div>
 
 <Contact eyebrowClass="eyebrow-amber" buttonClass="btn-dark">
-  <Fragment slot="heading">Ready to build your<br><em>e-invoice integration?</em></Fragment>
-  <Fragment slot="lead">Whether you're onboarding a Singapore InvoiceNow Access Point, preparing for the UAE DCTCE mandate, or integrating Malaysia's MyInvois API — reach out. First consultation is complimentary.</Fragment>
+  <Fragment slot="heading">Ready to build your<br><em>first workflow?</em></Fragment>
+  <Fragment slot="lead">Whether you're exploring on Free, upgrading to Pro, or planning an enterprise rollout — reach out. First consultation is complimentary.</Fragment>
 </Contact>
 
 <script is:inline>
