@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Contact from '../components/Contact.astro';
+import Flag from '../components/Flag.astro';
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -362,7 +363,7 @@ const jsonLd = {
 <div class="section-wrap alt" id="phases">
   <div class="inner">
     <div class="eyebrow eyebrow-blue reveal">Rollout Status</div>
-    <h2 class="reveal">Malaysia e-Invoice <em>All Phases Live</em></h2>
+    <h2 class="reveal"><Flag code="my" /> Malaysia e-Invoice <em>All Phases Live</em></h2>
     <p class="lead reveal">All three phases of Malaysia's mandatory e-invoicing rollout are now active. If your business is not yet compliant, every transaction without a validated IRBM e-invoice is a potential penalty.</p>
 
     <div class="phase-grid reveal-group">
@@ -558,7 +559,7 @@ const jsonLd = {
 <div class="section-wrap alt" id="services">
   <div class="inner">
     <div class="eyebrow eyebrow-blue reveal">What I Offer</div>
-    <h2 class="reveal">Services for <em>Malaysia e-Invoice</em></h2>
+    <h2 class="reveal">Services for <em><Flag code="my" /> Malaysia e-Invoice</em></h2>
 
     <div class="service-grid" style="margin-top:2.5rem;">
       <ul class="service-list reveal-group">

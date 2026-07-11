@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Contact from '../components/Contact.astro';
+import Flag from '../components/Flag.astro';
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -484,7 +485,7 @@ const jsonLd = {
 
     <div class="country-grid reveal-group">
       <div class="country-card featured reveal">
-        <span class="country-flag">🇸🇬</span>
+        <span class="country-flag"><Flag code="sg" /></span>
         <div class="country-name">Singapore</div>
         <div class="country-auth">IMDA (Infocomm Media Development Authority) · IRAS (5th Corner)</div>
         <span class="country-status status-live-green">✓ Mandate Live: Nov 2025</span>
@@ -492,7 +493,7 @@ const jsonLd = {
         <a href="/peppol-singapore" class="country-link">Singapore AP page →</a>
       </div>
       <div class="country-card featured reveal" style="border-left-color:var(--yellow);">
-        <span class="country-flag">🇦🇪</span>
+        <span class="country-flag"><Flag code="ae" /></span>
         <div class="country-name">United Arab Emirates</div>
         <div class="country-auth">Ministry of Finance · FTA (5th Corner) · DCTCE</div>
         <span class="country-status status-mandate">Pilot Jul 2026 · Phase 1 Jan 2027</span>
@@ -500,49 +501,49 @@ const jsonLd = {
         <a href="/peppol-uae" class="country-link">UAE eInvoicing page →</a>
       </div>
       <div class="country-card reveal">
-        <span class="country-flag">🇦🇺</span>
+        <span class="country-flag"><Flag code="au" /></span>
         <div class="country-name">Australia</div>
         <div class="country-auth">ATO / DSPANZ</div>
         <span class="country-status status-live-green">✓ Live</span>
         <div class="country-note">Mandatory for government procurement. ATO linked as a Peppol participant. Adoption growing across private sector.</div>
       </div>
       <div class="country-card reveal">
-        <span class="country-flag">🇪🇺</span>
+        <span class="country-flag"><Flag code="eu" /></span>
         <div class="country-name">European Union</div>
         <div class="country-auth">OpenPeppol / National Authorities</div>
         <span class="country-status status-live-green">✓ Live</span>
         <div class="country-note">The birthplace of Peppol. EN16931 mandatory EU e-invoice standard. B2B mandates expanding in Italy, France, Germany.</div>
       </div>
       <div class="country-card reveal">
-        <span class="country-flag">🇳🇿</span>
+        <span class="country-flag"><Flag code="nz" /></span>
         <div class="country-name">New Zealand</div>
         <div class="country-auth">MBIE</div>
         <span class="country-status status-live-green">✓ Live</span>
         <div class="country-note">Government procurement mandatory. Aligned with Australia on Peppol standards.</div>
       </div>
       <div class="country-card reveal">
-        <span class="country-flag">🇲🇾</span>
+        <span class="country-flag"><Flag code="my" /></span>
         <div class="country-name">Malaysia</div>
         <div class="country-auth">MDEC (Peppol Authority)</div>
         <span class="country-status status-progress">In Progress</span>
         <div class="country-note">MDEC is Malaysia's designated Peppol Authority. MY↔SG exchange via MDEC interop layer already operational for compliant parties.</div>
       </div>
       <div class="country-card reveal">
-        <span class="country-flag">🇯🇵</span>
+        <span class="country-flag"><Flag code="jp" /></span>
         <div class="country-name">Japan</div>
         <div class="country-auth">Digital Agency</div>
         <span class="country-status status-progress">Pilot Phase</span>
         <div class="country-note">Japan Peppol BIS pilot underway. Digital Agency leading e-invoice standardisation. Full rollout expected 2025–2026.</div>
       </div>
       <div class="country-card reveal">
-        <span class="country-flag">🇻🇳</span>
+        <span class="country-flag"><Flag code="vn" /></span>
         <div class="country-name">Vietnam</div>
         <div class="country-auth">GDT</div>
         <span class="country-status status-eval">Early Stage</span>
         <div class="country-note">Vietnam has its own e-invoice mandate. Peppol interoperability discussions underway for cross-border ASEAN exchange.</div>
       </div>
       <div class="country-card reveal">
-        <span class="country-flag">🇹🇭</span>
+        <span class="country-flag"><Flag code="th" /></span>
         <div class="country-name">Thailand</div>
         <div class="country-auth">ETDA / Revenue Department</div>
         <span class="country-status status-eval">Evaluating</span>
@@ -556,7 +557,7 @@ const jsonLd = {
 <div class="section-wrap surface" id="singapore">
   <div class="inner">
     <div class="eyebrow eyebrow-amber reveal">Singapore — Deep Dive</div>
-    <h2 class="reveal">Singapore InvoiceNow<br><em>&amp; the C5 Model</em></h2>
+    <h2 class="reveal"><Flag code="sg" /> Singapore InvoiceNow<br><em>&amp; the C5 Model</em></h2>
     <p class="lead reveal">Singapore built the world's first mandated Peppol 5-corner implementation — direct tax authority integration via IRAS as the 5th Corner. The UAE is now following the same architectural path with <a href="/peppol-uae" style="color:var(--pep-accent);font-weight:700;">DCTCE</a>.</p>
 
     <div class="sg-section reveal" style="margin-top:0;">
@@ -695,12 +696,12 @@ const jsonLd = {
 <div class="section-wrap alt" id="crossborder">
   <div class="inner">
     <div class="eyebrow eyebrow-amber reveal">Cross-Border Trade</div>
-    <h2 class="reveal">Malaysia ↔ Singapore<br><em>Peppol Interoperability</em></h2>
+    <h2 class="reveal"><Flag code="my" /> Malaysia ↔ <Flag code="sg" /> Singapore<br><em>Peppol Interoperability</em></h2>
     <p class="lead reveal">The only specialist who has personally implemented both sides of this connection — Malaysia e-Invoice (LHDN) and Singapore Peppol integration (IMDA). Cross-border MY↔SG advisory is my strongest capability.</p>
 
     <div class="crossborder-grid reveal">
       <div class="cb-col">
-        <h4>🇲🇾 What a Malaysian Business Needs</h4>
+        <h4><Flag code="my" /> What a Malaysian Business Needs</h4>
         <ul>
           <li>LHDN e-Invoice compliance for all domestic transactions</li>
           <li>MDEC registration as a Peppol participant</li>
@@ -711,7 +712,7 @@ const jsonLd = {
         </ul>
       </div>
       <div class="cb-col">
-        <h4>🇸🇬 What a Singapore Business Needs</h4>
+        <h4><Flag code="sg" /> What a Singapore Business Needs</h4>
         <ul>
           <li>IMDA-certified Access Point — appears on IMDA AP register</li>
           <li>Peppol ID registered in SML/SMP</li>
@@ -890,7 +891,7 @@ const jsonLd = {
     <p class="lead reveal">Peppol connectivity is increasingly relevant across a wide range of business types — from exporters to shared service centres.</p>
     <div class="for-grid reveal-group">
       <div class="for-card reveal">
-        <h5>🇲🇾 Malaysian Exporters to Singapore</h5>
+        <h5><Flag code="my" /> Malaysian Exporters to Singapore</h5>
         <p>Companies invoicing Singaporean GST-registered customers need Peppol connectivity. I help you comply on both sides of the Causeway.</p>
       </div>
       <div class="for-card reveal">
@@ -902,7 +903,7 @@ const jsonLd = {
         <p>SSCs managing regional invoice processing. Peppol connectivity and LHDN/IRAS compliance from a single specialist reduces vendor complexity.</p>
       </div>
       <div class="for-card reveal">
-        <h5>🇸🇬 Singapore-Based Businesses</h5>
+        <h5><Flag code="sg" /> Singapore-Based Businesses</h5>
         <p>GST-registered companies needing InvoiceNow compliance. AP selection, IMDA onboarding, C5 configuration, and BIS 3.0 implementation.</p>
       </div>
       <div class="for-card reveal">
@@ -926,7 +927,7 @@ const jsonLd = {
     <div class="hub-grid reveal-group">
       <a href="/peppol-singapore" class="hub-card reveal">
         <div class="hub-eyebrow">Singapore · IMDA · InvoiceNow</div>
-        <h3>Singapore Access Point</h3>
+        <h3><Flag code="sg" /> Singapore Access Point</h3>
         <p>PINT SG profile, Peppol BIS 3.0, and the roadmap to BIS 4.0 — plus IMDA certification requirements and C5 IRAS setup.</p>
         <div class="hub-link">
           Go to Singapore AP page
@@ -935,7 +936,7 @@ const jsonLd = {
       </a>
       <a href="/peppol-uae" class="hub-card reveal" style="border-left-color:var(--yellow);">
         <div class="hub-eyebrow">UAE · MoF · FTA · DCTCE · PINT AE</div>
-        <h3>UAE eInvoicing</h3>
+        <h3><Flag code="ae" /> UAE eInvoicing</h3>
         <p>The DCTCE 5-corner framework, PINT AE documents, Tax Data Document reporting to the FTA, and the phased mandate from July 2026 to 2027.</p>
         <div class="hub-link">
           Go to UAE eInvoicing page

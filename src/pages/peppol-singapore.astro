@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Contact from '../components/Contact.astro';
+import Flag from '../components/Flag.astro';
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -241,7 +242,7 @@ const jsonLd = {
 <div class="section-wrap no-border" id="pint-sg">
   <div class="inner">
     <div class="eyebrow eyebrow-amber reveal">PINT SG</div>
-    <h2 class="reveal">Singapore's Peppol <em>Invoice Profile</em></h2>
+    <h2 class="reveal"><Flag code="sg" /> Singapore's Peppol <em>Invoice Profile</em></h2>
     <p class="lead reveal">PINT SG (Peppol International Network of Trade — Singapore) is Singapore's national extension of the Peppol invoice standard. It defines precisely what a Singaporean Peppol invoice must contain, on top of the global BIS 3.0 baseline.</p>
 
     <div class="content-grid" style="margin-top:2.5rem;">
@@ -469,7 +470,7 @@ const jsonLd = {
         </div>
       </div>
       <div class="impl-point reveal">
-        <div class="impl-icon">🇸🇬</div>
+        <div class="impl-icon"><Flag code="sg" /></div>
         <div class="impl-text">
           <h5>PINT SG Document Mapping</h5>
           <p>Full PINT SG implementation including all mandatory fields, GST treatment codes (SR, ZR, ES33, OS, OP), PayNow reference, and Singapore-specific Schematron validation.</p>

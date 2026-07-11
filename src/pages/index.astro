@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Contact from '../components/Contact.astro';
+import Flag from '../components/Flag.astro';
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -356,15 +357,15 @@ const jsonLd = {
 
     <div class="desktop-icons">
       <a href="/peppol-singapore" class="desktop-icon">
-        <span class="di-glyph">🇸🇬</span>
+        <span class="di-glyph"><Flag code="sg" /></span>
         <span class="di-label">Singapore_AP.exe</span>
       </a>
       <a href="/peppol-uae" class="desktop-icon">
-        <span class="di-glyph">🇦🇪</span>
+        <span class="di-glyph"><Flag code="ae" /></span>
         <span class="di-label">UAE_eInvoicing.exe</span>
       </a>
       <a href="/malaysia" class="desktop-icon">
-        <span class="di-glyph">🇲🇾</span>
+        <span class="di-glyph"><Flag code="my" /></span>
         <span class="di-label">Malaysia_eInvoice.exe</span>
       </a>
       <a href="/peppol" class="desktop-icon">
@@ -402,7 +403,7 @@ const jsonLd = {
           </div>
           <div class="hero-stat-inline">
             <span class="num">2×C5</span>
-            <span class="lbl">SG IRAS · UAE FTA</span>
+            <span class="lbl"><Flag code="sg" /> IRAS · <Flag code="ae" /> FTA</span>
           </div>
           <div class="hero-stat-inline">
             <span class="num">3</span>
@@ -425,22 +426,22 @@ const jsonLd = {
         <div class="coverage-rows">
           <a href="/peppol-singapore" class="coverage-row">
             <span class="cov-track cov-track-pep">Peppol C5</span>
-            <span class="cov-name">Singapore InvoiceNow</span>
+            <span class="cov-name"><Flag code="sg" /> Singapore InvoiceNow</span>
             <span class="cov-status cov-live">Live</span>
           </a>
           <a href="/peppol-uae" class="coverage-row">
             <span class="cov-track cov-track-pep">Peppol C5</span>
-            <span class="cov-name">UAE eInvoicing · DCTCE</span>
+            <span class="cov-name"><Flag code="ae" /> UAE eInvoicing · DCTCE</span>
             <span class="cov-status cov-upcoming">Jan 2027</span>
           </a>
           <a href="/peppol" class="coverage-row">
             <span class="cov-track cov-track-pep">Peppol C4</span>
-            <span class="cov-name">EU · AU/NZ · JP exchange</span>
+            <span class="cov-name"><Flag code="eu" /> EU · <Flag code="au" /> AU/NZ · <Flag code="jp" /> JP</span>
             <span class="cov-status cov-live">Live</span>
           </a>
           <a href="/malaysia" class="coverage-row">
             <span class="cov-track cov-track-dc">Clearance</span>
-            <span class="cov-name">Malaysia MyInvois</span>
+            <span class="cov-name"><Flag code="my" /> Malaysia MyInvois</span>
             <span class="cov-status cov-live">Live</span>
           </a>
         </div>
