@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Peppol &amp; E-Invoice Integration — Singapore, UAE, Malaysia — Peppwise</title>
-<meta name="description" content="E-invoice integration specialist across Peppol C4 and C5 markets — Singapore InvoiceNow (IRAS C5), UAE eInvoicing (DCTCE, PINT AE) — and direct-clearance mandates like Malaysia MyInvois (IRBM API).">
-<meta property="og:title" content="Peppol &amp; E-Invoice Integration — Singapore, UAE, Malaysia — Peppwise">
-<meta property="og:description" content="Peppol C4/C5 and direct-clearance e-invoice integration. Singapore InvoiceNow, UAE DCTCE / PINT AE, Malaysia IRBM MyInvois. Built, not theorised.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.peppwise.com">
-<link rel="canonical" href="https://www.peppwise.com/">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="apple-touch-icon" href="/favicon.svg">
-<script type="application/ld+json">
-{
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Contact from '../components/Contact.astro';
+
+const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
@@ -40,7 +29,7 @@
       "description": "End-to-end Peppol Access Point development for Singapore InvoiceNow: IMDA certification, AS4 messaging, SMP/SML routing, BIS 3.0, PINT SG, and C5 IRAS GST automation.",
       "serviceType": "Peppol Access Point Development",
       "areaServed": "SG",
-      "url": "https://www.peppwise.com/peppol-singapore.html"
+      "url": "https://www.peppwise.com/peppol-singapore"
     },
     {
       "@type": "Service",
@@ -49,7 +38,7 @@
       "description": "UAE eInvoicing readiness and integration: PINT AE document mapping, DCTCE 5-corner architecture, Tax Data Document reporting to the FTA, and Accredited Service Provider integration.",
       "serviceType": "E-Invoicing Integration",
       "areaServed": "AE",
-      "url": "https://www.peppwise.com/peppol-uae.html"
+      "url": "https://www.peppwise.com/peppol-uae"
     },
     {
       "@type": "Service",
@@ -58,19 +47,25 @@
       "description": "Malaysia e-Invoice direct-clearance integration: full IRBM MyInvois API, X.509 digital signature, UBL 2.1 mapping, all 5 document types.",
       "serviceType": "E-Invoicing Integration",
       "areaServed": "MY",
-      "url": "https://www.peppwise.com/malaysia.html"
+      "url": "https://www.peppwise.com/malaysia"
     },
-    {"@type":"SiteNavigationElement","name":"Peppol Overview","url":"https://www.peppwise.com/peppol.html"},
-    {"@type":"SiteNavigationElement","name":"Singapore Access Point","url":"https://www.peppwise.com/peppol-singapore.html"},
-    {"@type":"SiteNavigationElement","name":"UAE eInvoicing","url":"https://www.peppwise.com/peppol-uae.html"},
-    {"@type":"SiteNavigationElement","name":"Peppol Knowledge Base","url":"https://www.peppwise.com/peppol-kb.html"},
-    {"@type":"SiteNavigationElement","name":"Malaysia e-Invoice","url":"https://www.peppwise.com/malaysia.html"}
+    {"@type":"SiteNavigationElement","name":"Peppol Overview","url":"https://www.peppwise.com/peppol"},
+    {"@type":"SiteNavigationElement","name":"Singapore Access Point","url":"https://www.peppwise.com/peppol-singapore"},
+    {"@type":"SiteNavigationElement","name":"UAE eInvoicing","url":"https://www.peppwise.com/peppol-uae"},
+    {"@type":"SiteNavigationElement","name":"Peppol Knowledge Base","url":"https://www.peppwise.com/peppol-kb"},
+    {"@type":"SiteNavigationElement","name":"Malaysia e-Invoice","url":"https://www.peppwise.com/malaysia"}
   ]
-}
-</script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css">
-<style>
+};
+---
+<BaseLayout
+  title="Peppol & E-Invoice Integration — Singapore, UAE, Malaysia — Peppwise"
+  description="E-invoice integration specialist across Peppol C4 and C5 markets — Singapore InvoiceNow (IRAS C5), UAE eInvoicing (DCTCE, PINT AE) — and direct-clearance mandates like Malaysia MyInvois (IRBM API)."
+  ogDescription="Peppol C4/C5 and direct-clearance e-invoice integration. Singapore InvoiceNow, UAE DCTCE / PINT AE, Malaysia IRBM MyInvois. Built, not theorised."
+  path=""
+  active="home"
+  jsonLd={jsonLd}
+>
+<style is:inline slot="head">
 
 /* ─── HERO — DESKTOP ─── */
 .hero {
@@ -354,68 +349,29 @@
   .hero-btns .btn, .hero-btns .btn-ghost { width: 100%; max-width: none; }
 }
 </style>
-</head>
-<body>
-
-<!-- NAV -->
-<nav id="main-nav">
-  <a href="index.html" class="nav-logo">Pepp<span>wise</span></a>
-  <div class="nav-links">
-    <a href="index.html" class="nav-active">Home</a>
-    <div class="nav-dropdown">
-      <a href="peppol.html" class="nav-dropdown-trigger">Peppol <span class="dropdown-arrow">▾</span></a>
-      <div class="nav-dropdown-menu">
-        <a href="peppol.html">Overview · C4 vs C5</a>
-        <a href="peppol-singapore.html">Singapore InvoiceNow</a>
-        <a href="peppol-uae.html">UAE eInvoicing</a>
-        <a href="peppol-kb.html">Knowledge Base</a>
-      </div>
-    </div>
-    <div class="nav-dropdown">
-      <a href="malaysia.html" class="nav-dropdown-trigger">Direct Clearance <span class="dropdown-arrow">▾</span></a>
-      <div class="nav-dropdown-menu">
-        <a href="malaysia.html">Malaysia e-Invoice</a>
-      </div>
-    </div>
-    <a href="#contact" class="nav-cta">Get in Touch</a>
-  </div>
-  <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<div class="nav-mobile-overlay" id="nav-mobile-overlay">
-  <a href="index.html" class="mobile-nav-link">Home</a>
-  <a href="peppol.html" class="mobile-nav-link">Peppol Overview</a>
-  <a href="peppol-singapore.html" class="mobile-nav-link">Singapore AP</a>
-  <a href="peppol-uae.html" class="mobile-nav-link">UAE eInvoicing</a>
-  <a href="peppol-kb.html" class="mobile-nav-link">Knowledge Base</a>
-  <a href="malaysia.html" class="mobile-nav-link">Malaysia e-Invoice</a>
-  <a href="#contact" class="mobile-nav-link">Get in Touch</a>
-</div>
 
 <!-- ═══ HERO — DESKTOP ═══ -->
 <section class="hero desktop">
   <div class="hero-desk" id="hero-desk">
 
     <div class="desktop-icons">
-      <a href="peppol-singapore.html" class="desktop-icon">
+      <a href="/peppol-singapore" class="desktop-icon">
         <span class="di-glyph">🇸🇬</span>
         <span class="di-label">Singapore_AP.exe</span>
       </a>
-      <a href="peppol-uae.html" class="desktop-icon">
+      <a href="/peppol-uae" class="desktop-icon">
         <span class="di-glyph">🇦🇪</span>
         <span class="di-label">UAE_eInvoicing.exe</span>
       </a>
-      <a href="malaysia.html" class="desktop-icon">
+      <a href="/malaysia" class="desktop-icon">
         <span class="di-glyph">🇲🇾</span>
         <span class="di-label">Malaysia_eInvoice.exe</span>
       </a>
-      <a href="peppol.html" class="desktop-icon">
+      <a href="/peppol" class="desktop-icon">
         <span class="di-glyph">🌐</span>
         <span class="di-label">Peppol_Overview.exe</span>
       </a>
-      <a href="peppol-kb.html" class="desktop-icon">
+      <a href="/peppol-kb" class="desktop-icon">
         <span class="di-glyph">📖</span>
         <span class="di-label">Knowledge_Base.hlp</span>
       </a>
@@ -454,8 +410,8 @@
           </div>
         </div>
         <div class="hero-btns">
-          <a href="peppol-singapore.html" class="btn btn-amber">Singapore AP →</a>
-          <a href="peppol-uae.html" class="btn-ghost">UAE eInvoicing →</a>
+          <a href="/peppol-singapore" class="btn btn-amber">Singapore AP →</a>
+          <a href="/peppol-uae" class="btn-ghost">UAE eInvoicing →</a>
         </div>
       </div>
     </div>
@@ -467,22 +423,22 @@
       </div>
       <div class="os-body" style="padding: 0.6rem 1.2rem;">
         <div class="coverage-rows">
-          <a href="peppol-singapore.html" class="coverage-row">
+          <a href="/peppol-singapore" class="coverage-row">
             <span class="cov-track cov-track-pep">Peppol C5</span>
             <span class="cov-name">Singapore InvoiceNow</span>
             <span class="cov-status cov-live">Live</span>
           </a>
-          <a href="peppol-uae.html" class="coverage-row">
+          <a href="/peppol-uae" class="coverage-row">
             <span class="cov-track cov-track-pep">Peppol C5</span>
             <span class="cov-name">UAE eInvoicing · DCTCE</span>
             <span class="cov-status cov-upcoming">Jan 2027</span>
           </a>
-          <a href="peppol.html" class="coverage-row">
+          <a href="/peppol" class="coverage-row">
             <span class="cov-track cov-track-pep">Peppol C4</span>
             <span class="cov-name">EU · AU/NZ · JP exchange</span>
             <span class="cov-status cov-live">Live</span>
           </a>
-          <a href="malaysia.html" class="coverage-row">
+          <a href="/malaysia" class="coverage-row">
             <span class="cov-track cov-track-dc">Clearance</span>
             <span class="cov-name">Malaysia MyInvois</span>
             <span class="cov-status cov-live">Live</span>
@@ -525,7 +481,7 @@
             <li>EU · Australia/NZ · Japan markets</li>
           </ul>
           <div class="mx-links">
-            <a href="peppol.html" class="mx-link mx-link-pep">How C4 Works</a>
+            <a href="/peppol" class="mx-link mx-link-pep">How C4 Works</a>
           </div>
         </div>
       </div>
@@ -546,8 +502,8 @@
             <li>ASP / Access Point integration</li>
           </ul>
           <div class="mx-links">
-            <a href="peppol-singapore.html" class="mx-link mx-link-pep">Singapore</a>
-            <a href="peppol-uae.html" class="mx-link">UAE</a>
+            <a href="/peppol-singapore" class="mx-link mx-link-pep">Singapore</a>
+            <a href="/peppol-uae" class="mx-link">UAE</a>
           </div>
         </div>
       </div>
@@ -568,7 +524,7 @@
             <li>PINT MY alignment on the horizon</li>
           </ul>
           <div class="mx-links">
-            <a href="malaysia.html" class="mx-link mx-link-dc">Malaysia e-Invoice</a>
+            <a href="/malaysia" class="mx-link mx-link-dc">Malaysia e-Invoice</a>
           </div>
         </div>
       </div>
@@ -693,9 +649,9 @@
     </div>
 
     <div style="display:flex;gap:1.5rem;margin-top:3rem;flex-wrap:wrap;">
-      <a href="peppol-uae.html" class="btn btn-amber">UAE eInvoicing →</a>
-      <a href="peppol-singapore.html" class="btn-ghost">Singapore Access Point →</a>
-      <a href="malaysia.html" class="btn-ghost">Malaysia e-Invoice →</a>
+      <a href="/peppol-uae" class="btn btn-amber">UAE eInvoicing →</a>
+      <a href="/peppol-singapore" class="btn-ghost">Singapore Access Point →</a>
+      <a href="/malaysia" class="btn-ghost">Malaysia e-Invoice →</a>
     </div>
   </div>
 </div>
@@ -742,67 +698,12 @@
   </div>
 </div>
 
-<!-- ═══ CONTACT ═══ -->
-<div class="contact-section" id="contact">
-  <div class="eyebrow eyebrow-amber eyebrow-center reveal">Let's Talk</div>
-  <h2 class="reveal">Ready to build your<br><em>e-invoice integration?</em></h2>
-  <p class="lead reveal" style="margin:0 auto 0.5rem;text-align:center;">
-    Whether you're onboarding a Singapore InvoiceNow Access Point, preparing for the UAE DCTCE mandate, or integrating Malaysia's MyInvois API — reach out. First consultation is complimentary.
-  </p>
-  <a href="mailto:hello@peppwise.com" class="contact-email reveal">hello@peppwise.com</a>
-  <div class="contact-btns reveal">
-    <a href="mailto:hello@peppwise.com" class="btn btn-dark">Send an Enquiry</a>
-    <a href="https://calendly.com/tousif-md-amin-faisal/30min" target="_blank" rel="noopener" class="btn-ghost">Book a Discovery Call</a>
-  </div>
-</div>
+<Contact eyebrowClass="eyebrow-amber" buttonClass="btn-dark">
+  <Fragment slot="heading">Ready to build your<br><em>e-invoice integration?</em></Fragment>
+  <Fragment slot="lead">Whether you're onboarding a Singapore InvoiceNow Access Point, preparing for the UAE DCTCE mandate, or integrating Malaysia's MyInvois API — reach out. First consultation is complimentary.</Fragment>
+</Contact>
 
-<!-- FOOTER -->
-<footer>
-  <p>© 2026 Peppwise · E-Invoice Integration · Singapore · UAE · Malaysia</p>
-  <nav class="footer-links">
-    <a href="index.html">Home</a>
-    <a href="peppol.html">Peppol</a>
-    <a href="peppol-singapore.html">Singapore AP</a>
-    <a href="peppol-uae.html">UAE</a>
-    <a href="peppol-kb.html">Knowledge Base</a>
-    <a href="malaysia.html">Malaysia</a>
-  </nav>
-</footer>
-
-<script>
-  // scroll reveal
-  const revealEls = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-    });
-  }, { threshold: 0.10, rootMargin: '0px 0px -30px 0px' });
-  revealEls.forEach(el => observer.observe(el));
-
-  // mobile nav
-  const hamburger = document.getElementById('nav-hamburger');
-  const overlay = document.getElementById('nav-mobile-overlay');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    overlay.classList.toggle('open');
-    document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
-  });
-  document.querySelectorAll('.mobile-nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      overlay.classList.remove('open');
-      document.body.style.overflow = '';
-    });
-  });
-
-  // smooth scroll for anchors
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
-    });
-  });
-
+<script is:inline>
   // taskbar clock
   const clockEl = document.getElementById('taskbar-clock');
   function tickClock() {
@@ -858,5 +759,5 @@
     });
   });
 </script>
-</body>
-</html>
+
+</BaseLayout>

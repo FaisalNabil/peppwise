@@ -5,12 +5,13 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title: string;
   description: string;
+  ogTitle?: string;
   ogDescription?: string;
   path: string; // '' for home, '/peppol', '/peppol-singapore', ...
   active: 'home' | 'peppol' | 'peppol-singapore' | 'peppol-uae' | 'peppol-kb' | 'malaysia';
   jsonLd: object;
 }
-const { title, description, ogDescription = description, path, active, jsonLd } = Astro.props;
+const { title, description, ogTitle = title, ogDescription = description, path, active, jsonLd } = Astro.props;
 const url = `https://www.peppwise.com${path}`;
 const canonical = path === '' ? 'https://www.peppwise.com/' : url;
 ---
@@ -21,12 +22,12 @@ const canonical = path === '' ? 'https://www.peppwise.com/' : url;
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
 <meta name="description" content={description}>
-<meta property="og:title" content={title}>
+<meta property="og:title" content={ogTitle}>
 <meta property="og:description" content={ogDescription}>
 <meta property="og:type" content="website">
 <meta property="og:url" content={url}>
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content={title}>
+<meta name="twitter:title" content={ogTitle}>
 <meta name="twitter:description" content={ogDescription}>
 <link rel="canonical" href={canonical}>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">

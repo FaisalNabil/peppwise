@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Peppol Network Integration — C4 &amp; C5 Models, Access Point, BIS 3.0 | Peppwise</title>
-<meta name="description" content="Hands-on Peppol Access Point development across C4 and C5 models. Singapore InvoiceNow (IRAS C5), UAE eInvoicing (DCTCE), 50+ country network, BIS 3.0, and cross-border routing.">
-<meta property="og:title" content="Peppol Network Integration — C4 &amp; C5 Models, Access Point, BIS 3.0 | Peppwise">
-<meta property="og:description" content="50+ countries on Peppol. C4 exchange and C5 tax-authority models — Singapore IRAS live, UAE DCTCE next. Access Point development from someone who has built it.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.peppwise.com/peppol">
-<link rel="canonical" href="https://www.peppwise.com/peppol">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="apple-touch-icon" href="/favicon.svg">
-<script type="application/ld+json">
-{
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Contact from '../components/Contact.astro';
+
+const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
@@ -23,7 +12,7 @@
       "description": "Peppol Access Point development — IMDA certification, AS4, SMP/SML, BIS 3.0, PINT SG, C5 IRAS automation, cross-border MY↔SG routing.",
       "serviceType": "Peppol Access Point Development",
       "areaServed": ["SG","AE","MY"],
-      "url": "https://www.peppwise.com/peppol.html"
+      "url": "https://www.peppwise.com/peppol"
     },
     {
       "@type": "WebPage",
@@ -32,11 +21,17 @@
       "isPartOf": {"@type":"WebSite","url":"https://www.peppwise.com"}
     }
   ]
-}
-</script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css">
-<style>
+};
+---
+<BaseLayout
+  title="Peppol Network Integration — C4 & C5 Models, Access Point, BIS 3.0 | Peppwise"
+  description="Hands-on Peppol Access Point development across C4 and C5 models. Singapore InvoiceNow (IRAS C5), UAE eInvoicing (DCTCE), 50+ country network, BIS 3.0, and cross-border routing."
+  ogDescription="50+ countries on Peppol. C4 exchange and C5 tax-authority models — Singapore IRAS live, UAE DCTCE next. Access Point development from someone who has built it."
+  path="/peppol"
+  active="peppol"
+  jsonLd={jsonLd}
+>
+<style is:inline slot="head">
 
 /* ─── PAGE HERO ─── */
 .page-hero {
@@ -357,44 +352,6 @@
   .model-compare { grid-template-columns: 1fr; }
 }
 </style>
-</head>
-<body>
-
-<!-- NAV -->
-<nav id="main-nav">
-  <a href="index.html" class="nav-logo">Pepp<span>wise</span></a>
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <div class="nav-dropdown">
-      <a href="peppol.html" class="nav-dropdown-trigger nav-active">Peppol <span class="dropdown-arrow">▾</span></a>
-      <div class="nav-dropdown-menu">
-        <a href="peppol.html" class="active-sub">Overview · C4 vs C5</a>
-        <a href="peppol-singapore.html">Singapore InvoiceNow</a>
-        <a href="peppol-uae.html">UAE eInvoicing</a>
-        <a href="peppol-kb.html">Knowledge Base</a>
-      </div>
-    </div>
-    <div class="nav-dropdown">
-      <a href="malaysia.html" class="nav-dropdown-trigger">Direct Clearance <span class="dropdown-arrow">▾</span></a>
-      <div class="nav-dropdown-menu">
-        <a href="malaysia.html">Malaysia e-Invoice</a>
-      </div>
-    </div>
-    <a href="#contact" class="nav-cta">Get in Touch</a>
-  </div>
-  <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-<div class="nav-mobile-overlay" id="nav-mobile-overlay">
-  <a href="index.html" class="mobile-nav-link">Home</a>
-  <a href="peppol.html" class="mobile-nav-link">Peppol Overview</a>
-  <a href="peppol-singapore.html" class="mobile-nav-link">Singapore AP</a>
-  <a href="peppol-uae.html" class="mobile-nav-link">UAE eInvoicing</a>
-  <a href="peppol-kb.html" class="mobile-nav-link">Knowledge Base</a>
-  <a href="malaysia.html" class="mobile-nav-link">Malaysia e-Invoice</a>
-  <a href="#contact" class="mobile-nav-link">Get in Touch</a>
-</div>
 
 <!-- ═══ PAGE HERO ═══ -->
 <div class="page-hero">
@@ -425,8 +382,8 @@
       </div>
     </div>
     <div style="display:flex;flex-direction:column;gap:0.8rem;animation:fadeUp 0.6s ease 0.35s both;">
-      <a href="peppol-singapore.html" class="btn btn-amber">Singapore Access Point →</a>
-      <a href="peppol-uae.html" class="btn-ghost" style="text-align:center;">UAE eInvoicing →</a>
+      <a href="/peppol-singapore" class="btn btn-amber">Singapore Access Point →</a>
+      <a href="/peppol-uae" class="btn-ghost" style="text-align:center;">UAE eInvoicing →</a>
     </div>
   </div>
 </div>
@@ -491,8 +448,8 @@
           <h3>C5 — The 5-Corner Model</h3>
           <p class="mc-desc">Same exchange, plus a fifth corner: the tax authority receives invoice data continuously from the service providers. Continuous Transaction Controls (CTC) on Peppol rails — the model regulators are converging on.</p>
           <ul class="mc-list">
-            <li><strong>Singapore</strong> — IRAS receives GST data via C5 · <a href="peppol-singapore.html">Singapore page</a></li>
-            <li><strong>UAE</strong> — FTA receives Tax Data Documents via DCTCE · <a href="peppol-uae.html">UAE page</a></li>
+            <li><strong>Singapore</strong> — IRAS receives GST data via C5 · <a href="/peppol-singapore">Singapore page</a></li>
+            <li><strong>UAE</strong> — FTA receives Tax Data Documents via DCTCE · <a href="/peppol-uae">UAE page</a></li>
           </ul>
         </div>
       </div>
@@ -532,7 +489,7 @@
         <div class="country-auth">IMDA (Infocomm Media Development Authority) · IRAS (5th Corner)</div>
         <span class="country-status status-live-green">✓ Mandate Live: Nov 2025</span>
         <div class="country-note">InvoiceNow: mandatory for all GST-registered businesses from November 2025. Pioneered the 5-Corner C5 model where IRAS receives invoice data directly from Access Points for automated GST reporting.</div>
-        <a href="peppol-singapore.html" class="country-link">Singapore AP page →</a>
+        <a href="/peppol-singapore" class="country-link">Singapore AP page →</a>
       </div>
       <div class="country-card featured reveal" style="border-left-color:var(--yellow);">
         <span class="country-flag">🇦🇪</span>
@@ -540,7 +497,7 @@
         <div class="country-auth">Ministry of Finance · FTA (5th Corner) · DCTCE</div>
         <span class="country-status status-mandate">Pilot Jul 2026 · Phase 1 Jan 2027</span>
         <div class="country-note">Peppol-based 5-corner DCTCE framework with PINT AE documents and Tax Data Document reporting to the FTA. Exchange only via MoF-Accredited Service Providers. Phase 1 mandatory for businesses ≥ AED 50M revenue.</div>
-        <a href="peppol-uae.html" class="country-link">UAE eInvoicing page →</a>
+        <a href="/peppol-uae" class="country-link">UAE eInvoicing page →</a>
       </div>
       <div class="country-card reveal">
         <span class="country-flag">🇦🇺</span>
@@ -600,7 +557,7 @@
   <div class="inner">
     <div class="eyebrow eyebrow-amber reveal">Singapore — Deep Dive</div>
     <h2 class="reveal">Singapore InvoiceNow<br><em>&amp; the C5 Model</em></h2>
-    <p class="lead reveal">Singapore built the world's first mandated Peppol 5-corner implementation — direct tax authority integration via IRAS as the 5th Corner. The UAE is now following the same architectural path with <a href="peppol-uae.html" style="color:var(--pep-accent);font-weight:700;">DCTCE</a>.</p>
+    <p class="lead reveal">Singapore built the world's first mandated Peppol 5-corner implementation — direct tax authority integration via IRAS as the 5th Corner. The UAE is now following the same architectural path with <a href="/peppol-uae" style="color:var(--pep-accent);font-weight:700;">DCTCE</a>.</p>
 
     <div class="sg-section reveal" style="margin-top:0;">
       <div style="font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--pep-accent);margin-bottom:1rem;">Singapore InvoiceNow Timeline</div>
@@ -967,7 +924,7 @@
     <h2 class="reveal">Explore Peppol <em>In Detail</em></h2>
     <p class="lead reveal">This page gives you the broad picture. For deeper dives, visit the dedicated pages below.</p>
     <div class="hub-grid reveal-group">
-      <a href="peppol-singapore.html" class="hub-card reveal">
+      <a href="/peppol-singapore" class="hub-card reveal">
         <div class="hub-eyebrow">Singapore · IMDA · InvoiceNow</div>
         <h3>Singapore Access Point</h3>
         <p>PINT SG profile, Peppol BIS 3.0, and the roadmap to BIS 4.0 — plus IMDA certification requirements and C5 IRAS setup.</p>
@@ -976,7 +933,7 @@
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
         </div>
       </a>
-      <a href="peppol-uae.html" class="hub-card reveal" style="border-left-color:var(--yellow);">
+      <a href="/peppol-uae" class="hub-card reveal" style="border-left-color:var(--yellow);">
         <div class="hub-eyebrow">UAE · MoF · FTA · DCTCE · PINT AE</div>
         <h3>UAE eInvoicing</h3>
         <p>The DCTCE 5-corner framework, PINT AE documents, Tax Data Document reporting to the FTA, and the phased mandate from July 2026 to 2027.</p>
@@ -985,7 +942,7 @@
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
         </div>
       </a>
-      <a href="peppol-kb.html" class="hub-card reveal">
+      <a href="/peppol-kb" class="hub-card reveal">
         <div class="hub-eyebrow">Access Point · SMP · SML · AS4 · eDelivery</div>
         <h3>Peppol Knowledge Base</h3>
         <p>Plain-English explanations of the Peppol network — Access Points, SMP, SML, AS4, Pre/Post Award, and eDelivery, written by someone who has built it.</p>
@@ -998,62 +955,9 @@
   </div>
 </div>
 
-<!-- ═══ CONTACT ═══ -->
-<div class="contact-section" id="contact">
-  <div class="eyebrow eyebrow-amber eyebrow-center reveal">Let's Talk</div>
-  <h2 class="reveal">Ready to Connect to<br><em>the Peppol Network?</em></h2>
-  <p class="lead reveal" style="margin:0 auto 0.5rem;text-align:center;">
-    Singapore InvoiceNow is now live for all GST-registered businesses. First consultation is complimentary — let's map your Peppol readiness.
-  </p>
-  <a href="mailto:hello@peppwise.com" class="contact-email reveal">hello@peppwise.com</a>
-  <div class="contact-btns reveal">
-    <a href="mailto:hello@peppwise.com" class="btn btn-amber">Send an Enquiry</a>
-    <a href="https://calendly.com/tousif-md-amin-faisal/30min" target="_blank" rel="noopener" class="btn-ghost">Book a Discovery Call</a>
-  </div>
-</div>
+<Contact eyebrowClass="eyebrow-amber" buttonClass="btn-amber">
+  <Fragment slot="heading">Ready to Connect to<br><em>the Peppol Network?</em></Fragment>
+  <Fragment slot="lead">Singapore InvoiceNow is now live for all GST-registered businesses. First consultation is complimentary — let's map your Peppol readiness.</Fragment>
+</Contact>
 
-<!-- FOOTER -->
-<footer>
-  <p>© 2026 Peppwise · E-Invoice Integration · Singapore · UAE · Malaysia</p>
-  <nav class="footer-links">
-    <a href="index.html">Home</a>
-    <a href="peppol.html">Peppol</a>
-    <a href="peppol-singapore.html">Singapore AP</a>
-    <a href="peppol-uae.html">UAE</a>
-    <a href="peppol-kb.html">Knowledge Base</a>
-    <a href="malaysia.html">Malaysia</a>
-  </nav>
-</footer>
-
-<script>
-  const revealEls = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-    });
-  }, { threshold: 0.09, rootMargin: '0px 0px -30px 0px' });
-  revealEls.forEach(el => observer.observe(el));
-
-  const hamburger = document.getElementById('nav-hamburger');
-  const overlay   = document.getElementById('nav-mobile-overlay');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    overlay.classList.toggle('open');
-    document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
-  });
-  document.querySelectorAll('.mobile-nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      overlay.classList.remove('open');
-      document.body.style.overflow = '';
-    });
-  });
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
-    });
-  });
-</script>
-</body>
-</html>
+</BaseLayout>
