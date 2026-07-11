@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Blog",
+      "name": "The AcmeOS Blog",
+      "url": "https://acmeos-demo.example/blog",
+      "publisher": {"@type":"Organization","name":"AcmeOS","url":"https://acmeos-demo.example"}
+    },
+    {
+      "@type": "WebPage",
+      "url": "https://acmeos-demo.example/blog",
+      "name": "Blog — Product Updates &amp; Engineering Notes | AcmeOS",
+      "isPartOf": {"@type":"WebSite","url":"https://acmeos-demo.example"}
+    }
+  ]
+};
+
+const posts = [
+  { title: "How We Built the Realtime Sync Engine", excerpt: "A look at the WebSocket architecture behind live presence and instant board updates — and the tradeoffs we made along the way.", date: "March 2026", tag: "Engineering" },
+  { title: "Schema v2: What's Changing and Why", excerpt: "An early look at the next revision of AcmeOS's data model, currently in closed beta with a small group of design partners.", date: "February 2026", tag: "Product" },
+  { title: "Migrating 10,000 Tasks Without Losing a Single Comment", excerpt: "The story of our largest customer migration to date — and the validation logic that made it possible.", date: "January 2026", tag: "Case Study" },
+  { title: "Why We Don't Charge for API Calls", excerpt: "Usage-based pricing sounds fair until your bill doubles overnight. Here's why AcmeOS bills per seat instead.", date: "December 2025", tag: "Product" },
+  { title: "Rolling Out SSO Without Breaking Anyone's Monday", excerpt: "A practical playbook for enabling SAML SSO across a company without a support-ticket spike.", date: "November 2025", tag: "Enterprise" },
+  { title: "Inside Our Automation Retry Queue", excerpt: "Why automations fail, how our retry queue recovers from transient errors, and when we decide to alert a human instead.", date: "October 2025", tag: "Engineering" },
+];
+---
+<BaseLayout
+  title="Blog — Product Updates &amp; Engineering Notes | AcmeOS"
+  description="Product updates, engineering deep-dives, and case studies from the team building AcmeOS."
+  path="/blog"
+  active="blog"
+  jsonLd={jsonLd}
+>
+<style is:inline slot="head">
+.blog-hero {
+  background-color: var(--pep-pale);
+  background-image: radial-gradient(rgba(245,78,0,0.12) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  border-bottom: 1.5px solid var(--border-strong);
+  padding: 9rem 3rem 4rem;
+}
+.blog-hero .inner { max-width: 1160px; margin: 0 auto; }
+.blog-hero h1 {
+  font-family: var(--font-head);
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  font-weight: 700; line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text-primary); margin-bottom: 0.6rem;
+}
+.blog-hero h1 em {
+  font-style: normal; color: var(--pep-accent);
+  text-decoration: underline wavy var(--pep-accent) 2px;
+  text-underline-offset: 7px;
+}
+.blog-hero-sub { font-size: 0.95rem; color: var(--text-muted); max-width: 60ch; }
+
+.blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+.blog-card .os-body { display: flex; flex-direction: column; gap: 0.6rem; }
+.blog-tag {
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase;
+  font-weight: 700; color: var(--pep-accent);
+  background: var(--pep-pale); border: 1.5px solid var(--pep-accent);
+  padding: 0.15rem 0.5rem; border-radius: 3px; display: inline-block; width: fit-content;
+}
+.blog-card h3 { font-size: 1rem; }
+.blog-excerpt { font-size: 0.83rem; color: var(--text-muted); line-height: 1.6; }
+.blog-date { font-family: var(--font-mono); font-size: 0.62rem; color: var(--text-faint); }
+</style>
+
+<!-- ═══ HERO ═══ -->
+<div class="blog-hero">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber" style="animation:fadeUp 0.6s ease both;">The AcmeOS Blog</div>
+    <h1 style="animation:fadeUp 0.6s ease 0.1s both;">Product updates <em>&amp; engineering notes.</em></h1>
+    <p class="blog-hero-sub" style="animation:fadeUp 0.6s ease 0.2s both;">
+      What we're building, why we built it that way, and what we learned from customers along the way.
+    </p>
+  </div>
+</div>
+
+<!-- ═══ POST GRID ═══ -->
+<div class="section-wrap no-border" id="posts">
+  <div class="inner">
+    <div class="blog-grid reveal-group">
+      {posts.map(post => (
+        <a href="/blog/example-post" class="os-window blog-card reveal">
+          <div class="os-titlebar">
+            <span class="os-title">post.md</span>
+            <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
+          </div>
+          <div class="os-body">
+            <span class="blog-tag">{post.tag}</span>
+            <h3>{post.title}</h3>
+            <p class="blog-excerpt">{post.excerpt}</p>
+            <span class="blog-date">{post.date}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</div>
+
+</BaseLayout>

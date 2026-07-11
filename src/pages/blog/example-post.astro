@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "How We Built the Realtime Sync Engine",
+      "datePublished": "2026-03-01",
+      "author": {"@type":"Organization","name":"AcmeOS"},
+      "publisher": {"@type":"Organization","name":"AcmeOS","url":"https://acmeos-demo.example"},
+      "url": "https://acmeos-demo.example/blog/example-post",
+      "description": "A look at the WebSocket architecture behind live presence and instant board updates — and the tradeoffs we made along the way."
+    },
+    {
+      "@type": "WebPage",
+      "url": "https://acmeos-demo.example/blog/example-post",
+      "name": "How We Built the Realtime Sync Engine | AcmeOS Blog",
+      "isPartOf": {"@type":"WebSite","url":"https://acmeos-demo.example"}
+    }
+  ]
+};
+---
+<BaseLayout
+  title="How We Built the Realtime Sync Engine | AcmeOS Blog"
+  description="A look at the WebSocket architecture behind live presence and instant board updates — and the tradeoffs we made along the way."
+  path="/blog/example-post"
+  active="blog"
+  jsonLd={jsonLd}
+>
+<style is:inline slot="head">
+.post-hero {
+  background-color: var(--pep-pale);
+  background-image: radial-gradient(rgba(245,78,0,0.12) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  border-bottom: 1.5px solid var(--border-strong);
+  padding: 9rem 3rem 3.5rem;
+}
+.post-hero .inner { max-width: 720px; margin: 0 auto; }
+.post-hero h1 {
+  font-family: var(--font-head);
+  font-size: clamp(1.9rem, 3.6vw, 2.8rem);
+  font-weight: 700; line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-primary); margin-bottom: 0.8rem;
+}
+.post-meta { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted); }
+.post-wrap { max-width: 720px; margin: 0 auto; padding: 3.5rem 3rem 5rem; }
+.post-body { font-size: 0.97rem; line-height: 1.9; color: var(--text-body); }
+.post-body h2 { font-size: 1.5rem; margin-top: 2.5rem; }
+.post-body p + p { margin-top: 1.2rem; }
+.post-body strong { color: var(--text-primary); }
+@media (max-width: 640px) {
+  .post-hero { padding: 7rem 1.5rem 3rem; }
+  .post-wrap { padding: 3rem 1.5rem 4rem; }
+}
+</style>
+
+<!-- ═══ POST HERO ═══ -->
+<div class="post-hero">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber" style="animation:fadeUp 0.6s ease both;">Engineering</div>
+    <h1 style="animation:fadeUp 0.6s ease 0.1s both;">How We Built the Realtime Sync Engine</h1>
+    <div class="post-meta" style="animation:fadeUp 0.6s ease 0.16s both;">March 2026 · 6 min read</div>
+  </div>
+</div>
+
+<!-- ═══ POST BODY ═══ -->
+<div class="post-wrap">
+  <div class="post-body reveal">
+    <p>When we first shipped AcmeOS, a task update meant one thing: a row changed in the database. Other people looking at the same board found out on their next refresh. That was fine for a while — until teams started asking why AcmeOS didn't feel as "live" as the chat tools they used alongside it.</p>
+
+    <h2>The problem with polling</h2>
+    <p>Our first instinct was to poll for changes every few seconds. It worked, technically — but it meant every open board was hammering the API on a timer, whether or not anything had actually changed. At a few hundred concurrent boards this was fine. At the scale we were heading toward, it wasn't going to hold.</p>
+
+    <h2>Adding a broadcast layer</h2>
+    <p>The fix was to stop treating a write as the end of the story. Every task update now does two things at once: it writes to the database, <strong>and</strong> it broadcasts a message over a WebSocket connection to everyone currently viewing that board. No polling, no delay — the moment a teammate moves a card, everyone else sees it move.</p>
+    <p>This also unlocked presence — knowing who else is looking at a board right now, and what they're editing. That turned out to matter more to customers than the raw speed improvement.</p>
+
+    <h2>What we'd do differently</h2>
+    <p>If we started over, we'd build the reconnect-and-resync logic first, not last. Mobile connections drop constantly, and the hardest bugs we shipped early on were all about a client reconnecting and quietly missing an update that happened while it was offline. We now replay a short buffer of recent events on reconnect specifically to cover this gap.</p>
+
+    <h2>Where it's going next</h2>
+    <p>The next step is extending the same broadcast layer to automations — so a triggered automation shows up in an activity feed in real time, not just on the next page load. That work is part of what we're testing in the Schema v2 closed beta.</p>
+  </div>
+</div>
+
+</BaseLayout>

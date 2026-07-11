@@ -1,0 +1,252 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Flag from '../components/Flag.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://acmeos-demo.example/style-guide",
+      "name": "Component Library &amp; Style Guide | AcmeOS",
+      "isPartOf": {"@type":"WebSite","url":"https://acmeos-demo.example"}
+    }
+  ]
+};
+---
+<BaseLayout
+  title="Component Library &amp; Style Guide | AcmeOS"
+  description="Every reusable component in the AcmeOS retro-desktop-OS design system: buttons, os-windows, cards, badges, typography, and color tokens."
+  path="/style-guide"
+  active="none"
+  jsonLd={jsonLd}
+>
+<style is:inline slot="head">
+.sg-hero {
+  background-color: var(--pep-pale);
+  background-image: radial-gradient(rgba(245,78,0,0.12) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  border-bottom: 1.5px solid var(--border-strong);
+  padding: 9rem 3rem 4rem;
+}
+.sg-hero .inner { max-width: 1160px; margin: 0 auto; }
+.sg-hero h1 {
+  font-family: var(--font-head);
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  font-weight: 700; line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text-primary); margin-bottom: 0.6rem;
+}
+.sg-hero h1 em {
+  font-style: normal; color: var(--pep-accent);
+  text-decoration: underline wavy var(--pep-accent) 2px;
+  text-underline-offset: 7px;
+}
+.sg-hero-sub { font-size: 0.95rem; color: var(--text-muted); max-width: 60ch; }
+
+.sg-swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+.sg-swatch { border: 1.5px solid var(--border-strong); border-radius: 6px; overflow: hidden; box-shadow: var(--shadow-sm); }
+.sg-swatch-color { height: 60px; }
+.sg-swatch-label { padding: 0.5rem 0.7rem; background: var(--surface); font-family: var(--font-mono); font-size: 0.68rem; }
+.sg-swatch-label code { display: block; color: var(--text-muted); font-size: 0.62rem; margin-top: 2px; }
+
+.sg-row { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-top: 1.5rem; }
+.sg-type-row { border-bottom: 1px solid var(--border); padding: 1.2rem 0; }
+.sg-type-row:last-child { border-bottom: none; }
+.sg-type-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; }
+
+.sg-badge-row { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1rem; }
+.sg-flag-row { display: flex; flex-wrap: wrap; gap: 1.2rem; align-items: center; margin-top: 1rem; }
+.sg-flag-row span { display: flex; align-items: center; gap: 0.4rem; font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); }
+
+.sg-window-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-top: 1.5rem; }
+</style>
+
+<!-- ═══ HERO ═══ -->
+<div class="sg-hero">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber" style="animation:fadeUp 0.6s ease both;">Developer Reference · Not Linked in Main Nav</div>
+    <h1 style="animation:fadeUp 0.6s ease 0.1s both;">Component <em>Library</em></h1>
+    <p class="sg-hero-sub" style="animation:fadeUp 0.6s ease 0.2s both;">
+      Every reusable piece of the retro-desktop-OS design system in one place — buttons, os-windows, cards, badges, typography, and the full color palette. Useful for buyers customizing this theme.
+    </p>
+  </div>
+</div>
+
+<!-- ═══ COLOR TOKENS ═══ -->
+<div class="section-wrap no-border" id="colors">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Design Tokens</div>
+    <h2 class="reveal">Color <em>Palette</em></h2>
+    <p class="lead reveal">Two built-in accent tracks — amber and blue — plus the cream/near-black chrome that gives the theme its retro feel.</p>
+
+    <div class="sg-swatch-grid reveal-group">
+      <div class="sg-swatch reveal"><div class="sg-swatch-color" style="background:var(--bg);"></div><div class="sg-swatch-label">Background<code>--bg</code></div></div>
+      <div class="sg-swatch reveal"><div class="sg-swatch-color" style="background:var(--bg-2);"></div><div class="sg-swatch-label">Background 2<code>--bg-2</code></div></div>
+      <div class="sg-swatch reveal"><div class="sg-swatch-color" style="background:var(--surface);"></div><div class="sg-swatch-label">Surface<code>--surface</code></div></div>
+      <div class="sg-swatch reveal"><div class="sg-swatch-color" style="background:var(--text-primary);"></div><div class="sg-swatch-label">Text Primary<code>--text-primary</code></div></div>
+      <div class="sg-swatch reveal"><div class="sg-swatch-color" style="background:var(--pep-accent);"></div><div class="sg-swatch-label">Amber Accent<code>--pep-accent</code></div></div>
+      <div class="sg-swatch reveal"><div class="sg-swatch-color" style="background:var(--pep-pale);"></div><div class="sg-swatch-label">Amber Pale<code>--pep-pale</code></div></div>
+      <div class="sg-swatch reveal"><div class="sg-swatch-color" style="background:var(--einv-accent);"></div><div class="sg-swatch-label">Blue Accent<code>--einv-accent</code></div></div>
+      <div class="sg-swatch reveal"><div class="sg-swatch-color" style="background:var(--einv-pale);"></div><div class="sg-swatch-label">Blue Pale<code>--einv-pale</code></div></div>
+      <div class="sg-swatch reveal"><div class="sg-swatch-color" style="background:var(--yellow);"></div><div class="sg-swatch-label">Yellow Highlight<code>--yellow</code></div></div>
+      <div class="sg-swatch reveal"><div class="sg-swatch-color" style="background:var(--yellow-pale);"></div><div class="sg-swatch-label">Yellow Pale<code>--yellow-pale</code></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TYPOGRAPHY ═══ -->
+<div class="section-wrap alt" id="typography">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Type Scale</div>
+    <h2 class="reveal">Typography</h2>
+    <p class="lead reveal">Space Grotesk for headings, Inter for body copy, IBM Plex Mono for labels and eyebrows — loaded via Google Fonts CDN, no bundled font files.</p>
+
+    <div class="sg-type-row reveal">
+      <div class="sg-type-label">h1 / Space Grotesk 700</div>
+      <h1 style="font-size:clamp(2rem,3.6vw,3.3rem);">Real-time workflows. <em style="font-style:normal;color:var(--pep-accent);text-decoration:underline wavy var(--pep-accent) 2px;">Any team.</em></h1>
+    </div>
+    <div class="sg-type-row reveal">
+      <div class="sg-type-label">h2 / Space Grotesk 700</div>
+      <h2>Section heading. <em>With emphasis.</em></h2>
+    </div>
+    <div class="sg-type-row reveal">
+      <div class="sg-type-label">h3 / Space Grotesk 700</div>
+      <h3>Card or window title</h3>
+    </div>
+    <div class="sg-type-row reveal">
+      <div class="sg-type-label">Lead paragraph / Inter 400</div>
+      <p class="lead" style="margin-bottom:0;">Lead paragraph copy sits just under a heading — larger and muted compared to body text, used to summarize a section in one or two sentences.</p>
+    </div>
+    <div class="sg-type-row reveal">
+      <div class="sg-type-label">Eyebrow / IBM Plex Mono</div>
+      <div class="eyebrow eyebrow-amber">Eyebrow Label Amber</div>
+    </div>
+    <div class="sg-type-row reveal">
+      <div class="sg-type-label">Eyebrow / IBM Plex Mono</div>
+      <div class="eyebrow eyebrow-muted">Eyebrow Label Muted</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ BUTTONS ═══ -->
+<div class="section-wrap surface" id="buttons">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Actions</div>
+    <h2 class="reveal">Buttons</h2>
+    <p class="lead reveal">Five button variants covering both accent colors plus a neutral dark and ghost style.</p>
+    <div class="sg-row reveal">
+      <a href="#" class="btn btn-amber" onclick="return false">Amber Button</a>
+      <a href="#" class="btn btn-blue" onclick="return false">Blue Button</a>
+      <a href="#" class="btn btn-dark" onclick="return false">Dark Button</a>
+      <a href="#" class="btn-ghost" onclick="return false">Ghost Button</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ OS-WINDOWS ═══ -->
+<div class="section-wrap alt" id="os-windows">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Signature Component</div>
+    <h2 class="reveal">OS-<em>Windows</em></h2>
+    <p class="lead reveal">The retro desktop-OS window chrome — used for hero cards, comparison panels, and feature callouts. Four titlebar color variants.</p>
+    <div class="sg-window-grid reveal-group">
+      <div class="os-window reveal">
+        <div class="os-titlebar">
+          <span class="os-title">default.cfg</span>
+          <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
+        </div>
+        <div class="os-body"><p style="font-size:0.85rem;color:var(--text-muted);">Default titlebar, neutral gray.</p></div>
+      </div>
+      <div class="os-window reveal">
+        <div class="os-titlebar os-titlebar-red">
+          <span class="os-title">amber_variant.cfg</span>
+          <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
+        </div>
+        <div class="os-body"><p style="font-size:0.85rem;color:var(--text-muted);">Amber-tinted titlebar (<code>.os-titlebar-red</code>).</p></div>
+      </div>
+      <div class="os-window reveal">
+        <div class="os-titlebar os-titlebar-blue">
+          <span class="os-title">blue_variant.cfg</span>
+          <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
+        </div>
+        <div class="os-body"><p style="font-size:0.85rem;color:var(--text-muted);">Blue-tinted titlebar (<code>.os-titlebar-blue</code>).</p></div>
+      </div>
+      <div class="os-window reveal">
+        <div class="os-titlebar os-titlebar-yellow">
+          <span class="os-title">yellow_variant.cfg</span>
+          <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
+        </div>
+        <div class="os-body"><p style="font-size:0.85rem;color:var(--text-muted);">Yellow-tinted titlebar (<code>.os-titlebar-yellow</code>), used for "featured" callouts.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CARDS, BADGES, CHECKLIST ═══ -->
+<div class="section-wrap surface" id="cards">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Cards &amp; Badges</div>
+    <h2 class="reveal">Cards, Pills <em>&amp; Checklists</em></h2>
+    <p class="lead reveal">Flat cards for grids, pill badges for tags and statuses, and a checklist pattern used across feature and pricing pages.</p>
+
+    <div class="sg-row reveal">
+      <div class="card card-amber" style="max-width:280px;">
+        <div class="eyebrow eyebrow-amber" style="margin-bottom:0.5rem;">Card — Amber</div>
+        <p style="font-size:0.85rem;color:var(--text-muted);">Left-border accent card, used for quick-reference callouts.</p>
+      </div>
+      <div class="card card-blue" style="max-width:280px;">
+        <div class="eyebrow eyebrow-blue" style="margin-bottom:0.5rem;">Card — Blue</div>
+        <p style="font-size:0.85rem;color:var(--text-muted);">Same card, blue accent variant.</p>
+      </div>
+    </div>
+
+    <div class="sg-badge-row reveal">
+      <span class="pill pill-amber">Pill Amber</span>
+      <span class="pill pill-blue">Pill Blue</span>
+      <span class="pill pill-neutral">Pill Neutral</span>
+    </div>
+
+    <ul class="checklist reveal" style="margin-top:1.5rem;max-width:420px;">
+      <li>
+        <svg class="check-icon check-amber" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"></polyline></svg>
+        Checklist item with amber check icon
+      </li>
+      <li>
+        <svg class="check-icon check-blue" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"></polyline></svg>
+        Checklist item with blue check icon
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══ REGION BADGES ═══ -->
+<div class="section-wrap alt" id="flags">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Localization</div>
+    <h2 class="reveal">Region <em>Badges</em></h2>
+    <p class="lead reveal">The <code>&lt;Flag /&gt;</code> component renders a bordered SVG country flag — useful for region selectors, multi-currency pricing, or data-residency badges. Nine flags ship by default (see <code>public/flags/ATTRIBUTION.md</code> for licensing).</p>
+    <div class="sg-flag-row reveal">
+      <span><Flag code="sg" /> Singapore</span>
+      <span><Flag code="ae" /> UAE</span>
+      <span><Flag code="my" /> Malaysia</span>
+      <span><Flag code="au" /> Australia</span>
+      <span><Flag code="eu" /> EU</span>
+      <span><Flag code="nz" /> New Zealand</span>
+      <span><Flag code="jp" /> Japan</span>
+      <span><Flag code="vn" /> Vietnam</span>
+      <span><Flag code="th" /> Thailand</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ REVEAL-ON-SCROLL ═══ -->
+<div class="section-wrap surface" id="reveal-demo">
+  <div class="inner">
+    <div class="eyebrow eyebrow-amber reveal">Motion</div>
+    <h2 class="reveal">Reveal-on-<em>Scroll</em></h2>
+    <p class="lead reveal">Every element with the <code>.reveal</code> class fades and lifts into place once it enters the viewport, via a single shared IntersectionObserver in <code>BaseLayout.astro</code> (threshold 0.09). Scroll back up and down this page to see it re-trigger on first load.</p>
+  </div>
+</div>
+
+</BaseLayout>

@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://acmeos-demo.example/404",
+      "name": "Page Not Found | AcmeOS"
+    }
+  ]
+};
+---
+<BaseLayout
+  title="Page Not Found | AcmeOS"
+  description="This page doesn't exist. Head back to the AcmeOS homepage."
+  path="/404"
+  active="none"
+  jsonLd={jsonLd}
+>
+<style is:inline slot="head">
+.error-wrap {
+  min-height: calc(100vh - 58px - 70px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 4rem 1.5rem;
+  background-image: radial-gradient(var(--bg-3) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+}
+.error-window { max-width: 420px; width: 100%; }
+.error-body { text-align: center; padding: 2.5rem 2rem; }
+.error-code {
+  font-family: var(--font-head); font-size: 3rem; font-weight: 700;
+  color: var(--pep-accent); line-height: 1; margin-bottom: 0.8rem;
+}
+.error-msg { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.8rem; line-height: 1.6; }
+</style>
+
+<div class="error-wrap">
+  <div class="os-window error-window">
+    <div class="os-titlebar os-titlebar-red">
+      <span class="os-title">error.exe</span>
+      <span class="os-controls" aria-hidden="true">– ▢ ✕</span>
+    </div>
+    <div class="os-body error-body">
+      <div class="error-code">404</div>
+      <p class="error-msg">This window doesn't exist on the desktop. It may have been moved, renamed, or never opened at all.</p>
+      <a href="/" class="btn btn-amber">Back to Desktop →</a>
+    </div>
+  </div>
+</div>
+
+</BaseLayout>
