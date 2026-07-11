@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.peppwise.com/</loc>
@@ -6,27 +6,27 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://www.peppwise.com/peppol.html</loc>
+    <loc>https://www.peppwise.com/peppol</loc>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://www.peppwise.com/peppol-singapore.html</loc>
+    <loc>https://www.peppwise.com/peppol-singapore</loc>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://www.peppwise.com/peppol-uae.html</loc>
+    <loc>https://www.peppwise.com/peppol-uae</loc>
     <priority>0.9</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://www.peppwise.com/peppol-kb.html</loc>
+    <loc>https://www.peppwise.com/peppol-kb</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://www.peppwise.com/malaysia.html</loc>
+    <loc>https://www.peppwise.com/malaysia</loc>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>

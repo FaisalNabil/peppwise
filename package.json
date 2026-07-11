@@ -1,0 +1,15 @@
+{
+  "name": "peppwise",
+  "version": "1.0.0",
+  "description": "Peppwise — e-invoice integration specialist site (Peppol C4/C5 + direct clearance)",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^7.0.7"
+  }
+}
