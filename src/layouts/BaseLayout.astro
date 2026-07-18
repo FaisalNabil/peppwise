@@ -8,7 +8,7 @@ interface Props {
   ogTitle?: string;
   ogDescription?: string;
   path: string; // '' for home, '/peppol', '/peppol-singapore', ...
-  active: 'home' | 'peppol' | 'peppol-singapore' | 'peppol-uae' | 'peppol-kb' | 'malaysia';
+  active: 'home' | 'peppol' | 'peppol-singapore' | 'peppol-uae' | 'peppol-kb' | 'malaysia' | 'malaysia-kb';
   jsonLd: object;
 }
 const { title, description, ogTitle = title, ogDescription = description, path, active, jsonLd } = Astro.props;

@@ -1,0 +1,549 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Contact from '../components/Contact.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://www.peppwise.com/malaysia-kb",
+      "name": "Malaysia e-Invoice Knowledge Base — MyInvois, IRBM, TIN, MSIC | Peppwise",
+      "description": "Plain-English guide to Malaysia's MyInvois e-invoicing system: TIN/BRN validation, MSIC codes, document versions, field validation rules, SVDP, and recent SDK changes.",
+      "isPartOf": {"@type":"WebSite","url":"https://www.peppwise.com"}
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the difference between TIN and BRN in Malaysia e-Invoice?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "TIN (Tax Identification Number) identifies a taxpayer to LHDN for e-Invoice purposes. BRN (Business Registration Number) identifies the legal entity with SSM. The Validate Taxpayer's TIN API checks both together, and accurate BRN data from buyers is required for the check to pass."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is an MSIC code and why does it matter for MyInvois?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MSIC (Malaysia Standard Industrial Classification) is a 5-digit code identifying the industry a business or transaction line belongs to. IRBM requires an MSIC code on e-Invoices so that submitted data can be classified and validated consistently across sectors."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a consolidated e-Invoice and when can State Code 17 be used?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A consolidated e-Invoice bundles multiple B2C transactions (typically over a month) into a single submission instead of issuing one per sale. State Code 17 (\"not applicable\") is restricted to consolidated e-Invoices issued in Malaysia, or e-Invoices covering transactions that took place outside Malaysia."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is SVDP in Malaysia e-Invoice?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "SVDP (e-Invoice Special Voluntary Disclosure Programme) is a limited-time compliance channel using dedicated document versions (SVDP 1.2 without digital signature, SVDP 1.3 with digital signature) running until 31 December 2027. It is a special-case submission path, not the standard invoice flow."
+          }
+        }
+      ]
+    }
+  ]
+};
+---
+<BaseLayout
+  title="Malaysia e-Invoice Knowledge Base — MyInvois, TIN, MSIC, SVDP | Peppwise"
+  description="Plain-English guide to Malaysia's MyInvois e-invoicing system: TIN/BRN validation, MSIC codes, document versions, field validation rules, consolidated e-Invoices, SVDP, and recent SDK changes — by someone who has built the integration."
+  ogDescription="Plain-English explanations of Malaysia's MyInvois system, written by someone who has built the IRBM integration. Covers TIN/BRN, MSIC, document versions, validation rules, SVDP, and SDK changes."
+  path="/malaysia-kb"
+  active="malaysia-kb"
+  jsonLd={jsonLd}
+>
+<style is:inline slot="head">
+
+/* ─── KB PAGE HERO ─── */
+.kb-hero {
+  background-color: var(--einv-pale);
+  background-image: radial-gradient(rgba(29,74,255,0.12) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+  border-bottom: 1.5px solid var(--border-strong);
+  padding: 9rem 3rem 4.5rem;
+}
+.kb-hero .inner {
+  max-width: 860px; margin: 0 auto;
+}
+.kb-hero h1 {
+  font-family: var(--font-head);
+  font-size: clamp(2.2rem, 4.4vw, 3.5rem);
+  font-weight: 700; line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--text-primary); margin-bottom: 1rem;
+}
+.kb-hero-sub {
+  font-size: 1rem; line-height: 1.75;
+  color: var(--text-muted); max-width: 60ch;
+  margin-bottom: 2rem;
+}
+
+/* ─── KB CONTENT AREA ─── */
+.kb-wrap {
+  max-width: 860px; margin: 0 auto;
+  padding: 0 3rem 5rem;
+}
+
+/* ─── FLOW DIAGRAM ─── */
+.flow-row {
+  display: flex; align-items: center; gap: 0;
+  margin: 1.5rem 0; flex-wrap: wrap;
+}
+.flow-node {
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-radius: 6px; padding: 0.6rem 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem; font-weight: 700;
+  color: var(--text-primary); white-space: nowrap;
+  box-shadow: var(--shadow-sm);
+}
+.flow-node.active {
+  background: var(--yellow);
+}
+.flow-arrow {
+  font-family: var(--font-mono);
+  font-size: 0.85rem; color: var(--text-muted);
+  padding: 0 0.5rem; flex-shrink: 0;
+}
+
+/* ─── PROTOCOL DETAIL TABLE ─── */
+.kb-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 0.8rem; margin-top: 1.5rem;
+}
+.kb-table th {
+  text-align: left; font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-primary); font-weight: 700;
+  border-bottom: 1.5px solid var(--border-strong);
+  padding: 0.5rem 1rem 0.5rem 0;
+}
+.kb-table td {
+  padding: 0.65rem 1rem 0.65rem 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-body); vertical-align: top;
+}
+.kb-table tr:last-child td { border-bottom: none; }
+.kb-table td:first-child { font-weight: 700; color: var(--text-primary); white-space: nowrap; }
+
+/* ─── CALLOUT / ANALOGY ─── */
+.kb-note {
+  background: var(--surface); border: 1.5px solid var(--border-strong);
+  border-left-width: 5px;
+  padding: 1rem 1.4rem; margin-top: 1.5rem; border-radius: 6px;
+  box-shadow: var(--shadow-sm);
+  font-size: 0.88rem; color: var(--text-muted); line-height: 1.7;
+}
+.kb-note strong { color: var(--text-primary); }
+.kb-note.kb-note-practice {
+  border-left-color: var(--einv-accent);
+  background: var(--einv-pale);
+}
+.kb-note.kb-note-practice strong { color: var(--einv-accent); }
+
+/* ─── ARTICLE NUMBER BADGE ─── */
+.kb-number {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 6px;
+  background: var(--yellow); border: 1.5px solid var(--border-strong);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-mono);
+  font-size: 0.7rem; font-weight: 700; color: var(--text-primary);
+  margin-bottom: 0.8rem; flex-shrink: 0;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .kb-hero { padding: 8rem 2rem 4rem; }
+  .kb-wrap { padding: 0 2rem 4rem; }
+}
+@media (max-width: 900px) {
+  .kb-hero { padding: 7rem 1.5rem 3.5rem; }
+  .kb-wrap { padding: 0 1.5rem 3.5rem; }
+  .flow-row { gap: 0; }
+}
+@media (max-width: 640px) {
+  .kb-table { font-size: 0.75rem; }
+  .flow-node { font-size: 0.68rem; padding: 0.5rem 0.75rem; }
+}
+</style>
+
+<!-- ═══ HERO ═══ -->
+<div class="kb-hero">
+  <div class="inner">
+    <div class="eyebrow eyebrow-blue" style="animation:fadeUp 0.6s ease both;">Direct Clearance · Malaysia · MyInvois</div>
+    <h1 style="animation:fadeUp 0.6s ease 0.08s both;">Malaysia e-Invoice<br><em style="font-style:normal;color:var(--einv-accent);text-decoration:underline wavy var(--einv-accent) 2px;text-underline-offset:7px;">Knowledge Base</em></h1>
+    <p class="kb-hero-sub" style="animation:fadeUp 0.6s ease 0.16s both;">
+      Plain-English explanations of the MyInvois system — written by someone who has actually built the IRBM API integration. No marketing language, no reformatted government copy.
+    </p>
+    <nav class="kb-jump-links" style="animation:fadeUp 0.6s ease 0.24s both;" aria-label="Jump to article">
+      <a href="#tin-brn">TIN &amp; BRN</a>
+      <a href="#msic">MSIC Code</a>
+      <a href="#doc-versions">Document Versions</a>
+      <a href="#validation-rules">Validation Rules</a>
+      <a href="#consolidated">Consolidated e-Invoice</a>
+      <a href="#currency">Currency Rules</a>
+      <a href="#rate-limiting">Rate Limiting</a>
+      <a href="#sandbox">Sandbox vs Production</a>
+      <a href="#svdp">SVDP</a>
+      <a href="#sdk-changes">Recent SDK Changes</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ═══ ARTICLES ═══ -->
+<div class="kb-wrap">
+
+  <!-- ─── ARTICLE 1: TIN & BRN ─── -->
+  <div class="kb-article reveal-group" id="tin-brn">
+    <div class="kb-number reveal">1</div>
+    <span class="kb-tag reveal">Identity</span>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">TIN &amp; BRN</h3>
+    <div class="kb-article-body reveal">
+      <p>A <strong>TIN (Tax Identification Number)</strong> is how LHDN identifies a taxpayer for e-Invoice purposes — every supplier and buyer on a MyInvois document carries one. A <strong>BRN (Business Registration Number)</strong> is the separate identifier issued by SSM (Companies Commission of Malaysia) for the legal entity itself.</p>
+      <p>The two are checked together. IRBM's Validate Taxpayer's TIN API confirms that a TIN and its associated registration details match, and from August 2026 that check has tightened — submitters need accurate BRN information on file for their buyers, not just a TIN that happens to resolve.</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>What TIN Identifies</h5>
+        <p>The taxpayer record LHDN holds — individual or entity. Every invoice, credit note, debit note, refund note, and self-billed invoice must carry the correct TIN for both supplier and buyer.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>What BRN Identifies</h5>
+        <p>The legal registration of a business with SSM. For individuals without a business registration, a different ID type applies (e.g. NRIC for MyKAS/MyPR residents).</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Why Both Matter</h5>
+        <p>A TIN alone does not prove a business relationship is correctly documented — BRN ties the tax identity to the registered legal entity, which is what the tightened validation checks for.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Where This Bites</h5>
+        <p>Onboarding a new buyer with stale or missing BRN data is the most common cause of TIN validation failures in practice — collect it up front, not at submission time.</p>
+      </div>
+    </div>
+
+    <div class="kb-note kb-note-practice reveal">
+      <strong>From practice:</strong> Build TIN/BRN capture into buyer onboarding, not into the invoice submission flow. Chasing down a missing BRN after a document is already assembled is the slowest failure mode to fix.
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 2: MSIC Code ─── -->
+  <div class="kb-article reveal-group" id="msic">
+    <div class="kb-number reveal">2</div>
+    <span class="kb-tag reveal">Classification</span>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">MSIC Code</h3>
+    <div class="kb-article-body reveal">
+      <p><strong>MSIC (Malaysia Standard Industrial Classification)</strong> is a numeric code identifying the industry a business activity belongs to — published and maintained by the Department of Statistics Malaysia. IRBM requires an MSIC code on e-Invoices so submitted transactions can be classified consistently for tax analysis.</p>
+      <p>MSIC subcategories were folded into the schema in 2024, meaning the code needs to reflect the specific activity, not just a broad sector.</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>Where It Applies</h5>
+        <p>Assigned at the supplier level on every submitted document — the classification of the business issuing the invoice, not the individual product or service line.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Getting It Wrong</h5>
+        <p>An incorrect or generic MSIC code will not always fail schema validation, but it misrepresents the business to LHDN's downstream reporting — worth setting deliberately, not defaulting.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Mapping to Your Catalogue</h5>
+        <p>For multi-line-of-business suppliers, MSIC lookup should be tied to a product/service catalogue so the right code is applied automatically rather than hardcoded per integration.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Where to Find Codes</h5>
+        <p>The current MSIC list is published by DOSM and referenced in IRBM's SDK codes reference — always cross-check against the live list rather than a cached copy, since subcategories have changed.</p>
+      </div>
+    </div>
+
+    <div class="kb-analogy reveal">
+      <strong>Simple summary:</strong> MSIC is to a Malaysian business what an industry/SIC code is elsewhere — a required classification tag, not an optional metadata field.
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 3: Document Versions ─── -->
+  <div class="kb-article reveal-group" id="doc-versions">
+    <div class="kb-number reveal">3</div>
+    <span class="kb-tag reveal">Schema</span>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">Document Types &amp; Versions</h3>
+    <div class="kb-article-body reveal">
+      <p>IRBM defines 5 document types — Invoice, Credit Note, Debit Note, Refund Note, and Self-Billed Invoice (see the full breakdown on the <a href="/malaysia#documents" style="color:var(--einv-accent);font-weight:700;">Malaysia integration page</a>). Each type is issued under a schema version, and the version in use determines what the document supports.</p>
+      <p><strong>Version 1.1</strong> added digital signature support across all document types, restructured to UBL 2.1 sequencing for cleaner validation, and shipped separate XML/JSON sample sets. Systems built only against v1.0 do not automatically gain signature support — the version has to be targeted explicitly.</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>Version 1.0</h5>
+        <p>The original schema, no signature validation path. Still valid for submission but lacks the structural updates introduced in 1.1.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Version 1.1</h5>
+        <p>Adds digital signature creation/validation guidance, UBL 2.1 sequencing, and per-document-type sample payload pages. The current baseline for new integrations.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Choosing a Version</h5>
+        <p>Sign with X.509 (see the <a href="/malaysia#architecture" style="color:var(--einv-accent);font-weight:700;">lifecycle steps</a> on the Malaysia page) and target v1.1 for new builds — there is little reason to build fresh against v1.0.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>SVDP as a Special Case</h5>
+        <p>The SVDP versions (1.2, 1.3) are a separate track from the standard 1.0/1.1 line — see the dedicated <a href="#svdp" style="color:var(--einv-accent);font-weight:700;">SVDP article</a> below.</p>
+      </div>
+    </div>
+
+    <div class="kb-note kb-note-practice reveal">
+      <strong>From practice:</strong> Version handling belongs in the mapping layer, not scattered through submission code — one clean switch on document version keeps signature and field-structure differences from leaking into business logic.
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 4: Field Validation Rules ─── -->
+  <div class="kb-article reveal-group" id="validation-rules">
+    <div class="kb-number reveal">4</div>
+    <span class="kb-tag reveal">Validation</span>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">Field Validation Rules</h3>
+    <div class="kb-article-body reveal">
+      <p>IRBM enforces structural rules on individual fields, separate from business-logic validation (tax calculations, TIN checks). These rules were tightened for production deployment in mid-2026, after first running in sandbox from December 2025. Getting them wrong causes rejections that have nothing to do with the actual invoice content.</p>
+    </div>
+
+    <table class="kb-table reveal">
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Rule</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Date fields</td><td>Must be YYYY-MM-DD; "N/A" or blank placeholders are rejected</td></tr>
+        <tr><td>Amount fields</td><td>Scientific notation is not accepted — always use plain decimal</td></tr>
+        <tr><td>Bank account number</td><td>Max 150 characters</td></tr>
+        <tr><td>e-Invoice code / number</td><td>Max 50 characters</td></tr>
+        <tr><td>Exporter authorisation number</td><td>Max 300 characters</td></tr>
+        <tr><td>Business activity description</td><td>Max 300 characters</td></tr>
+        <tr><td>Payment terms</td><td>Max 300 characters</td></tr>
+        <tr><td>Prepayment reference</td><td>Max 150 characters</td></tr>
+        <tr><td>State / postcode</td><td>State follows Malaysia's standard codes; postcode is 5 characters for Malaysian addresses, up to 50 for international</td></tr>
+      </tbody>
+    </table>
+
+    <div class="kb-note kb-note-practice reveal">
+      <strong>From practice:</strong> Run these as pre-submission checks in your own mapping layer rather than relying on IRBM's API response to catch them — a local validation pass is faster to iterate on than a round trip to sandbox or production.
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 5: Consolidated e-Invoice ─── -->
+  <div class="kb-article reveal-group" id="consolidated">
+    <div class="kb-number reveal">5</div>
+    <span class="kb-tag reveal">Document Handling</span>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">Consolidated e-Invoice &amp; State Code 17</h3>
+    <div class="kb-article-body reveal">
+      <p>A <strong>consolidated e-Invoice</strong> bundles multiple transactions — typically B2C sales over a period, often a month — into a single submitted document, rather than issuing one e-Invoice per sale. It exists because requiring an individual e-Invoice for every retail transaction would be impractical for high-volume, low-value consumer sales.</p>
+      <p><strong>State Code 17</strong> ("not applicable") is restricted to two specific cases: consolidated e-Invoices issued in Malaysia, or e-Invoices covering transactions that took place outside Malaysia. Using it outside those cases is a validation-rule violation, not a stylistic choice.</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>Who Uses Consolidation</h5>
+        <p>Retail, F&amp;B, and other high-volume B2C businesses where issuing per-transaction e-Invoices is operationally unworkable.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>When It's Submitted</h5>
+        <p>Periodically — commonly monthly — as a single document representing the aggregate of qualifying transactions for that period.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>State Code 17 Boundaries</h5>
+        <p>Only valid for: (1) consolidated e-Invoices issued within Malaysia, or (2) e-Invoices for transactions that occurred outside Malaysia. Not a general-purpose fallback for "unknown".</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Also Removed</h5>
+        <p>State code '00' is no longer accepted for e-Invoice issuance via API or batch upload — a distinct, now-invalid legacy value worth checking for in older mapping code.</p>
+      </div>
+    </div>
+
+    <div class="kb-note kb-note-practice reveal">
+      <strong>From practice:</strong> If your business issues both individual and consolidated invoices, keep the state-code logic branch explicit in code — it is an easy rule to silently violate when consolidation is added to an existing per-transaction flow.
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 6: Currency & Exchange Rate Rules ─── -->
+  <div class="kb-article reveal-group" id="currency">
+    <div class="kb-number reveal">6</div>
+    <span class="kb-tag reveal">Currency</span>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">Currency &amp; Exchange Rate Rules</h3>
+    <div class="kb-article-body reveal">
+      <p>Whenever an e-Invoice's Invoice Currency Code is anything other than MYR, a <strong>Currency Exchange Rate</strong> element is required on the document. This lets LHDN evaluate the MYR-equivalent value of foreign-currency invoices without a separate lookup.</p>
+      <p>The currency code list itself has also expanded — <strong>CNH</strong> (offshore/international Renminbi, used in Yuan trade settled outside mainland China) was added as distinct from <strong>CNY</strong> (onshore, domestic trade), so the two should not be used interchangeably.</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>When Exchange Rate Is Required</h5>
+        <p>Any time Invoice Currency Code ≠ MYR. Domestic MYR invoices do not need the element.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>CNH vs CNY</h5>
+        <p>CNH is used for international/offshore Yuan trade; CNY is for domestic mainland China trade. Using the wrong one misrepresents the settlement context.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Source of Truth</h5>
+        <p>Pull exchange rates from a rate provider your finance team already trusts for reporting — consistency between the rate on the e-Invoice and internal books avoids reconciliation friction later.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Other Codes Follow Standards</h5>
+        <p>Country, payment mode, tax type, and currency codes generally follow published international/ISO-aligned code lists referenced in IRBM's codes documentation — check the live list rather than hardcoding from memory.</p>
+      </div>
+    </div>
+
+    <div class="kb-analogy reveal">
+      <strong>Simple summary:</strong> Any non-MYR invoice needs a rate attached, and the currency code itself needs to match the actual settlement context — not just "the currency the buyer paid in".
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 7: Rate Limiting ─── -->
+  <div class="kb-article reveal-group" id="rate-limiting">
+    <div class="kb-number reveal">7</div>
+    <span class="kb-tag reveal">API Design</span>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">Rate Limiting</h3>
+    <div class="kb-article-body reveal">
+      <p>IRBM applies rate limits across the core e-Invoice APIs — login/authentication, document submission, cancellation, rejection, search, and TIN validation. This means a service provider integration cannot treat these endpoints as unlimited-throughput — high-volume submitters need to design around it from the start, not retrofit it after hitting 429s in production.</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>Affected Endpoints</h5>
+        <p>Login/OAuth token, Submit Document, Cancel Document, Reject Document, Search Documents, and Validate Taxpayer's TIN — the highest-traffic parts of any integration.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Design Implication</h5>
+        <p>Batch submitters need queueing and backoff logic, not a tight loop firing requests as fast as documents are generated. Token caching also matters — don't re-authenticate more than necessary.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Sandbox vs Production Limits</h5>
+        <p>Rate limits differ between environments (see the next article) — load-testing against sandbox limits alone can give a false sense of production headroom.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Search API Ceiling</h5>
+        <p>The Search Documents API caps at up to 10,000 documents returned per call — plan pagination/filtering for high-volume search rather than assuming unlimited result sets.</p>
+      </div>
+    </div>
+
+    <div class="kb-note kb-note-practice reveal">
+      <strong>From practice:</strong> Build retry-with-backoff and OAuth token caching as first-class parts of the integration, not an afterthought — this is the single most common cause of intermittent submission failures at volume.
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 8: Sandbox vs Production ─── -->
+  <div class="kb-article reveal-group" id="sandbox">
+    <div class="kb-number reveal">8</div>
+    <span class="kb-tag reveal">Environments</span>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">Sandbox vs Production</h3>
+    <div class="kb-article-body reveal">
+      <p>IRBM's sandbox environment is not a permanent mirror of production — it behaves differently in ways that matter for integration testing. Data submitted to sandbox is <strong>retained for a maximum of 3 months</strong>, and rate limits differ from production, so long-running test data or throughput assumptions built in sandbox do not automatically carry over.</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>Data Retention</h5>
+        <p>Sandbox data expires after roughly 3 months. Do not rely on sandbox as long-term test-data storage — re-seed test scenarios periodically.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Rate Limit Differences</h5>
+        <p>Sandbox and production rate limits are not identical — a load test that passes comfortably in sandbox may still hit limits in production.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Staged Rule Rollouts</h5>
+        <p>New validation rules are sometimes enabled in sandbox first (e.g. the field validation rules from Article 4 ran in sandbox from December 2025 before their production deployment) — sandbox can preview upcoming production behaviour.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Certificate Handling</h5>
+        <p>Sandbox and production typically use separate PKI/certificate chains — a signing setup that works in one does not automatically work in the other.</p>
+      </div>
+    </div>
+
+    <div class="kb-note kb-note-practice reveal">
+      <strong>From practice:</strong> Treat a sandbox pass as necessary but not sufficient — retest against production-equivalent rate limits and fresh test data before calling an integration go-live ready.
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 9: SVDP ─── -->
+  <div class="kb-article reveal-group" id="svdp">
+    <div class="kb-number reveal">9</div>
+    <span class="kb-tag reveal">Compliance Programme</span>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">SVDP — Special Voluntary Disclosure Programme</h3>
+    <div class="kb-article-body reveal">
+      <p>The <strong>e-Invoice Special Voluntary Disclosure Programme (SVDP)</strong> is a limited-time channel for businesses to bring historical e-Invoice compliance up to date, running until <strong>31 December 2027</strong>. It uses its own document versions — separate from the standard 1.0/1.1 schema line — so systems supporting SVDP need to be updated specifically for it, not assumed to work automatically.</p>
+    </div>
+
+    <div class="kb-detail-grid reveal-group" style="margin-top:1.8rem;">
+      <div class="kb-detail-card reveal">
+        <h5>SVDP 1.2</h5>
+        <p>Without digital signature — the lighter-weight version of the two SVDP document formats.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>SVDP 1.3</h5>
+        <p>With digital signature — mirrors the security posture of the standard v1.1 schema but under the SVDP programme.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>Programme Window</h5>
+        <p>Effective until 31 December 2027. Not a permanent alternative submission path — it exists to clear a compliance backlog within a defined window.</p>
+      </div>
+      <div class="kb-detail-card reveal">
+        <h5>What to Update</h5>
+        <p>Systems intending to use SVDP need explicit support for the 1.2/1.3 versions and their sample XML/JSON structures — a generic "any version" submitter is not automatically SVDP-compatible.</p>
+      </div>
+    </div>
+
+    <div class="kb-note kb-note-practice reveal">
+      <strong>From practice:</strong> SVDP is a special case, not the default path — most integrations should keep standard v1.1 submission as the primary flow and only add SVDP support if the business specifically needs to disclose historical gaps.
+    </div>
+  </div>
+
+  <!-- ─── ARTICLE 10: Recent SDK Changes ─── -->
+  <div class="kb-article reveal-group" id="sdk-changes">
+    <div class="kb-number reveal">10</div>
+    <span class="kb-tag reveal">Changelog</span>
+    <h3 class="reveal" style="font-family:var(--font-head);font-size:clamp(1.5rem,2.8vw,2rem);font-weight:700;">Recent SDK Changes</h3>
+    <div class="kb-article-body reveal">
+      <p>IRBM updates the MyInvois SDK and API behaviour on a rolling basis. The table below summarises the most consequential recent changes — a starting point, not a substitute for checking the official release notes before a go-live.</p>
+    </div>
+
+    <table class="kb-table reveal">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Jul 2026</td><td>SVDP document versions (1.2, 1.3) introduced, programme runs to Dec 2027</td></tr>
+        <tr><td>Aug 2026</td><td>Tightened field validation rules move from sandbox to production (see Article 4)</td></tr>
+        <tr><td>Aug 2026</td><td>TIN/BRN validation enhancement takes effect — accurate buyer BRN now required</td></tr>
+        <tr><td>Apr 2026</td><td>State Code 17 restricted to consolidated MY invoices and non-MY transactions; scientific notation banned in amounts</td></tr>
+        <tr><td>Apr 2026</td><td>"Hectare" added as a unit of measurement</td></tr>
+        <tr><td>Feb 2026</td><td>MyInvois portal SSL certificate renewed</td></tr>
+        <tr><td>Dec 2025</td><td>Field validation rules first enabled in sandbox ahead of production rollout</td></tr>
+        <tr><td>Sep 2025</td><td>Currency Exchange Rate element becomes mandatory in production for non-MYR invoices</td></tr>
+      </tbody>
+    </table>
+
+    <div class="kb-note kb-note-practice reveal">
+      <strong>Source of truth:</strong> This table is a working summary, not a live feed. For the complete, authoritative changelog, check IRBM's own <a href="https://sdk.myinvois.hasil.gov.my/sdk-1-0-release/" target="_blank" rel="noopener" style="color:var(--einv-accent);font-weight:700;">SDK release notes</a> before making integration decisions.
+    </div>
+  </div>
+
+</div><!-- /kb-wrap -->
+
+<Contact eyebrowClass="eyebrow-blue" buttonClass="btn-blue">
+  <Fragment slot="heading">Need Help Building<br><em>on MyInvois?</em></Fragment>
+  <Fragment slot="lead">These articles cover the concepts. If you are implementing a Malaysia e-Invoice integration — IRBM API middleware, ERP connector, or a compliance gap assessment — reach out directly.</Fragment>
+</Contact>
+
+</BaseLayout>
