@@ -1,0 +1,8 @@
+---
+interface Props {
+  code: 'sg' | 'ae' | 'my' | 'au' | 'eu' | 'nz' | 'jp' | 'vn' | 'th';
+  class?: string;
+}
+const { code, class: className } = Astro.props;
+---
+<img class:list={['flag-icon', className]} src={`/flags/${code}.svg`} alt="" aria-hidden="true" loading="lazy">

@@ -1,0 +1,21 @@
+---
+interface Props {
+  eyebrowClass: 'eyebrow-amber' | 'eyebrow-blue';
+  buttonClass: 'btn-amber' | 'btn-blue' | 'btn-dark';
+  buttonText?: string;
+}
+const { eyebrowClass, buttonClass, buttonText = 'Send an Enquiry' } = Astro.props;
+---
+<!-- ═══ CONTACT ═══ -->
+<div class="contact-section" id="contact">
+  <div class:list={['eyebrow', eyebrowClass, 'eyebrow-center', 'reveal']}>Let's Talk</div>
+  <h2 class="reveal"><slot name="heading" /></h2>
+  <p class="lead reveal" style="margin:0 auto 0.5rem;text-align:center;">
+    <slot name="lead" />
+  </p>
+  <a href="mailto:hello@peppwise.com" class="contact-email reveal">hello@peppwise.com</a>
+  <div class="contact-btns reveal">
+    <a href="mailto:hello@peppwise.com" class:list={['btn', buttonClass]}>{buttonText}</a>
+    <a href="https://calendly.com/tousif-md-amin-faisal/30min" target="_blank" rel="noopener" class="btn-ghost">Book a Discovery Call</a>
+  </div>
+</div>

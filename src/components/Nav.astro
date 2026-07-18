@@ -1,0 +1,44 @@
+---
+interface Props {
+  active: 'home' | 'peppol' | 'peppol-singapore' | 'peppol-uae' | 'peppol-kb' | 'malaysia' | 'malaysia-kb';
+}
+const { active } = Astro.props;
+const peppolSection = ['peppol', 'peppol-singapore', 'peppol-uae', 'peppol-kb'].includes(active);
+---
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="/" class="nav-logo">Pepp<span>wise</span></a>
+  <div class="nav-links">
+    <a href="/" class:list={[{ 'nav-active': active === 'home' }]}>Home</a>
+    <div class="nav-dropdown">
+      <a href="/peppol" class:list={['nav-dropdown-trigger', { 'nav-active': peppolSection }]}>Peppol <span class="dropdown-arrow">▾</span></a>
+      <div class="nav-dropdown-menu">
+        <a href="/peppol" class:list={[{ 'active-sub': active === 'peppol' }]}>Overview · C4 vs C5</a>
+        <a href="/peppol-singapore" class:list={[{ 'active-sub': active === 'peppol-singapore' }]}>Singapore InvoiceNow</a>
+        <a href="/peppol-uae" class:list={[{ 'active-sub': active === 'peppol-uae' }]}>UAE eInvoicing</a>
+        <a href="/peppol-kb" class:list={[{ 'active-sub': active === 'peppol-kb' }]}>Knowledge Base</a>
+      </div>
+    </div>
+    <div class="nav-dropdown">
+      <a href="/malaysia" class:list={['nav-dropdown-trigger', { 'nav-active': active === 'malaysia' }]}>Direct Clearance <span class="dropdown-arrow">▾</span></a>
+      <div class="nav-dropdown-menu">
+        <a href="/malaysia" class:list={[{ 'active-sub': active === 'malaysia' }]}>Malaysia e-Invoice</a>
+        <a href="/malaysia-kb" class:list={[{ 'active-sub': active === 'malaysia-kb' }]}>Knowledge Base</a>
+      </div>
+    </div>
+    <a href="#contact" class="nav-cta">Get in Touch</a>
+  </div>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-mobile-overlay" id="nav-mobile-overlay">
+  <a href="/" class="mobile-nav-link">Home</a>
+  <a href="/peppol" class="mobile-nav-link">Peppol Overview</a>
+  <a href="/peppol-singapore" class="mobile-nav-link">Singapore AP</a>
+  <a href="/peppol-uae" class="mobile-nav-link">UAE eInvoicing</a>
+  <a href="/peppol-kb" class="mobile-nav-link">Knowledge Base</a>
+  <a href="/malaysia" class="mobile-nav-link">Malaysia e-Invoice</a>
+  <a href="/malaysia-kb" class="mobile-nav-link">Malaysia Knowledge Base</a>
+  <a href="#contact" class="mobile-nav-link">Get in Touch</a>
+</div>

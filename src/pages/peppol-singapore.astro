@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Peppol Singapore Access Point — PINT SG, BIS 3.0, InvoiceNow | Peppwise</title>
-<meta name="description" content="IMDA-compliant Peppol Access Point development for Singapore InvoiceNow. PINT SG document mapping, BIS 3.0 validation, C5 IRAS GST automation, and the roadmap to BIS 4.0.">
-<meta property="og:title" content="Peppol Singapore Access Point — PINT SG, BIS 3.0, InvoiceNow | Peppwise">
-<meta property="og:description" content="IMDA-certified Peppol Access Point for Singapore InvoiceNow. PINT SG, BIS 3.0, C5 IRAS, and roadmap to BIS 4.0. Personally implemented.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.peppwise.com/peppol-singapore">
-<link rel="canonical" href="https://www.peppwise.com/peppol-singapore">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="apple-touch-icon" href="/favicon.svg">
-<script type="application/ld+json">
-{
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Contact from '../components/Contact.astro';
+import Flag from '../components/Flag.astro';
+
+const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
@@ -23,7 +13,7 @@
       "description": "IMDA-certified Peppol Access Point development for Singapore InvoiceNow. PINT SG document mapping, BIS 3.0 validation, C5 IRAS GST automation.",
       "serviceType": "Peppol Access Point Development",
       "areaServed": "SG",
-      "url": "https://www.peppwise.com/peppol-singapore.html"
+      "url": "https://www.peppwise.com/peppol-singapore"
     },
     {
       "@type": "WebPage",
@@ -32,11 +22,17 @@
       "isPartOf": {"@type":"WebSite","url":"https://www.peppwise.com"}
     }
   ]
-}
-</script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css">
-<style>
+};
+---
+<BaseLayout
+  title="Peppol Singapore Access Point — PINT SG, BIS 3.0, InvoiceNow | Peppwise"
+  description="IMDA-compliant Peppol Access Point development for Singapore InvoiceNow. PINT SG document mapping, BIS 3.0 validation, C5 IRAS GST automation, and the roadmap to BIS 4.0."
+  ogDescription="IMDA-certified Peppol Access Point for Singapore InvoiceNow. PINT SG, BIS 3.0, C5 IRAS, and roadmap to BIS 4.0. Personally implemented."
+  path="/peppol-singapore"
+  active="peppol-singapore"
+  jsonLd={jsonLd}
+>
+<style is:inline slot="head">
 
 /* ─── PAGE HERO ─── */
 .page-hero {
@@ -206,44 +202,6 @@
   .gst-table { font-size: 0.78rem; }
 }
 </style>
-</head>
-<body>
-
-<!-- NAV -->
-<nav id="main-nav">
-  <a href="index.html" class="nav-logo">Pepp<span>wise</span></a>
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <div class="nav-dropdown">
-      <a href="peppol.html" class="nav-dropdown-trigger nav-active">Peppol <span class="dropdown-arrow">▾</span></a>
-      <div class="nav-dropdown-menu">
-        <a href="peppol.html">Overview · C4 vs C5</a>
-        <a href="peppol-singapore.html" class="active-sub">Singapore InvoiceNow</a>
-        <a href="peppol-uae.html">UAE eInvoicing</a>
-        <a href="peppol-kb.html">Knowledge Base</a>
-      </div>
-    </div>
-    <div class="nav-dropdown">
-      <a href="malaysia.html" class="nav-dropdown-trigger">Direct Clearance <span class="dropdown-arrow">▾</span></a>
-      <div class="nav-dropdown-menu">
-        <a href="malaysia.html">Malaysia e-Invoice</a>
-      </div>
-    </div>
-    <a href="#contact" class="nav-cta">Get in Touch</a>
-  </div>
-  <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-<div class="nav-mobile-overlay" id="nav-mobile-overlay">
-  <a href="index.html" class="mobile-nav-link">Home</a>
-  <a href="peppol.html" class="mobile-nav-link">Peppol Overview</a>
-  <a href="peppol-singapore.html" class="mobile-nav-link">Singapore AP</a>
-  <a href="peppol-uae.html" class="mobile-nav-link">UAE eInvoicing</a>
-  <a href="peppol-kb.html" class="mobile-nav-link">Knowledge Base</a>
-  <a href="malaysia.html" class="mobile-nav-link">Malaysia e-Invoice</a>
-  <a href="#contact" class="mobile-nav-link">Get in Touch</a>
-</div>
 
 <!-- ═══ PAGE HERO ═══ -->
 <div class="page-hero">
@@ -275,7 +233,7 @@
     </div>
     <div style="display:flex;flex-direction:column;gap:0.8rem;animation:fadeUp 0.6s ease 0.35s both;">
       <a href="#contact" class="btn btn-amber">Book an Assessment</a>
-      <a href="peppol-kb.html" class="btn-ghost" style="text-align:center;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;">View Knowledge Base →</a>
+      <a href="/peppol-kb" class="btn-ghost" style="text-align:center;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;">View Knowledge Base →</a>
     </div>
   </div>
 </div>
@@ -284,7 +242,7 @@
 <div class="section-wrap no-border" id="pint-sg">
   <div class="inner">
     <div class="eyebrow eyebrow-amber reveal">PINT SG</div>
-    <h2 class="reveal">Singapore's Peppol <em>Invoice Profile</em></h2>
+    <h2 class="reveal"><Flag code="sg" /> Singapore's Peppol <em>Invoice Profile</em></h2>
     <p class="lead reveal">PINT SG (Peppol International Network of Trade — Singapore) is Singapore's national extension of the Peppol invoice standard. It defines precisely what a Singaporean Peppol invoice must contain, on top of the global BIS 3.0 baseline.</p>
 
     <div class="content-grid" style="margin-top:2.5rem;">
@@ -454,7 +412,7 @@
   <div class="inner">
     <div class="eyebrow eyebrow-amber reveal">C5 — The 5th Corner</div>
     <h2 class="reveal">IRAS as the <em>5th Corner</em></h2>
-    <p class="lead reveal">Singapore's InvoiceNow goes beyond B2B document exchange. IRAS receives invoice data directly from Access Points — enabling automated GST return pre-population for connected businesses. The UAE is adopting the same 5-corner pattern with <a href="peppol-uae.html" style="color:var(--pep-accent);font-weight:700;">DCTCE</a>.</p>
+    <p class="lead reveal">Singapore's InvoiceNow goes beyond B2B document exchange. IRAS receives invoice data directly from Access Points — enabling automated GST return pre-population for connected businesses. The UAE is adopting the same 5-corner pattern with <a href="/peppol-uae" style="color:var(--pep-accent);font-weight:700;">DCTCE</a>.</p>
 
     <div class="content-grid" style="margin-top:2rem;">
       <div class="content-body reveal">
@@ -489,7 +447,7 @@
             </li>
           </ul>
           <div class="divider" style="margin:1.2rem 0;"></div>
-          <a href="peppol.html#singapore" class="btn btn-amber" style="display:block;text-align:center;">Full C5 Deep Dive →</a>
+          <a href="/peppol#singapore" class="btn btn-amber" style="display:block;text-align:center;">Full C5 Deep Dive →</a>
         </div>
       </div>
     </div>
@@ -512,7 +470,7 @@
         </div>
       </div>
       <div class="impl-point reveal">
-        <div class="impl-icon">🇸🇬</div>
+        <div class="impl-icon"><Flag code="sg" /></div>
         <div class="impl-text">
           <h5>PINT SG Document Mapping</h5>
           <p>Full PINT SG implementation including all mandatory fields, GST treatment codes (SR, ZR, ES33, OS, OP), PayNow reference, and Singapore-specific Schematron validation.</p>
@@ -550,62 +508,9 @@
   </div>
 </div>
 
-<!-- ═══ CONTACT ═══ -->
-<div class="contact-section" id="contact">
-  <div class="eyebrow eyebrow-amber eyebrow-center reveal">Let's Talk</div>
-  <h2 class="reveal">Ready to Build Your<br><em>Singapore Access Point?</em></h2>
-  <p class="lead reveal" style="margin:0 auto 0.5rem;text-align:center;">
-    Singapore InvoiceNow is now live for all GST-registered businesses. Whether you need AP onboarding, PINT SG mapping, or C5 IRAS configuration — first consultation is complimentary.
-  </p>
-  <a href="mailto:hello@peppwise.com" class="contact-email reveal">hello@peppwise.com</a>
-  <div class="contact-btns reveal">
-    <a href="mailto:hello@peppwise.com" class="btn btn-amber">Send an Enquiry</a>
-    <a href="https://calendly.com/tousif-md-amin-faisal/30min" target="_blank" rel="noopener" class="btn-ghost">Book a Discovery Call</a>
-  </div>
-</div>
+<Contact eyebrowClass="eyebrow-amber" buttonClass="btn-amber">
+  <Fragment slot="heading">Ready to Build Your<br><em>Singapore Access Point?</em></Fragment>
+  <Fragment slot="lead">Singapore InvoiceNow is now live for all GST-registered businesses. Whether you need AP onboarding, PINT SG mapping, or C5 IRAS configuration — first consultation is complimentary.</Fragment>
+</Contact>
 
-<!-- FOOTER -->
-<footer>
-  <p>© 2026 Peppwise · E-Invoice Integration · Singapore · UAE · Malaysia</p>
-  <nav class="footer-links">
-    <a href="index.html">Home</a>
-    <a href="peppol.html">Peppol</a>
-    <a href="peppol-singapore.html">Singapore AP</a>
-    <a href="peppol-uae.html">UAE</a>
-    <a href="peppol-kb.html">Knowledge Base</a>
-    <a href="malaysia.html">Malaysia</a>
-  </nav>
-</footer>
-
-<script>
-  const revealEls = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-    });
-  }, { threshold: 0.09, rootMargin: '0px 0px -30px 0px' });
-  revealEls.forEach(el => observer.observe(el));
-
-  const hamburger = document.getElementById('nav-hamburger');
-  const overlay   = document.getElementById('nav-mobile-overlay');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    overlay.classList.toggle('open');
-    document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
-  });
-  document.querySelectorAll('.mobile-nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      overlay.classList.remove('open');
-      document.body.style.overflow = '';
-    });
-  });
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
-    });
-  });
-</script>
-</body>
-</html>
+</BaseLayout>

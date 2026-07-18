@@ -660,3 +660,13 @@ a.os-window:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #1515
 @media (max-width: 640px) {
   .kb-jump-links a { font-size: 0.6rem; padding: 0.32rem 0.7rem; }
 }
+
+/* ─── FLAG ICONS ─── */
+.flag-icon {
+  display: inline-block;
+  width: 1.3em; height: 0.975em;
+  border: 1px solid var(--border-strong);
+  border-radius: 2px;
+  vertical-align: -0.08em;
+  object-fit: cover;
+}

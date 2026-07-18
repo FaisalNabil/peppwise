@@ -1,19 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Peppol Knowledge Base — Access Point, SMP, SML, AS4, C4 vs C5, DCTCE | Peppwise</title>
-<meta name="description" content="Plain-English guide to Peppol: Access Points, SMP/SML routing, AS4 protocol, Pre/Post Award, eDelivery, the C4 vs C5 corner models, and the UAE's DCTCE framework — by someone who has built it.">
-<meta property="og:title" content="Peppol Knowledge Base — Access Point, SMP, SML, AS4 | Peppwise">
-<meta property="og:description" content="Plain-English explanations of the Peppol network written by someone who has built it. Covers Access Points, SMP, SML, AS4, Pre Award, Post Award, and eDelivery.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.peppwise.com/peppol-kb">
-<link rel="canonical" href="https://www.peppwise.com/peppol-kb">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="apple-touch-icon" href="/favicon.svg">
-<script type="application/ld+json">
-{
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
@@ -69,11 +57,18 @@
       ]
     }
   ]
-}
-</script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="shared.css">
-<style>
+};
+---
+<BaseLayout
+  title="Peppol Knowledge Base — Access Point, SMP, SML, AS4, C4 vs C5, DCTCE | Peppwise"
+  ogTitle="Peppol Knowledge Base — Access Point, SMP, SML, AS4 | Peppwise"
+  description="Plain-English guide to Peppol: Access Points, SMP/SML routing, AS4 protocol, Pre/Post Award, eDelivery, the C4 vs C5 corner models, and the UAE's DCTCE framework — by someone who has built it."
+  ogDescription="Plain-English explanations of the Peppol network written by someone who has built it. Covers Access Points, SMP, SML, AS4, Pre Award, Post Award, and eDelivery."
+  path="/peppol-kb"
+  active="peppol-kb"
+  jsonLd={jsonLd}
+>
+<style is:inline slot="head">
 
 /* ─── KB PAGE HERO ─── */
 .kb-hero {
@@ -194,44 +189,6 @@
   .flow-node { font-size: 0.68rem; padding: 0.5rem 0.75rem; }
 }
 </style>
-</head>
-<body>
-
-<!-- NAV -->
-<nav id="main-nav">
-  <a href="index.html" class="nav-logo">Pepp<span>wise</span></a>
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <div class="nav-dropdown">
-      <a href="peppol.html" class="nav-dropdown-trigger nav-active">Peppol <span class="dropdown-arrow">▾</span></a>
-      <div class="nav-dropdown-menu">
-        <a href="peppol.html">Overview · C4 vs C5</a>
-        <a href="peppol-singapore.html">Singapore InvoiceNow</a>
-        <a href="peppol-uae.html">UAE eInvoicing</a>
-        <a href="peppol-kb.html" class="active-sub">Knowledge Base</a>
-      </div>
-    </div>
-    <div class="nav-dropdown">
-      <a href="malaysia.html" class="nav-dropdown-trigger">Direct Clearance <span class="dropdown-arrow">▾</span></a>
-      <div class="nav-dropdown-menu">
-        <a href="malaysia.html">Malaysia e-Invoice</a>
-      </div>
-    </div>
-    <a href="#contact" class="nav-cta">Get in Touch</a>
-  </div>
-  <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-<div class="nav-mobile-overlay" id="nav-mobile-overlay">
-  <a href="index.html" class="mobile-nav-link">Home</a>
-  <a href="peppol.html" class="mobile-nav-link">Peppol Overview</a>
-  <a href="peppol-singapore.html" class="mobile-nav-link">Singapore AP</a>
-  <a href="peppol-uae.html" class="mobile-nav-link">UAE eInvoicing</a>
-  <a href="peppol-kb.html" class="mobile-nav-link">Knowledge Base</a>
-  <a href="malaysia.html" class="mobile-nav-link">Malaysia e-Invoice</a>
-  <a href="#contact" class="mobile-nav-link">Get in Touch</a>
-</div>
 
 <!-- ═══ HERO ═══ -->
 <div class="kb-hero">
@@ -583,7 +540,7 @@
     </div>
 
     <div class="kb-note kb-note-practice reveal">
-      <strong>From practice:</strong> I have built the C5 pipeline for Singapore (IRAS GST forwarding) and apply the same architecture to the UAE's DCTCE. If your business operates in both C4 and C5 markets, the right move is one document layer with per-country corner-5 modules — not separate stacks per country. See the <a href="peppol-singapore.html" style="color:var(--pep-accent);font-weight:700;">Singapore</a> and <a href="peppol-uae.html" style="color:var(--pep-accent);font-weight:700;">UAE</a> pages.
+      <strong>From practice:</strong> I have built the C5 pipeline for Singapore (IRAS GST forwarding) and apply the same architecture to the UAE's DCTCE. If your business operates in both C4 and C5 markets, the right move is one document layer with per-country corner-5 modules — not separate stacks per country. See the <a href="/peppol-singapore" style="color:var(--pep-accent);font-weight:700;">Singapore</a> and <a href="/peppol-uae" style="color:var(--pep-accent);font-weight:700;">UAE</a> pages.
     </div>
   </div>
 
@@ -621,7 +578,7 @@
     </div>
 
     <div class="kb-note kb-note-practice reveal">
-      <strong>From practice:</strong> For UAE readiness work — PINT AE mapping, ASP integration, TDD flows — see the dedicated <a href="peppol-uae.html" style="color:var(--pep-accent);font-weight:700;">UAE eInvoicing page</a>.
+      <strong>From practice:</strong> For UAE readiness work — PINT AE mapping, ASP integration, TDD flows — see the dedicated <a href="/peppol-uae" style="color:var(--pep-accent);font-weight:700;">UAE eInvoicing page</a>.
     </div>
   </div>
 
@@ -636,53 +593,9 @@
   </p>
   <a href="mailto:hello@peppwise.com" class="contact-email reveal">hello@peppwise.com</a>
   <div class="contact-btns reveal">
-    <a href="peppol-singapore.html" class="btn btn-amber">Singapore Access Point</a>
+    <a href="/peppol-singapore" class="btn btn-amber">Singapore Access Point</a>
     <a href="https://calendly.com/tousif-md-amin-faisal/30min" target="_blank" rel="noopener" class="btn-ghost">Book a Discovery Call</a>
   </div>
 </div>
 
-<!-- FOOTER -->
-<footer>
-  <p>© 2026 Peppwise · E-Invoice Integration · Singapore · UAE · Malaysia</p>
-  <nav class="footer-links">
-    <a href="index.html">Home</a>
-    <a href="peppol.html">Peppol</a>
-    <a href="peppol-singapore.html">Singapore AP</a>
-    <a href="peppol-uae.html">UAE</a>
-    <a href="peppol-kb.html">Knowledge Base</a>
-    <a href="malaysia.html">Malaysia</a>
-  </nav>
-</footer>
-
-<script>
-  const revealEls = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-    });
-  }, { threshold: 0.09, rootMargin: '0px 0px -30px 0px' });
-  revealEls.forEach(el => observer.observe(el));
-
-  const hamburger = document.getElementById('nav-hamburger');
-  const overlay   = document.getElementById('nav-mobile-overlay');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    overlay.classList.toggle('open');
-    document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
-  });
-  document.querySelectorAll('.mobile-nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('active');
-      overlay.classList.remove('open');
-      document.body.style.overflow = '';
-    });
-  });
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
-    });
-  });
-</script>
-</body>
-</html>
+</BaseLayout>
